@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #eceee5;
+  --paper-alt: #e2e6d7;
+  --ink: #1c241b;
+  --ink-soft: rgba(28, 36, 27, 0.22);
+  --ink-softer: rgba(28, 36, 27, 0.1);
+  --inverse: #ebe7da;
+  --inverse-soft: rgba(235, 231, 218, 0.22);
+  --inverse-softer: rgba(235, 231, 218, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
