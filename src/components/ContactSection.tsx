@@ -107,19 +107,8 @@ export default function ContactSection() {
         }}
       >
         {/* セクションヘッド */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-            marginBottom: "48px",
-            paddingBottom: "20px",
-            borderBottom: "1px solid var(--inverse-soft)",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
-        >
-          <div style={{ ...monoStyle, opacity: 0.6 }}>§ 04 · Contact</div>
+        <div className="contact-head">
+          <div className="contact-head-label" style={{ ...monoStyle, opacity: 0.6 }}>§ 04 · Contact</div>
           <h2
             style={{
               fontFamily: "var(--font-display), 'Times New Roman', serif",
@@ -128,11 +117,11 @@ export default function ContactSection() {
               letterSpacing: "-0.01em",
               lineHeight: 1,
               fontWeight: 400,
+              display: "inline-block",
             }}
           >
             Contact
           </h2>
-          <div />
         </div>
 
         {/* フォーム */}
@@ -141,7 +130,7 @@ export default function ContactSection() {
               style={{ maxWidth: "900px", margin: "0 auto" }}
             >
               {/* 会社名 */}
-              <div style={fieldWrapStyle}>
+              <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
                   <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>会社名</span>
@@ -161,7 +150,7 @@ export default function ContactSection() {
               </div>
 
               {/* お名前 */}
-              <div style={fieldWrapStyle}>
+              <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
                   <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>お名前</span>
@@ -181,7 +170,7 @@ export default function ContactSection() {
               </div>
 
               {/* メールアドレス */}
-              <div style={fieldWrapStyle}>
+              <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
                   <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>メールアドレス</span>
@@ -202,7 +191,7 @@ export default function ContactSection() {
               </div>
 
               {/* 電話番号 */}
-              <div style={fieldWrapStyle}>
+              <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
                   <span style={{ ...monoStyle, opacity: 0.45, fontSize: "10px" }}>任意</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>電話番号</span>
@@ -217,6 +206,7 @@ export default function ContactSection() {
 
               {/* お問い合わせの種類 */}
               <div
+                className="contact-field"
                 style={{
                   ...fieldWrapStyle,
                   alignItems: "flex-start",
@@ -232,6 +222,7 @@ export default function ContactSection() {
                   {TYPE_OPTIONS.map((opt) => (
                     <label
                       key={opt}
+                      onClick={() => setValue("type", opt)}
                       style={{
                         fontSize: "13.5px",
                         display: "flex",
@@ -241,7 +232,6 @@ export default function ContactSection() {
                       }}
                     >
                       <span
-                        onClick={() => setValue("type", opt)}
                         style={{
                           width: "14px",
                           height: "14px",
@@ -264,6 +254,7 @@ export default function ContactSection() {
 
               {/* 知ったきっかけ */}
               <div
+                className="contact-field"
                 style={{
                   ...fieldWrapStyle,
                   alignItems: "flex-start",
@@ -285,6 +276,7 @@ export default function ContactSection() {
                   {CHANNEL_OPTIONS.map((opt) => (
                     <label
                       key={opt}
+                      onClick={() => setValue("channel", opt)}
                       style={{
                         fontSize: "13.5px",
                         display: "flex",
@@ -294,7 +286,6 @@ export default function ContactSection() {
                       }}
                     >
                       <span
-                        onClick={() => setValue("channel", opt)}
                         style={{
                           width: "14px",
                           height: "14px",
@@ -318,6 +309,7 @@ export default function ContactSection() {
 
               {/* お問い合わせ内容 */}
               <div
+                className="contact-field"
                 style={{
                   ...fieldWrapStyle,
                   alignItems: "flex-start",
@@ -395,7 +387,8 @@ export default function ContactSection() {
                 >
                   LINE で相談する
                 </a>
-                {" "}· 通常2営業日以内にご返信いたします
+                <br />
+                通常2営業日以内にご返信いたします
               </div>
 
               {status === "error" && (

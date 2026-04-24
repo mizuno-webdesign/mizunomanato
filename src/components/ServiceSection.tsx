@@ -12,6 +12,7 @@ export default function ServiceSection() {
       <SectionHead num="01" label="Service" title="Service" trailing="01 — 03" />
 
       <div
+        className="service-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
@@ -20,6 +21,7 @@ export default function ServiceSection() {
         {SERVICES.map((sv, i) => (
           <div
             key={sv.key}
+            className="service-item"
             style={{
               padding: "0 clamp(16px, 3vw, 36px)",
               borderRight:
@@ -42,7 +44,6 @@ export default function ServiceSection() {
             <div
               style={{
                 fontFamily: "var(--font-display), 'Times New Roman', serif",
-                fontStyle: "italic",
                 fontSize: "20px",
                 opacity: 0.7,
                 marginBottom: "6px",

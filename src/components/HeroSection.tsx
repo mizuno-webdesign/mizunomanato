@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Arrow from "./Arrow";
 
-const NAV_ITEMS = ["Service", "Works", "About", "Topics", "Contact"];
+const NAV_ITEMS = ["Service", "Works", "About", "Contact"];
 
 function CurrentDate() {
   const now = new Date();
@@ -13,6 +14,17 @@ function CurrentDate() {
 }
 
 export default function HeroSection() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isSp, setIsSp] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    setIsSp(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsSp(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -30,45 +42,105 @@ export default function HeroSection() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "baseline",
+          alignItems: "center",
           paddingBottom: "20px",
           borderBottom: "1px solid var(--inverse-soft)",
-          flexWrap: "wrap",
-          gap: "12px",
         }}
       >
         <div
           style={{
             fontFamily: "var(--font-display), 'Times New Roman', serif",
-            fontSize: "17px",
+            fontSize: "22px",
             letterSpacing: "0.14em",
             fontWeight: 400,
           }}
         >
           Manato Mizuno
         </div>
-        <nav
-          style={{
-            display: "flex",
-            gap: "28px",
-            fontFamily: "var(--font-ui)",
-            fontSize: "11px",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            opacity: 0.65,
-          }}
-        >
+
+        {/* PC ナビ */}
+        {!isSp && (
+          <nav className="hero-nav">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="hero-nav-link"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        )}
+
+        {/* SP ハンバーガーボタン */}
+        {isSp && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "4px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+            aria-label="メニュー"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className={`hamburger-bar${menuOpen ? ` open-${i}` : ""}`}
+              />
+            ))}
+          </button>
+        )}
+      </div>
+
+      {/* SP ドロワーメニュー */}
+      {menuOpen && (
+        <nav className="nav-drawer">
+          {/* 閉じるボタン（×状態のハンバーガー） */}
+          <button
+            onClick={() => setMenuOpen(false)}
+            style={{
+              position: "absolute",
+              top: "40px",
+              right: "clamp(20px, 5vw, 56px)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "4px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+            aria-label="閉じる"
+          >
+            {[0, 1, 2].map((i) => (
+              <span key={i} className={`hamburger-bar open-${i}`} />
+            ))}
+          </button>
           {NAV_ITEMS.map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              style={{ color: "inherit", textDecoration: "none" }}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                color: "var(--inverse)",
+                textDecoration: "none",
+                fontFamily: "var(--font-display), 'Times New Roman', serif",
+                fontSize: "clamp(32px, 8vw, 48px)",
+                fontWeight: 400,
+                letterSpacing: "0.02em",
+              }}
             >
               {item}
             </a>
           ))}
         </nav>
-      </div>
+      )}
 
       {/* サブヘッダー */}
       <div
@@ -109,11 +181,11 @@ export default function HeroSection() {
             fontWeight: 400,
           }}
         >
-          <div>Build.</div>
-          <div style={{ marginLeft: "clamp(32px, 9vw, 120px)", fontStyle: "italic", opacity: 0.85 }}>
+          <div className="hero-word hero-word-0">Build.</div>
+          <div className="hero-word hero-word-1" style={{ marginLeft: "clamp(32px, 9vw, 120px)", opacity: 0.85 }}>
             Rethink.
           </div>
-          <div style={{ marginLeft: "clamp(64px, 18vw, 240px)" }}>Operate.</div>
+          <div className="hero-word hero-word-2" style={{ marginLeft: "clamp(64px, 18vw, 240px)" }}>Operate.</div>
         </div>
 
         {/* キャッチコピー */}
@@ -129,7 +201,6 @@ export default function HeroSection() {
           <div
             style={{
               fontFamily: "var(--font-display), 'Times New Roman', serif",
-              fontStyle: "italic",
               fontSize: "clamp(18px, 2.2vw, 26px)",
               lineHeight: 1.55,
               maxWidth: "520px",
@@ -148,48 +219,32 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* フッターバー */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          paddingTop: "20px",
-          borderTop: "1px solid var(--inverse-soft)",
-          fontFamily: "var(--font-ui)",
-          fontSize: "11px",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          opacity: 0.55,
-          flexWrap: "wrap",
-          gap: "8px",
-        }}
-      >
-        <span>↓ Scroll · Service / Works / About / Contact</span>
-      </div>
-
-      {/* 無料相談CTA */}
-      <a
-        href="#contact"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "10px",
-          marginTop: "32px",
-          padding: "16px 24px",
-          background: "var(--inverse)",
-          color: "var(--ink)",
-          fontFamily: "var(--font-ui)",
-          fontSize: "11px",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          alignSelf: "flex-start",
-        }}
-      >
-        無料相談する
-        <Arrow size={13} color="var(--ink)" />
-      </a>
+      {/* 無料相談CTA（SPのみ） */}
+      {isSp && (
+        <a
+          href="#contact"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "32px",
+            padding: "16px 24px",
+            background: "var(--inverse)",
+            color: "var(--ink)",
+            fontFamily: "var(--font-ui)",
+            fontSize: "11px",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            width: "80%",
+            alignSelf: "center",
+          }}
+        >
+          無料相談する
+          <Arrow size={13} color="var(--ink)" />
+        </a>
+      )}
     </section>
   );
 }

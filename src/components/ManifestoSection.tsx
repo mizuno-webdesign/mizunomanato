@@ -23,7 +23,6 @@ export default function ManifestoSection() {
           fontFamily: "var(--font-display), 'Times New Roman', serif",
           fontSize: "clamp(24px, 3.5vw, 44px)",
           lineHeight: 1.45,
-          fontStyle: "italic",
           maxWidth: "1100px",
           margin: "0 auto",
           fontWeight: 400,

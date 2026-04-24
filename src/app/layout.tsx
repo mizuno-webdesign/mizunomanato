@@ -1,31 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Sans_JP, Inter } from "next/font/google";
 import Script from "next/script";
+import { cormorant, notoSansJP, inter } from "@/lib/fonts";
 import "./globals.css";
 
 const GA_ID = "G-377SE17230";
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-ui",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Manato Mizuno — EC構築・運用パートナー",

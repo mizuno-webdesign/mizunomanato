@@ -4,7 +4,6 @@ import { WORKS } from "@/lib/data";
 
 type Work = {
   _id?: string;
-  id?: string;
   title: string;
   category: string;
   year: string;
@@ -20,7 +19,6 @@ function WorkCard({
 }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* サムネイル */}
       <div
         style={{
           width: "100%",
@@ -29,7 +27,6 @@ function WorkCard({
           flexShrink: 0,
         }}
       />
-      {/* テキスト */}
       <div style={{ paddingTop: "16px", flex: 1 }}>
         <div
           style={{
@@ -77,13 +74,14 @@ export default async function WorksSection() {
     <section
       id="works"
       style={{
-        padding: "60px clamp(20px, 5vw, 56px) 120px",
+        padding: "clamp(60px, 10vw, 120px) clamp(20px, 5vw, 56px) 120px",
         background: "var(--paper-alt)",
       }}
     >
       <SectionHead num="02" label="Works" title="Works" trailing="" />
 
       <div
+        className="works-bento"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
@@ -92,44 +90,67 @@ export default async function WorksSection() {
       >
         {works.length >= 6 ? (
           <>
-            {/* 6件レイアウト: [大][中][中] / [中][中][大] */}
-            <div style={{ gridColumn: "span 2" }}>
+            {/* 6件: [大2][中1][中1] / [中1][中1][大2] */}
+            <div className="works-sp-full" style={{ gridColumn: "span 2" }}>
               <WorkCard work={works[0]} aspect="3 / 2" />
             </div>
-            <div style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
+            <div className="works-sp-right" style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
               <WorkCard work={works[1]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 1" }}>
+            <div className="works-sp-left" style={{ gridColumn: "span 1" }}>
               <WorkCard work={works[2]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
+            <div className="works-sp-hide" style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
               <WorkCard work={works[3]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 1" }}>
+            <div className="works-sp-hide" style={{ gridColumn: "span 1" }}>
               <WorkCard work={works[4]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 2", paddingTop: "clamp(24px, 4vw, 48px)" }}>
+            <div className="works-sp-hide" style={{ gridColumn: "span 2", paddingTop: "clamp(24px, 4vw, 48px)" }}>
               <WorkCard work={works[5]} aspect="3 / 2" />
             </div>
           </>
         ) : (
           <>
-            {/* 4件レイアウト: [大][中][中] / [中][大] */}
-            <div style={{ gridColumn: "span 2" }}>
+            {/* 4件: [大2][中1][中1] / [中1][空3] */}
+            <div className="works-sp-full" style={{ gridColumn: "span 2" }}>
               <WorkCard work={works[0]} aspect="3 / 2" />
             </div>
-            <div style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
+            <div className="works-sp-right" style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
               <WorkCard work={works[1]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 1" }}>
+            <div className="works-sp-left" style={{ gridColumn: "span 1" }}>
               <WorkCard work={works[2]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
+            <div className="works-sp-hide" style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
               <WorkCard work={works[3]} aspect="4 / 3" />
             </div>
-            <div style={{ gridColumn: "span 3", paddingTop: "clamp(24px, 4vw, 48px)" }} />
+            <div className="works-sp-hide" style={{ gridColumn: "span 3", paddingTop: "clamp(24px, 4vw, 48px)" }} />
           </>
         )}
+      </div>
+
+      {/* もっと見るボタン（SP時のみ表示） */}
+      <div className="works-more" style={{ marginTop: "40px", textAlign: "center" }}>
+        <a
+          href="#contact"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            fontFamily: "var(--font-ui)",
+            fontSize: "11px",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            opacity: 0.65,
+            textDecoration: "none",
+            color: "var(--ink)",
+            borderBottom: "1px solid var(--ink-soft)",
+            paddingBottom: "4px",
+          }}
+        >
+          もっと見る →
+        </a>
       </div>
     </section>
   );

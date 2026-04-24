@@ -60,12 +60,13 @@ export default function AboutSection() {
               fontWeight: 400,
             }}
           >
-            <span style={{ fontStyle: "italic" }}>Manato</span> Mizuno
+            Manato Mizuno
           </div>
           <div
             style={{
+              fontFamily: "var(--font-display), 'Times New Roman', serif",
               fontSize: "22px",
-              fontWeight: 500,
+              fontWeight: 400,
               marginBottom: "32px",
             }}
           >
@@ -100,6 +101,7 @@ export default function AboutSection() {
       {/* 対応チャネル — 自己紹介テキスト幅に揃える */}
       <div style={{ maxWidth: "720px", margin: "0 auto" }}>
       <div
+        className="about-channels"
         style={{
           marginTop: "40px",
           paddingLeft: "100px",
