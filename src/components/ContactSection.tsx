@@ -62,7 +62,7 @@ export default function ContactSection() {
   };
 
   const monoStyle = {
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontFamily: "var(--font-ui)",
     fontSize: "11px" as const,
     letterSpacing: "0.1em",
     textTransform: "uppercase" as const,
@@ -83,7 +83,7 @@ export default function ContactSection() {
     borderTop: "1px solid var(--inverse-soft)",
     padding: "20px 0",
     display: "grid" as const,
-    gridTemplateColumns: "180px 1fr",
+    gridTemplateColumns: "220px 1fr",
     alignItems: "center" as const,
     gap: "16px",
   };
@@ -130,105 +130,15 @@ export default function ContactSection() {
               fontWeight: 400,
             }}
           >
-            Let&apos;s talk.
+            Contact
           </h2>
-          <div style={{ ...monoStyle, opacity: 0.6 }}>Free consultation</div>
+          <div />
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "72px",
-          }}
-        >
-          {/* 左：説明 + LINE */}
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-display), 'Times New Roman', serif",
-                fontSize: "clamp(24px, 2.5vw, 34px)",
-                fontStyle: "italic",
-                lineHeight: 1.35,
-                marginBottom: "20px",
-                fontWeight: 400,
-              }}
-            >
-              ご相談やご質問など、
-              <br />
-              お気軽にご連絡ください。
-            </div>
-            <p
-              style={{
-                fontSize: "14px",
-                lineHeight: 2,
-                opacity: 0.82,
-                maxWidth: "440px",
-                marginBottom: "48px",
-              }}
-            >
-              下記フォーム、または LINE 無料相談もご利用いただけます。
-              通常2営業日以内にご返信いたします。
-            </p>
-
-            {/* LINE CTA */}
-            <div
-              style={{
-                border: "1px solid var(--inverse-soft)",
-                padding: "24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "14px",
-              }}
-            >
-              <div style={{ ...monoStyle, opacity: 0.6 }}>Alternative</div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display), 'Times New Roman', serif",
-                  fontSize: "28px",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                }}
-              >
-                LINE 無料相談
-              </div>
-              <button
-                style={{
-                  marginTop: "8px",
-                  padding: "14px 18px",
-                  background: "var(--inverse)",
-                  color: "var(--ink)",
-                  border: "none",
-                  ...monoStyle,
-                  cursor: "pointer",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span>LINE で相談する</span>
-                <Arrow size={13} color="var(--ink)" />
-              </button>
-            </div>
-
-            <div
-              style={{
-                marginTop: "28px",
-                ...monoStyle,
-                opacity: 0.5,
-                lineHeight: 2,
-              }}
-            >
-              受付 · 平日 9–18 JST
-              <br />
-              Reply · within 2 business days
-            </div>
-          </div>
-
-          {/* 右：フォーム */}
-          <form
+        {/* フォーム */}
+        <form
               onSubmit={handleSubmit(onSubmit)}
-              style={{ borderBottom: "1px solid var(--inverse-soft)" }}
+              style={{ maxWidth: "900px", margin: "0 auto" }}
             >
               {/* 会社名 */}
               <div style={fieldWrapStyle}>
@@ -423,11 +333,14 @@ export default function ContactSection() {
                   <textarea
                     {...register("body", { required: true })}
                     placeholder="お問い合わせ内容は、こちらに記載ください"
-                    rows={5}
+                    rows={10}
                     style={{
                       ...inputStyle,
                       resize: "vertical",
                       lineHeight: 1.8,
+                      background: "rgba(255,255,255,0.07)",
+                      padding: "12px",
+                      borderRadius: "2px",
                     }}
                   />
                   {errors.body && (
@@ -443,13 +356,18 @@ export default function ContactSection() {
                 disabled={status === "sending"}
                 style={{
                   marginTop: "32px",
-                  padding: "18px 32px",
+                  padding: "18px 0",
+                  width: "100%",
+                  maxWidth: "360px",
+                  display: "flex",
+                  margin: "32px auto 0",
+                  justifyContent: "center",
                   background: "var(--inverse)",
                   color: "var(--ink)",
                   border: "none",
                   ...monoStyle,
+                  fontSize: "16px",
                   cursor: status === "sending" ? "wait" : "pointer",
-                  display: "inline-flex",
                   gap: "12px",
                   alignItems: "center",
                   opacity: status === "sending" ? 0.7 : 1,
@@ -458,6 +376,27 @@ export default function ContactSection() {
                 {status === "sending" ? "送信中..." : "送信する"}
                 {status !== "sending" && <Arrow size={14} color="var(--ink)" />}
               </button>
+
+              <div
+                style={{
+                  marginTop: "20px",
+                  ...monoStyle,
+                  opacity: 0.5,
+                  fontSize: "11px",
+                  textAlign: "center",
+                }}
+              >
+                または{" "}
+                <a
+                  href="https://lin.ee/VGOYsfe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "inherit", opacity: 1, textDecoration: "underline" }}
+                >
+                  LINE で相談する
+                </a>
+                {" "}· 通常2営業日以内にご返信いたします
+              </div>
 
               {status === "error" && (
                 <p
@@ -471,7 +410,6 @@ export default function ContactSection() {
                 </p>
               )}
             </form>
-        </div>
       </div>
     </section>
   );

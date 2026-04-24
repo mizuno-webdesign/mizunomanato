@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Sans_JP } from "next/font/google";
+import { Cormorant_Garamond, Noto_Sans_JP, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = "G-377SE17230";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-display",
@@ -13,7 +16,14 @@ const cormorant = Cormorant_Garamond({
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-ui",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -31,6 +41,9 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     type: "website",
   },
+  verification: {
+    google: "u6UKhn9XOMoMHEZIoU3GJ3fflf7q5NiMu1QkTYScd-k",
+  },
 };
 
 export default function RootLayout({
@@ -41,8 +54,20 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSansJP.variable}`}
+      className={`${cormorant.variable} ${notoSansJP.variable} ${inter.variable}`}
     >
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}</Script>
+      </head>
       <body
         style={{
           fontFamily: "var(--font-body), 'Hiragino Kaku Gothic ProN', sans-serif",

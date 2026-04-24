@@ -1,40 +1,77 @@
 import SectionHead from "./SectionHead";
-import Arrow from "./Arrow";
+import { getWorks } from "@/lib/sanity";
 import { WORKS } from "@/lib/data";
 
-function WorkPlaceholder({
-  label,
-  ratio = "16 / 9",
+type Work = {
+  _id?: string;
+  id?: string;
+  title: string;
+  category: string;
+  year: string;
+  note?: string;
+};
+
+function WorkCard({
+  work,
+  aspect = "4 / 3",
 }: {
-  label: string;
-  ratio?: string;
+  work: Work;
+  aspect?: string;
 }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        aspectRatio: ratio,
-        background:
-          "repeating-linear-gradient(135deg, #f0ece2 0 10px, #ebe6d8 10px 20px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgba(50,40,30,0.5)",
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-        fontSize: "10px",
-        letterSpacing: "0.08em",
-      }}
-    >
-      {label}
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      {/* サムネイル */}
+      <div
+        style={{
+          width: "100%",
+          aspectRatio: aspect,
+          background: "repeating-linear-gradient(135deg, #e8e4da 0 10px, #dfd9cd 10px 20px)",
+          flexShrink: 0,
+        }}
+      />
+      {/* テキスト */}
+      <div style={{ paddingTop: "16px", flex: 1 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontFamily: "var(--font-ui)",
+            fontSize: "10px",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            opacity: 0.55,
+            marginBottom: "8px",
+          }}
+        >
+          <span>{work.category}</span>
+          <span>{work.year}</span>
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-display), 'Times New Roman', serif",
+            fontSize: "20px",
+            lineHeight: 1.35,
+            fontWeight: 400,
+          }}
+        >
+          {work.title}
+        </div>
+        <div style={{ fontSize: "12px", opacity: 0.6, marginTop: "6px" }}>
+          {work.note}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default function WorksSection() {
-  const featured = WORKS[0];
-  const second = WORKS[1];
-  const third = WORKS[2];
-  const rest = WORKS.slice(3);
+export default async function WorksSection() {
+  let works: Work[] = [];
+  try {
+    const fetched = await getWorks();
+    works = fetched && fetched.length > 0 ? fetched : WORKS;
+  } catch {
+    works = WORKS;
+  }
 
   return (
     <section
@@ -44,133 +81,55 @@ export default function WorksSection() {
         background: "var(--paper-alt)",
       }}
     >
-      <SectionHead
-        num="02"
-        label="Works"
-        title="Selected projects."
-        trailing={`${WORKS.length} entries`}
-      />
+      <SectionHead num="02" label="Works" title="Works" trailing="" />
 
-      {/* フィーチャードグリッド */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "40px",
-          marginBottom: "56px",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "clamp(12px, 2vw, 24px)",
         }}
       >
-        {/* フィーチャード */}
-        <div>
-          <WorkPlaceholder label="FEATURED WORK · 01" ratio="16 / 9" />
-          <div
-            style={{
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              opacity: 0.6,
-            }}
-          >
-            <span>{featured.category}</span>
-            <span>{featured.year}</span>
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display), 'Times New Roman', serif",
-              fontSize: "32px",
-              marginTop: "10px",
-              lineHeight: 1.3,
-              fontWeight: 400,
-            }}
-          >
-            {featured.title}
-          </div>
-          <div style={{ fontSize: "13px", opacity: 0.7, marginTop: "6px" }}>
-            {featured.note}
-          </div>
-        </div>
-
-        {/* 2件目・3件目 */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          {[second, third].map((w, i) => (
-            <div key={w.id}>
-              <WorkPlaceholder label={`WORK · 0${i + 2}`} ratio="16 / 9" />
-              <div
-                style={{
-                  marginTop: "14px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                  fontSize: "11px",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  opacity: 0.6,
-                }}
-              >
-                <span>{w.category}</span>
-                <span>{w.year}</span>
-              </div>
-              <div
-                style={{
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  marginTop: "6px",
-                  lineHeight: 1.55,
-                }}
-              >
-                {w.title}
-              </div>
+        {works.length >= 6 ? (
+          <>
+            {/* 6件レイアウト: [大][中][中] / [中][中][大] */}
+            <div style={{ gridColumn: "span 2" }}>
+              <WorkCard work={works[0]} aspect="3 / 2" />
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* リスト形式 */}
-      <div style={{ borderTop: "1px solid var(--ink-soft)" }}>
-        {rest.map((w, i) => (
-          <div
-            key={w.id}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "60px 1fr auto auto 28px",
-              gap: "24px",
-              padding: "22px 0",
-              alignItems: "center",
-              borderBottom: "1px solid var(--ink-softer)",
-              cursor: "pointer",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                fontSize: "11px",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                opacity: 0.5,
-              }}
-            >
-              0{i + 4}
-            </span>
-            <span style={{ fontSize: "16px", fontWeight: 500 }}>{w.title}</span>
-            <span style={{ fontSize: "12.5px", opacity: 0.7 }}>{w.note}</span>
-            <span
-              style={{
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                fontSize: "11px",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                opacity: 0.6,
-              }}
-            >
-              {w.category}
-            </span>
-            <Arrow size={14} />
-          </div>
-        ))}
+            <div style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
+              <WorkCard work={works[1]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 1" }}>
+              <WorkCard work={works[2]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
+              <WorkCard work={works[3]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 1" }}>
+              <WorkCard work={works[4]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 2", paddingTop: "clamp(24px, 4vw, 48px)" }}>
+              <WorkCard work={works[5]} aspect="3 / 2" />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* 4件レイアウト: [大][中][中] / [中][大] */}
+            <div style={{ gridColumn: "span 2" }}>
+              <WorkCard work={works[0]} aspect="3 / 2" />
+            </div>
+            <div style={{ gridColumn: "span 1", paddingTop: "clamp(24px, 4vw, 56px)" }}>
+              <WorkCard work={works[1]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 1" }}>
+              <WorkCard work={works[2]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 1", paddingTop: "clamp(12px, 2vw, 32px)" }}>
+              <WorkCard work={works[3]} aspect="4 / 3" />
+            </div>
+            <div style={{ gridColumn: "span 3", paddingTop: "clamp(24px, 4vw, 48px)" }} />
+          </>
+        )}
       </div>
     </section>
   );

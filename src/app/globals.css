@@ -9,6 +9,7 @@
   --inverse: #ebe7da;
   --inverse-soft: rgba(235, 231, 218, 0.22);
   --inverse-softer: rgba(235, 231, 218, 0.15);
+  --font-ui: var(--font-inter, ui-monospace, SFMono-Regular, Menlo, monospace);
 }
 
 * {

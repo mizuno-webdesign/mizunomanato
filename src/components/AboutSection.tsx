@@ -1,25 +1,32 @@
 import SectionHead from "./SectionHead";
-import { STATS } from "@/lib/data";
+
+const CHANNELS: { label: string; items: string[] }[] = [
+  {
+    label: "Platform",
+    items: ["Shopify", "COLOR ME", "Futureshop", "Amazon", "楽天市場", "Yahoo!ショッピング"],
+  },
+  {
+    label: "Advertising",
+    items: ["Google", "Meta", "Yahoo", "Microsoft", "Criteo"],
+  },
+  {
+    label: "Analytics",
+    items: ["GA4", "Google Search Console", "Clarity"],
+  },
+];
 
 function Portrait() {
   return (
     <div
       style={{
-        width: "100%",
-        aspectRatio: "4 / 5",
+        width: "72px",
+        height: "72px",
+        borderRadius: "50%",
         background:
-          "repeating-linear-gradient(135deg, #eae4d8 0 10px, #e3dccc 10px 20px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgba(50,40,30,0.5)",
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-        fontSize: "10px",
-        letterSpacing: "0.08em",
+          "repeating-linear-gradient(135deg, #eae4d8 0 6px, #e3dccc 6px 12px)",
+        flexShrink: 0,
       }}
-    >
-      PORTRAIT / WORKBENCH
-    </div>
+    />
   );
 }
 
@@ -34,39 +41,16 @@ export default function AboutSection() {
       <SectionHead
         num="03"
         label="About"
-        title="Who is behind this."
+        title="About"
         trailing="Profile"
       />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "64px",
-        }}
-      >
-        {/* 写真 */}
-        <div>
-          <Portrait />
-          <div
-            style={{
-              marginTop: "20px",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              opacity: 0.55,
-              lineHeight: 1.9,
-            }}
-          >
-            Fig. 03 · Shizuoka, 2026
-            <br />
-            Father of two · cooking · gardening
-          </div>
-        </div>
+      <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+      <div style={{ display: "flex", gap: "28px", alignItems: "flex-start" }}>
+        <Portrait />
 
         {/* テキスト */}
-        <div>
+        <div style={{ flex: 1 }}>
           <div
             style={{
               fontFamily: "var(--font-display), 'Times New Roman', serif",
@@ -109,45 +93,53 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* 統計 */}
-          <div
-            style={{
-              marginTop: "48px",
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "24px",
-              borderTop: "1px solid var(--ink-soft)",
-              paddingTop: "24px",
-            }}
-          >
-            {STATS.map(({ value, label }) => (
-              <div key={label}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-display), 'Times New Roman', serif",
-                    fontSize: "clamp(24px, 3vw, 36px)",
-                    lineHeight: 1,
-                    fontWeight: 400,
-                  }}
-                >
-                  {value}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                    fontSize: "11px",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    opacity: 0.55,
-                    marginTop: "8px",
-                  }}
-                >
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
+      </div>
+      </div>
+
+      {/* 対応チャネル — 自己紹介テキスト幅に揃える */}
+      <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+      <div
+        style={{
+          marginTop: "40px",
+          paddingLeft: "100px",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "24px 32px",
+        }}
+      >
+        {CHANNELS.map(({ label, items }) => (
+          <div key={label}>
+            <div
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "10px",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                opacity: 0.45,
+                marginBottom: "10px",
+              }}
+            >
+              {label}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              {items.map((item) => (
+                <span
+                  key={item}
+                  style={{
+                    fontFamily: "var(--font-ui)",
+                    fontSize: "12px",
+                    letterSpacing: "0.04em",
+                    opacity: 0.75,
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
       </div>
     </section>
   );
