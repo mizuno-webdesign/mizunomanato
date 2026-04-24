@@ -9,7 +9,7 @@ export default function ServiceSection() {
         padding: "60px clamp(20px, 5vw, 56px) 120px",
       }}
     >
-      <SectionHead num="01" label="Service" title="Three ways to move." trailing="01 — 03" />
+      <SectionHead num="01" label="Service" title="Service" trailing="01 — 03" />
 
       <div
         style={{

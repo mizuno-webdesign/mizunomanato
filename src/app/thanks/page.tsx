@@ -23,7 +23,7 @@ export default function ThanksPage() {
     >
       <div
         style={{
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -63,7 +63,7 @@ export default function ThanksPage() {
           padding: "16px 32px",
           border: "1px solid rgba(235,231,218,0.3)",
           color: "var(--inverse)",
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",

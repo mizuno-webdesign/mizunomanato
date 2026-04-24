@@ -1,6 +1,16 @@
+"use client";
+
 import Arrow from "./Arrow";
 
 const NAV_ITEMS = ["Service", "Works", "About", "Topics", "Contact"];
+
+function CurrentDate() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  return <span>{`${yyyy} / ${mm} / ${dd}`}</span>;
+}
 
 export default function HeroSection() {
   return (
@@ -9,7 +19,7 @@ export default function HeroSection() {
       style={{
         background: "var(--ink)",
         color: "var(--inverse)",
-        padding: "40px 56px 56px",
+        padding: "40px clamp(20px, 5vw, 56px) 56px",
         minHeight: "100svh",
         display: "flex",
         flexDirection: "column",
@@ -41,7 +51,7 @@ export default function HeroSection() {
           style={{
             display: "flex",
             gap: "28px",
-            fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+            fontFamily: "var(--font-ui)",
             fontSize: "11px",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
@@ -58,17 +68,6 @@ export default function HeroSection() {
             </a>
           ))}
         </nav>
-        <div
-          style={{
-            fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-            fontSize: "11px",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            opacity: 0.55,
-          }}
-        >
-          Shizuoka / JP — MMXXVI
-        </div>
       </div>
 
       {/* サブヘッダー */}
@@ -78,7 +77,7 @@ export default function HeroSection() {
           justifyContent: "space-between",
           alignItems: "baseline",
           marginTop: "28px",
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -87,9 +86,8 @@ export default function HeroSection() {
           gap: "8px",
         }}
       >
-        <span>Vol. 01 · Prologue</span>
-        <span>A poster for independent e-commerce</span>
-        <span>№ 2026 / 04</span>
+        <span>e-commerce partner</span>
+        <CurrentDate />
       </div>
 
       {/* メインタイポグラフィ */}
@@ -118,53 +116,34 @@ export default function HeroSection() {
           <div style={{ marginLeft: "clamp(64px, 18vw, 240px)" }}>Operate.</div>
         </div>
 
-        {/* キャッチコピーグリッド */}
+        {/* キャッチコピー */}
         <div
           style={{
-            marginTop: "64px",
+            marginTop: "96px",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
             gap: "48px",
-            alignItems: "end",
+            alignItems: "start",
           }}
         >
-          <div style={{ fontSize: "clamp(16px, 2vw, 22px)", lineHeight: 1.65, maxWidth: "520px" }}>
-            ECサイト運営の課題を紐解き、
-            <br />
-            <span
-              style={{
-                fontFamily: "var(--font-display), 'Times New Roman', serif",
-                fontStyle: "italic",
-              }}
-            >
-              前進させる
-            </span>
-            パートナー。
-          </div>
-          <div style={{ fontSize: "13px", lineHeight: 2, opacity: 0.85 }}>
-            作るべきか、直すべきか。
-            <br />
-            広告か、導線か、運用か。
-            <br />
-            迷いが多いECサイト運用に、
-            <br />
-            「考える役」と「手を動かす役」を一人で。
-          </div>
           <div
             style={{
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              opacity: 0.55,
-              lineHeight: 2,
+              fontFamily: "var(--font-display), 'Times New Roman', serif",
+              fontStyle: "italic",
+              fontSize: "clamp(18px, 2.2vw, 26px)",
+              lineHeight: 1.55,
+              maxWidth: "520px",
+              fontWeight: 400,
             }}
           >
-            Shopify-first
+            ECサイト運営の課題を紐解き、
             <br />
-            10 yrs in-house
+            前進させるパートナー。
+          </div>
+          <div style={{ fontSize: "15px", lineHeight: 2, opacity: 0.85, maxWidth: "480px" }}>
+            作るべきか、直すべきか。広告か、導線か、運用か。
             <br />
-            Solo practice
+            迷いが多いEC運用に、考える役も手を動かす役も担います。
           </div>
         </div>
       </div>
@@ -177,7 +156,7 @@ export default function HeroSection() {
           alignItems: "baseline",
           paddingTop: "20px",
           borderTop: "1px solid var(--inverse-soft)",
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -187,7 +166,6 @@ export default function HeroSection() {
         }}
       >
         <span>↓ Scroll · Service / Works / About / Contact</span>
-        <span>Free consultation · LINE</span>
       </div>
 
       {/* 無料相談CTA */}
@@ -201,7 +179,7 @@ export default function HeroSection() {
           padding: "16px 24px",
           background: "var(--inverse)",
           color: "var(--ink)",
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",

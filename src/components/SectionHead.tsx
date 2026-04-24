@@ -26,7 +26,7 @@ export default function SectionHead({
     >
       <div
         style={{
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -49,7 +49,7 @@ export default function SectionHead({
       </h2>
       <div
         style={{
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",

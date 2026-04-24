@@ -8,7 +8,7 @@ export default function ManifestoSection() {
     >
       <div
         style={{
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-ui)",
           fontSize: "11px",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -31,16 +31,7 @@ export default function ManifestoSection() {
       >
         EC構築・改善・運用支援まで。
         <br />
-        状況に合わせて、
-        <span
-          style={{
-            fontStyle: "normal",
-            fontFamily: "var(--font-body), 'Hiragino Kaku Gothic ProN', sans-serif",
-          }}
-        >
-          無理のない一手
-        </span>
-        を提案します。
+        状況に合わせ、最適な伴走をいたします。
       </p>
     </section>
   );
