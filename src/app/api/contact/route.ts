@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -16,6 +14,12 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: "メールアドレスの形式が正しくありません" }, { status: 400 });
     }
+
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json({ error: "メール送信が設定されていません" }, { status: 503 });
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
       from: "お問い合わせフォーム <noreply@mizunomanato.com>",
