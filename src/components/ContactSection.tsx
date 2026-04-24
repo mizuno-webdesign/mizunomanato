@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import Arrow from "./Arrow";
 
 type FormData = {
@@ -29,9 +30,8 @@ const CHANNEL_OPTIONS = [
 ];
 
 export default function ContactSection() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
 
   const {
     register,
@@ -55,7 +55,7 @@ export default function ContactSection() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
-      setStatus("sent");
+      router.push("/thanks");
     } catch {
       setStatus("error");
     }
@@ -226,33 +226,7 @@ export default function ContactSection() {
           </div>
 
           {/* 右：フォーム */}
-          {status === "sent" ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: "16px",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-display), 'Times New Roman', serif",
-                  fontSize: "40px",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                }}
-              >
-                Thank you.
-              </div>
-              <p style={{ fontSize: "14px", lineHeight: 2, opacity: 0.82 }}>
-                お問い合わせを受け付けました。
-                <br />
-                通常2営業日以内にご返信いたします。
-              </p>
-            </div>
-          ) : (
-            <form
+          <form
               onSubmit={handleSubmit(onSubmit)}
               style={{ borderBottom: "1px solid var(--inverse-soft)" }}
             >
@@ -497,7 +471,6 @@ export default function ContactSection() {
                 </p>
               )}
             </form>
-          )}
         </div>
       </div>
     </section>
