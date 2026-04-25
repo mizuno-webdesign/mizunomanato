@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manato Mizuno — EC構築・運用パートナー",
+    description: "ECサイト運営の課題を紐解き、前進させるパートナー。",
+  },
   verification: {
     google: "u6UKhn9XOMoMHEZIoU3GJ3fflf7q5NiMu1QkTYScd-k",
   },
