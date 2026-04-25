@@ -22,11 +22,17 @@ function Portrait() {
         width: "72px",
         height: "72px",
         borderRadius: "50%",
-        background:
-          "repeating-linear-gradient(135deg, #eae4d8 0 6px, #e3dccc 6px 12px)",
+        overflow: "hidden",
         flexShrink: 0,
       }}
-    />
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/portrait.png"
+        alt="Manato Mizuno"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
+    </div>
   );
 }
 
