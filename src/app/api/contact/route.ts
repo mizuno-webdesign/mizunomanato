@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -7,42 +6,48 @@ export async function POST(request: NextRequest) {
     const { company, name, email, phone, type, channel, body: message } = body;
 
     if (!company || !name || !email || !type || !message) {
-      return NextResponse.json({ error: "必須項目が未入力です" }, { status: 400 });
-    }
-
-    const emailRegex = /^\S+@\S+\.\S+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "メールアドレスの形式が正しくありません" }, { status: 400 });
+      return NextResponse.json({ error: "Required fields missing" }, { status: 400 });
     }
 
     if (!process.env.RESEND_API_KEY) {
-      return NextResponse.json({ error: "メール送信が設定されていません" }, { status: 503 });
+      return NextResponse.json({ error: "Mail not configured" }, { status: 503 });
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    await resend.emails.send({
+    const payload = {
       from: "noreply@mizunomanato.com",
       to: ["mizuno.webdesign@gmail.com"],
       subject: `[Contact] ${type} - ${name}`,
       text: [
-        "お問い合わせがありました。",
+        "Company: " + company,
+        "Name: " + name,
+        "Email: " + email,
+        "Phone: " + (phone || "-"),
+        "Type: " + type,
+        "Channel: " + (channel || "-"),
         "",
-        `会社名: ${company}`,
-        `お名前: ${name}`,
-        `メールアドレス: ${email}`,
-        `電話番号: ${phone || "未記入"}`,
-        `お問い合わせの種類: ${type}`,
-        `サービスを知ったきっかけ: ${channel || "未記入"}`,
-        "",
-        "お問い合わせ内容:",
+        "Message:",
         message,
       ].join("\n"),
+    };
+
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + process.env.RESEND_API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error("Resend error:", res.status, err);
+      return NextResponse.json({ error: "Mail send failed" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
-    return NextResponse.json({ error: "送信に失敗しました" }, { status: 500 });
+    return NextResponse.json({ error: "Send failed" }, { status: 500 });
   }
 }
