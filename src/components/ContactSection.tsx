@@ -71,11 +71,12 @@ export default function ContactSection() {
   const inputStyle = {
     background: "transparent",
     border: "none",
+    borderBottom: "1px solid rgba(235,231,218,0.3)",
     outline: "none",
     color: "var(--inverse)",
     fontSize: "14px",
     fontFamily: "inherit",
-    padding: 0,
+    padding: "4px 0 8px",
     width: "100%",
     WebkitTextFillColor: "var(--inverse)",
     WebkitBoxShadow: "0 0 0px 1000px #1c241b inset",
@@ -332,7 +333,8 @@ export default function ContactSection() {
                       ...inputStyle,
                       resize: "vertical",
                       lineHeight: 1.8,
-                      background: "rgba(255,255,255,0.07)",
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(235,231,218,0.2)",
                       padding: "12px",
                       borderRadius: "2px",
                     }}

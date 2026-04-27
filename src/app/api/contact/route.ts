@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "お問い合わせフォーム <noreply@mizunomanato.com>",
       to: ["mizuno.webdesign@gmail.com"],
-      replyTo: [email],
+      reply_to: email,
       subject: `【お問い合わせ】${type} — ${name} 様`,
       text: `
 お問い合わせがありました。
