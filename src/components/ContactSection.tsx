@@ -77,6 +77,8 @@ export default function ContactSection() {
     fontFamily: "inherit",
     padding: 0,
     width: "100%",
+    WebkitTextFillColor: "var(--inverse)",
+    WebkitBoxShadow: "0 0 0px 1000px #1c241b inset",
   };
 
   const fieldWrapStyle = {
@@ -132,7 +134,7 @@ export default function ContactSection() {
               {/* 会社名 */}
               <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
-                  <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
+                  <span style={{ ...monoStyle, fontSize: "10px", color: "#e07070" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>会社名</span>
                 </div>
                 <div>
@@ -152,7 +154,7 @@ export default function ContactSection() {
               {/* お名前 */}
               <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
-                  <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
+                  <span style={{ ...monoStyle, fontSize: "10px", color: "#e07070" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>お名前</span>
                 </div>
                 <div>
@@ -172,7 +174,7 @@ export default function ContactSection() {
               {/* メールアドレス */}
               <div className="contact-field" style={fieldWrapStyle}>
                 <div style={labelStyle}>
-                  <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
+                  <span style={{ ...monoStyle, fontSize: "10px", color: "#e07070" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>メールアドレス</span>
                 </div>
                 <div>
@@ -213,7 +215,7 @@ export default function ContactSection() {
                 }}
               >
                 <div style={labelStyle}>
-                  <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
+                  <span style={{ ...monoStyle, fontSize: "10px", color: "#e07070" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>
                     お問い合わせの種類
                   </span>
@@ -316,7 +318,7 @@ export default function ContactSection() {
                 }}
               >
                 <div style={labelStyle}>
-                  <span style={{ ...monoStyle, opacity: 0.9, fontSize: "10px" }}>必須</span>
+                  <span style={{ ...monoStyle, fontSize: "10px", color: "#e07070" }}>必須</span>
                   <span style={{ fontSize: "13px", fontWeight: 500 }}>
                     お問い合わせ内容
                   </span>
