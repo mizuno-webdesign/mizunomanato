@@ -22,22 +22,22 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
-      from: "お問い合わせフォーム <noreply@mizunomanato.com>",
+      from: "noreply@mizunomanato.com",
       to: ["mizuno.webdesign@gmail.com"],
-      subject: `【お問い合わせ】${type} — ${name} 様`,
-      text: `
-お問い合わせがありました。
-
-■ 会社名: ${company}
-■ お名前: ${name}
-■ メールアドレス: ${email}
-■ 電話番号: ${phone || "未記入"}
-■ お問い合わせの種類: ${type}
-■ サービスを知ったきっかけ: ${channel || "未記入"}
-
-■ お問い合わせ内容:
-${message}
-      `.trim(),
+      subject: `[Contact] ${type} - ${name}`,
+      text: [
+        "お問い合わせがありました。",
+        "",
+        `会社名: ${company}`,
+        `お名前: ${name}`,
+        `メールアドレス: ${email}`,
+        `電話番号: ${phone || "未記入"}`,
+        `お問い合わせの種類: ${type}`,
+        `サービスを知ったきっかけ: ${channel || "未記入"}`,
+        "",
+        "お問い合わせ内容:",
+        message,
+      ].join("\n"),
     });
 
     return NextResponse.json({ success: true });
