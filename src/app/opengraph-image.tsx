@@ -5,7 +5,11 @@ export const alt = "Manato Mizuno — EC構築・運用パートナー";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OGImage() {
+export default async function OGImage() {
+  const fontData = await fetch(
+    "https://fonts.gstatic.com/s/cormorantgaramond/v22/co3YmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2"
+  ).then((res) => res.arrayBuffer());
+
   return new ImageResponse(
     (
       <div
@@ -17,7 +21,7 @@ export default function OGImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "56px 72px",
-          fontFamily: "serif",
+          fontFamily: "Cormorant Garamond",
         }}
       >
         {/* ヘッダー */}
@@ -35,7 +39,7 @@ export default function OGImage() {
               color: "#ebe7da",
               fontSize: "22px",
               letterSpacing: "0.14em",
-              fontFamily: "serif",
+              fontFamily: "Cormorant Garamond",
             }}
           >
             Manato Mizuno
@@ -45,7 +49,6 @@ export default function OGImage() {
               color: "rgba(235,231,218,0.55)",
               fontSize: "11px",
               letterSpacing: "0.1em",
-              fontFamily: "sans-serif",
               textTransform: "uppercase",
             }}
           >
@@ -58,15 +61,14 @@ export default function OGImage() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "0px",
             lineHeight: 0.95,
           }}
         >
           <div
             style={{
               color: "#ebe7da",
-              fontSize: "128px",
-              fontFamily: "serif",
+              fontSize: "136px",
+              fontFamily: "Cormorant Garamond",
               fontWeight: 400,
               letterSpacing: "-0.02em",
             }}
@@ -76,8 +78,8 @@ export default function OGImage() {
           <div
             style={{
               color: "rgba(235,231,218,0.85)",
-              fontSize: "128px",
-              fontFamily: "serif",
+              fontSize: "136px",
+              fontFamily: "Cormorant Garamond",
               fontWeight: 400,
               letterSpacing: "-0.02em",
               marginLeft: "80px",
@@ -88,8 +90,8 @@ export default function OGImage() {
           <div
             style={{
               color: "#ebe7da",
-              fontSize: "128px",
-              fontFamily: "serif",
+              fontSize: "136px",
+              fontFamily: "Cormorant Garamond",
               fontWeight: 400,
               letterSpacing: "-0.02em",
               marginLeft: "160px",
@@ -111,7 +113,6 @@ export default function OGImage() {
             style={{
               color: "rgba(235,231,218,0.65)",
               fontSize: "14px",
-              fontFamily: "sans-serif",
               lineHeight: 1.8,
             }}
           >
@@ -121,7 +122,6 @@ export default function OGImage() {
             style={{
               color: "rgba(235,231,218,0.4)",
               fontSize: "11px",
-              fontFamily: "sans-serif",
               letterSpacing: "0.08em",
             }}
           >
@@ -130,6 +130,16 @@ export default function OGImage() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Cormorant Garamond",
+          data: fontData,
+          weight: 400,
+          style: "normal",
+        },
+      ],
+    }
   );
 }
