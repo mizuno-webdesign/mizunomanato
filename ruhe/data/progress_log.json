@@ -1,0 +1,26 @@
+{
+  "last_updated": null,
+  "trademark_filed": false,
+  "research": {
+    "last_run": null,
+    "oem_count": 0,
+    "competitor_count": 0,
+    "makuake_count": 0
+  },
+  "product": {
+    "last_run": null,
+    "blend_candidates_count": 0,
+    "blend_approved": false,
+    "oem_inquiry_drafted": false,
+    "pricing_simulation_done": false
+  },
+  "sns": {
+    "last_run": null,
+    "posts_drafted": 0,
+    "posts_approved": 0,
+    "posts_pending": 0,
+    "hashtag_research_done": false,
+    "competitor_analysis_done": false
+  },
+  "weekly_runs": []
+}

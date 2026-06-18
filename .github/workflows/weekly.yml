@@ -1,0 +1,38 @@
+name: RUHE Weekly Agent Run
+
+on:
+  schedule:
+    # 毎週月曜 09:00 JST (= 00:00 UTC)
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ruhe
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run weekly RUHE agent pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python main.py --mode weekly
+
+      - name: Commit and push generated outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data output
+          git diff --cached --quiet || git commit -m "RUHE weekly agent run: $(date -u +'%Y-%m-%d')"
+          git push

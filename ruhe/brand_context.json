@@ -1,0 +1,64 @@
+{
+  "brand": {
+    "name": "RUHE（ルーエ）",
+    "origin": "ドイツ語の「Ruhe（静寂、安らぎ、休息）」に由来",
+    "concept": "忙しいビジネスパーソンのための、眠る前の静寂な時間を作るハーブティーブランド",
+    "tagline": "一日の終わりに、静寂を。",
+    "world_view": "戦う一日を終えたあなたに、何も求めない時間を。RUHEは、成果や効率を求められ続ける日常から離れ、ただ静かに自分を取り戻すための小さな儀式を提案します。"
+  },
+  "target": {
+    "demographics": "30代〜40代のビジネスパーソン（性別不問）",
+    "lifestyle": "仕事に追われ、睡眠の質に悩みを抱えているが、健康への意識は高い層",
+    "pain_points": [
+      "忙しさで寝る前もスマホを見てしまい寝つきが悪い",
+      "睡眠の質に課題を感じているが薬や医療には抵抗がある",
+      "自分のための時間を意識的に作れていない"
+    ]
+  },
+  "first_product": {
+    "name": "RUHE SLEEP",
+    "type": "ハーブティー（ティーバッグ）",
+    "description": "就寝前に飲む、リラックスを目的としたハーブブレンドティー"
+  },
+  "pricing_target": {
+    "per_bag": 150,
+    "currency": "JPY",
+    "box": {
+      "bags_per_box": 10,
+      "price": 1500,
+      "currency": "JPY"
+    }
+  },
+  "sales_channels": [
+    "Shopify（自社ECサイト）",
+    "Makuake（クラウドファンディング）"
+  ],
+  "operation_constraints": {
+    "anonymous_operation": true,
+    "notes": "運営者個人の実名・素顔は出さず、ブランドとしての世界観のみで展開する"
+  },
+  "trademark": {
+    "status": "未出願",
+    "plan": "商標出願を予定（区分：第30類）",
+    "class": 30
+  },
+  "phase_0": {
+    "duration": "6ヶ月間の準備期間",
+    "goals": [
+      "SNSでのブランド世界観・認知の構築",
+      "OEMパートナーの選定",
+      "ブレンド候補の検討・試作",
+      "商標出願の準備",
+      "Makuakeクラウドファンディングに向けた準備"
+    ]
+  },
+  "competitor_insight": {
+    "gap": "ビジネスパーソンに特化した睡眠用ハーブティーブランドは現時点で存在しない"
+  },
+  "constraints": {
+    "budget": "minimal（最小限の予算）",
+    "time": "週あたりの作業時間が限られている（本業と並行）",
+    "knowledge_gap": "OEMに関する知識がゼロの状態からスタート",
+    "phase_0_focus": "SNSでの世界観構築と、OEMパートナー探しを並行して進めること"
+  }
+}
