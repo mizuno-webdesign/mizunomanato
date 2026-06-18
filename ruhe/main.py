@@ -22,8 +22,8 @@ OUTPUT_DIR = BASE_DIR / "output"
 HUMAN_REVIEW_DIR = OUTPUT_DIR / "human_review"
 AGENTS_DIR = BASE_DIR / "agents"
 
-MODEL_RESEARCH = "claude-opus-4-8"
-MODEL_PRODUCT = "claude-opus-4-8"
+MODEL_RESEARCH = "claude-sonnet-4-6"
+MODEL_PRODUCT = "claude-sonnet-4-6"
 MODEL_SNS = "claude-sonnet-4-6"
 
 WEB_SEARCH_TOOL = {"type": "web_search_20260209", "name": "web_search"}

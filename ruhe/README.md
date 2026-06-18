@@ -46,3 +46,9 @@ cp .env.example .env
 2. `output/human_review/` 以下の生成物を確認する（`--mode review` で一覧表示可能）。
 3. 必要な判断（OEM選定、ブレンド承認、SNS投稿承認など）を行う。
 4. `data/progress_log.json` の承認フラグ（`blend_approved` など）を必要に応じて手動で更新する。
+
+## コストについて
+
+Anthropic APIは従量課金制です。「minimal budget」というブランド制約を踏まえ、すべてのエージェントは `claude-sonnet-4-6`（Opus系より安価なモデル）を使用しています（`main.py` 冒頭の `MODEL_RESEARCH` / `MODEL_PRODUCT` / `MODEL_SNS` で変更可能）。すべての出力は人間レビューを経るため、より高精度なモデルへの変更は出力品質に不満がある場合のみ検討してください。
+
+想定外の課金を避けるため、[console.anthropic.com](https://console.anthropic.com) の Settings → Billing で月間使用上限（spending limit）を設定しておくことを推奨します。
