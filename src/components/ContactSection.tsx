@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Arrow from "./Arrow";
+import { TYPE_OPTIONS, CHANNEL_OPTIONS } from "@/lib/contactOptions";
 
 type FormData = {
   company: string;
@@ -15,23 +16,10 @@ type FormData = {
   body: string;
 };
 
-const TYPE_OPTIONS = [
-  "ECサイト構築について",
-  "サイト分析・改善設計について",
-  "運用サポートについて",
-  "その他",
-];
-
-const CHANNEL_OPTIONS = [
-  "公式サイト",
-  "SNS",
-  "広告",
-  "知人・取引先からの紹介",
-];
-
 export default function ContactSection() {
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const {
     register,
@@ -48,15 +36,20 @@ export default function ContactSection() {
 
   const onSubmit = async (data: FormData) => {
     setStatus("sending");
+    setErrorMessage("");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const result = await res.json().catch(() => null);
+        throw new Error(result?.error || "送信に失敗しました");
+      }
       router.push("/thanks");
-    } catch {
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "送信に失敗しました");
       setStatus("error");
     }
   };
@@ -401,9 +394,10 @@ export default function ContactSection() {
                     marginTop: "16px",
                     color: "#ff6b6b",
                     fontSize: "13px",
+                    textAlign: "center",
                   }}
                 >
-                  送信に失敗しました。時間をおいて再度お試しください。
+                  {errorMessage || "送信に失敗しました。時間をおいて再度お試しください。"}
                 </p>
               )}
             </form>

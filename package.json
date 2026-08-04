@@ -19,7 +19,8 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.73.1",
     "resend": "^6.12.2",
-    "sanity": "^5.22.0"
+    "sanity": "^5.22.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
