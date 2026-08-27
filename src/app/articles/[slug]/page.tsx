@@ -150,9 +150,9 @@ export default async function ArticlePage({
           <h1
             style={{
               fontFamily: TITLE_FONT_FAMILY,
-              fontSize: "clamp(28px, 4vw, 52px)",
+              fontSize: "clamp(24px, 3.2vw, 42px)",
               fontWeight: 400,
-              lineHeight: 1.25,
+              lineHeight: 1.3,
               marginBottom: "48px",
             }}
           >
