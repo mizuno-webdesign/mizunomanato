@@ -33,3 +33,18 @@ export async function getWorks() {
     }
   `);
 }
+
+export async function getArticles() {
+  return client.fetch(`
+    *[_type == "article"] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      excerpt,
+      mainImage,
+      tags,
+      publishedAt,
+      noindex
+    }
+  `);
+}
