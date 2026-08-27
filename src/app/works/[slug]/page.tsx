@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { client, urlFor } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import FooterSection from "@/components/FooterSection";
+import SiteHeader from "@/components/SiteHeader";
 
 type Work = {
   _id: string;
@@ -22,8 +24,6 @@ async function getWork(slug: string): Promise<Work | null> {
   );
 }
 
-const NAV_ITEMS = ["Service", "Works", "About", "Contact"];
-
 export default async function WorkPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const work = await getWork(slug);
@@ -36,48 +36,11 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   return (
     <>
     <main style={{ background: "var(--paper)", minHeight: "100svh" }}>
-      {/* ヘッダー */}
-      <header
-        style={{
-          background: "var(--ink)",
-          color: "var(--inverse)",
-          padding: "28px clamp(20px, 5vw, 56px)",
-          borderBottom: "1px solid var(--inverse-soft)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <a
-          href="/"
-          style={{
-            fontFamily: "var(--font-display), 'Times New Roman', serif",
-            fontSize: "22px",
-            letterSpacing: "0.14em",
-            fontWeight: 400,
-            color: "var(--inverse)",
-            textDecoration: "none",
-          }}
-        >
-          Manato Mizuno
-        </a>
-        <nav style={{ display: "flex", gap: "28px", opacity: 0.65 }}>
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item}
-              href={`/#${item.toLowerCase()}`}
-              className="hero-nav-link"
-              style={{ color: "var(--inverse)" }}
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
-      </header>
+      <SiteHeader basePath="/" />
 
       {/* 戻るリンク */}
       <div style={{ padding: "32px clamp(20px, 5vw, 56px) 0" }}>
-        <a
+        <Link
           href="/#works"
           style={{
             fontFamily: "var(--font-ui)",
@@ -90,7 +53,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
           }}
         >
           ← Works
-        </a>
+        </Link>
       </div>
 
       {/* サムネイル */}
