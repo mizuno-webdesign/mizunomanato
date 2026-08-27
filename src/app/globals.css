@@ -116,6 +116,7 @@ body {
 /* ========== レスポンシブ ========== */
 
 .works-more { display: none; }
+.sp-break { display: none; }
 
 @media (max-width: 640px) {
 
@@ -148,6 +149,24 @@ body {
   .works-sp-hide  { display: none !important; }
   .works-more { display: block !important; }
 
+  /* Articles */
+  .articles-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* About */
+  .about-channels {
+    padding-left: 0 !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .about-channels > div {
+    min-width: 0;
+  }
+  .about-channels span {
+    word-break: break-word;
+  }
+
   /* Contact */
   .contact-field {
     grid-template-columns: 1fr !important;
@@ -156,4 +175,7 @@ body {
   /* SectionHead */
   .section-head-label { display: none !important; }
   .section-head-trailing { display: none !important; }
+
+  /* SP時のみ任意の位置で改行させたい箇所に使う */
+  .sp-break { display: block !important; }
 }

@@ -104,7 +104,7 @@ export default function ContactSection() {
       >
         {/* セクションヘッド */}
         <div className="contact-head">
-          <div className="contact-head-label" style={{ ...monoStyle, opacity: 0.6 }}>§ 04 · Contact</div>
+          <div className="contact-head-label" style={{ ...monoStyle, opacity: 0.6 }}>§ 05 · Contact</div>
           <h2
             style={{
               fontFamily: "var(--font-display), 'Times New Roman', serif",
