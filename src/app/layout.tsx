@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { cormorant, notoSansJP, inter } from "@/lib/fonts";
+import { cormorant, notoSansJP, shipporiMincho, inter } from "@/lib/fonts";
 import "./globals.css";
 
 const GA_ID = "G-377SE17230";
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSansJP.variable} ${inter.variable}`}
+      className={`${cormorant.variable} ${notoSansJP.variable} ${shipporiMincho.variable} ${inter.variable}`}
     >
       <head>
         <Script
