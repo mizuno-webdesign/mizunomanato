@@ -5,6 +5,12 @@ import FooterSection from "@/components/FooterSection";
 import SiteHeader from "@/components/SiteHeader";
 import ArticleThumbnail from "@/components/ArticleThumbnail";
 
+// このページはSanityの記事一覧を表示するため、ビルド時の静的
+// プリレンダリングのままだと公開後の新規記事が反映されない
+// （Vercelがビルド時点のHTMLをそのまま配信し続けてしまう）。
+// 常にリクエスト時に最新データを取得するよう動的レンダリングを強制する。
+export const dynamic = "force-dynamic";
+
 // 記事タイトルは和文と半角数字が混在する。Cormorant Garamond単体だと
 // 和文グリフを持たずフォールバックでゴシック体になり字面が揃わないため、
 // 和文対応の明朝体（Shippori Mincho）を優先フォントに指定する。
