@@ -7,7 +7,6 @@ import FooterSection from "@/components/FooterSection";
 import TableOfContents from "@/components/TableOfContents";
 import ArticleBody from "@/components/ArticleBody";
 import SiteHeader from "@/components/SiteHeader";
-import ArticleThumbnail from "@/components/ArticleThumbnail";
 import ArticleCta from "@/components/ArticleCta";
 
 // 記事タイトルは和文と半角数字が混在する。Cormorant Garamond単体だと
@@ -119,19 +118,18 @@ export default async function ArticlePage({
           </Link>
         </div>
 
-        {/* サムネイル */}
-        <div style={{ marginTop: "40px", width: "100%", aspectRatio: "16 / 7", overflow: "hidden" }}>
-          {imgUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
+        {/* サムネイル（画像がある場合のみ表示。画像が無い時は下の本文タイトルと
+            表示内容が重複するため、代替ビジュアルは出さない） */}
+        {imgUrl && (
+          <div style={{ marginTop: "40px", width: "100%", aspectRatio: "16 / 7", overflow: "hidden" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imgUrl}
               alt={article.title}
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
-          ) : (
-            <ArticleThumbnail title={article.title} variant="hero" />
-          )}
-        </div>
+          </div>
+        )}
 
         {/* 本文 */}
         <div style={{ padding: "64px clamp(20px, 5vw, 56px) 120px", maxWidth: "800px", margin: "0 auto" }}>
