@@ -8,7 +8,10 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion: "2024-01-01",
-  useCdn: true,
+  // Sanity CDN（apicdn.sanity.io）はキャッシュに数分の遅延があり、
+  // Publish直後の記事・実績がサイトに反映されないことがあるため、
+  // 常に最新データを取得するAPIエンドポイントを直接叩く設定にしている。
+  useCdn: false,
 });
 
 const builder = createImageUrlBuilder({ projectId, dataset });
