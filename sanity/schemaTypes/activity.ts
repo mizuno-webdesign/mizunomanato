@@ -7,9 +7,13 @@ export const activity = defineType({
   fields: [
     defineField({
       name: "date",
-      title: "日付",
-      type: "date",
-      validation: (Rule) => Rule.required(),
+      title: "年月",
+      type: "string",
+      description: "例：2026-09（YYYY-MM形式。日まで書くと案件が特定されやすいため年月のみ）",
+      validation: (Rule) =>
+        Rule.required().regex(/^\d{4}-\d{2}$/, {
+          name: "YYYY-MM形式",
+        }),
     }),
     defineField({
       name: "text",
@@ -17,12 +21,6 @@ export const activity = defineType({
       type: "string",
       description: "例：化粧品ECサイト リニューアル対応いたしました",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "note",
-      title: "補足（任意）",
-      type: "string",
-      description: "例：※守秘義務により詳細非公開",
     }),
     defineField({
       name: "tags",

@@ -14,7 +14,6 @@ type Activity = {
   _id: string;
   date: string;
   text: string;
-  note?: string;
   tags?: string[];
   relatedArticle?: { slug: { current: string } } | null;
 };

@@ -58,7 +58,6 @@ export async function getActivities() {
       _id,
       date,
       text,
-      note,
       tags,
       relatedArticle -> { slug }
     }

@@ -6,14 +6,16 @@ type Activity = {
   _id: string;
   date: string;
   text: string;
-  note?: string;
   tags?: string[];
   relatedArticle?: { slug: { current: string } } | null;
 };
 
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+// dateは"YYYY-MM"形式の文字列で保存する運用だが、スキーマ変更前に
+// "YYYY-MM-DD"で登録された既存データが残っている可能性があるため、
+// 先頭2セグメント（年・月）だけを安全に取り出す。
+function formatDate(date: string) {
+  const [year, month] = date.split("-");
+  return `${year}.${month}`;
 }
 
 function ActivityRow({ activity }: { activity: Activity }) {
@@ -55,11 +57,6 @@ function ActivityRow({ activity }: { activity: Activity }) {
           </div>
         )}
         <div style={{ fontSize: "15px", lineHeight: 1.7 }}>{activity.text}</div>
-        {activity.note && (
-          <div style={{ fontSize: "12px", opacity: 0.55, marginTop: "4px" }}>
-            {activity.note}
-          </div>
-        )}
         {activity.relatedArticle?.slug?.current && (
           <Link
             href={`/articles/${activity.relatedArticle.slug.current}`}
