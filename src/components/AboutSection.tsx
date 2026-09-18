@@ -45,7 +45,7 @@ export default function AboutSection() {
       }}
     >
       <SectionHead
-        num="04"
+        num="05"
         label="About"
         title="About"
         trailing="Profile"

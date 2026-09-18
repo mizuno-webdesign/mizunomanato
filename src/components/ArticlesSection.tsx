@@ -116,7 +116,7 @@ export default async function ArticlesSection() {
         padding: "clamp(60px, 10vw, 120px) clamp(20px, 5vw, 56px) 120px",
       }}
     >
-      <SectionHead num="03" label="Articles" title="Articles" trailing="" />
+      <SectionHead num="04" label="Articles" title="Articles" trailing="" />
 
       <div
         className="articles-grid"

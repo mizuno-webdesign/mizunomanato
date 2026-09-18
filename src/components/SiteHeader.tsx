@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useIsSp } from "@/lib/useIsSp";
 
-// トップページ本文のセクション順（§01 Service〜§05 Contact）に合わせたナビ順序。
+// トップページ本文のセクション順（§01 Service〜§06 Contact）に合わせたナビ順序。
+// Activity（§03）はナビには含めず、Worksからの流し見での発見に任せる。
 // href の先頭が "/" のものは別ページ遷移、"#" 始まりはページ内アンカー。
 const NAV_ITEMS = [
   { label: "Service", href: "#service" },

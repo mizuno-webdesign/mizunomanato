@@ -51,3 +51,15 @@ export async function getArticles() {
     }
   `);
 }
+
+export async function getActivities() {
+  return client.fetch(`
+    *[_type == "activity"] | order(date desc) {
+      _id,
+      date,
+      text,
+      note,
+      relatedArticle -> { slug }
+    }
+  `);
+}
