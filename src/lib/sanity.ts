@@ -59,6 +59,7 @@ export async function getActivities() {
       date,
       text,
       note,
+      tags,
       relatedArticle -> { slug }
     }
   `);

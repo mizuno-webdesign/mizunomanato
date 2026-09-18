@@ -25,6 +25,14 @@ export const activity = defineType({
       description: "例：※守秘義務により詳細非公開",
     }),
     defineField({
+      name: "tags",
+      title: "カテゴリ（任意）",
+      description: "自由入力。例：Build / Analyze & Improve / Operate & Support",
+      type: "array",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+    }),
+    defineField({
       name: "relatedArticle",
       title: "関連記事（任意）",
       type: "reference",

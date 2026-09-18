@@ -7,6 +7,7 @@ type Activity = {
   date: string;
   text: string;
   note?: string;
+  tags?: string[];
   relatedArticle?: { slug: { current: string } } | null;
 };
 
@@ -39,6 +40,20 @@ function ActivityRow({ activity }: { activity: Activity }) {
         {formatDate(activity.date)}
       </div>
       <div style={{ flex: 1 }}>
+        {activity.tags && activity.tags.length > 0 && (
+          <div
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "10px",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              opacity: 0.5,
+              marginBottom: "6px",
+            }}
+          >
+            {activity.tags.join(" / ")}
+          </div>
+        )}
         <div style={{ fontSize: "15px", lineHeight: 1.7 }}>{activity.text}</div>
         {activity.note && (
           <div style={{ fontSize: "12px", opacity: 0.55, marginTop: "4px" }}>
@@ -69,6 +84,8 @@ function ActivityRow({ activity }: { activity: Activity }) {
   );
 }
 
+const TOP_DISPLAY_LIMIT = 5;
+
 export default async function ActivitySection() {
   let activities: Activity[] = [];
   try {
@@ -81,6 +98,9 @@ export default async function ActivitySection() {
   // Sanityに登録されると自動的に表示されるようになる（ArticlesSectionと同じ方針）。
   if (activities.length === 0) return null;
 
+  const hasMore = activities.length > TOP_DISPLAY_LIMIT;
+  const visibleActivities = activities.slice(0, TOP_DISPLAY_LIMIT);
+
   return (
     <section
       id="activity"
@@ -92,10 +112,34 @@ export default async function ActivitySection() {
       <SectionHead num="03" label="Activity" title="最近の対応" trailing="" />
 
       <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-        {activities.map((activity) => (
+        {visibleActivities.map((activity) => (
           <ActivityRow key={activity._id} activity={activity} />
         ))}
       </div>
+
+      {hasMore && (
+        <div style={{ marginTop: "40px", textAlign: "center" }}>
+          <Link
+            href="/activity"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-ui)",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              opacity: 0.65,
+              textDecoration: "none",
+              color: "var(--ink)",
+              borderBottom: "1px solid var(--ink-soft)",
+              paddingBottom: "4px",
+            }}
+          >
+            すべて見る →
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

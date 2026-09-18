@@ -151,7 +151,7 @@ export default async function ArticlesPage() {
               marginBottom: "16px",
             }}
           >
-            § 03 · Articles
+            § 04 · Articles
           </div>
           <h1
             style={{
