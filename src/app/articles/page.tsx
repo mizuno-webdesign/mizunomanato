@@ -106,16 +106,10 @@ function ArticleCard({ article }: { article: Article }) {
             fontSize: "20px",
             lineHeight: 1.35,
             fontWeight: 400,
-            marginBottom: "8px",
           }}
         >
           {article.title}
         </div>
-        {article.excerpt && (
-          <div style={{ fontSize: "13px", lineHeight: 1.8, opacity: 0.65 }}>
-            {article.excerpt}
-          </div>
-        )}
       </div>
     </Link>
   );

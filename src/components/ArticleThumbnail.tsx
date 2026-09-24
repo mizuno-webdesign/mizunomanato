@@ -27,7 +27,7 @@ export default function ArticleThumbnail({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "clamp(20px, 4vw, 40px)",
+        padding: "clamp(32px, 8vw, 64px)",
       }}
     >
       <span
@@ -35,7 +35,7 @@ export default function ArticleThumbnail({
           fontFamily: TITLE_FONT_FAMILY,
           fontSize: variant === "hero" ? "clamp(20px, 3vw, 34px)" : "clamp(17px, 2.4vw, 24px)",
           fontWeight: 400,
-          color: "var(--inverse-soft)",
+          color: "var(--inverse)",
           lineHeight: 1.4,
           textAlign: "center",
           maxWidth: variant === "hero" ? "800px" : undefined,

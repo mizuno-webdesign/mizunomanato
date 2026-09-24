@@ -86,11 +86,6 @@ function ArticleCard({ article }: { article: Article }) {
         >
           {article.title}
         </div>
-        {article.excerpt && (
-          <div style={{ fontSize: "12px", opacity: 0.6, marginTop: "6px" }}>
-            {article.excerpt}
-          </div>
-        )}
       </div>
     </Link>
   );
