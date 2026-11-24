@@ -3,7 +3,7 @@ import IntroCard from "@/components/home/IntroCard";
 import PhotoCard from "@/components/home/PhotoCard";
 import MarqueeCard from "@/components/home/MarqueeCard";
 import ServiceCards from "@/components/home/ServiceCards";
-import WorksCard, { type WorkItem } from "@/components/home/WorksCard";
+import WorksCard, { type WorksImage } from "@/components/home/WorksCard";
 import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
 import CtaBand from "@/components/home/CtaBand";
 import { getArticles, getWorks, urlFor } from "@/lib/sanity";
@@ -38,25 +38,14 @@ export default async function Home() {
     load(getArticles, []),
   ]);
 
-  const works: WorkItem[] = rawWorks.map(
-    (w: {
-      _id: string;
-      title: string;
-      slug?: { current?: string };
-      year?: string;
-      note?: string;
-      thumbnail?: unknown;
-    }) => ({
-      _id: w._id,
-      title: w.title,
-      slug: w.slug?.current,
-      year: w.year,
-      note: w.note,
-      thumbUrl: w.thumbnail
-        ? urlFor(w.thumbnail).width(1000).height(560).fit("crop").auto("format").url()
-        : undefined,
-    }),
-  );
+  // 実績カードは写真1枚（仮：先頭の実績のサムネイル。社長指示 2026-11-24）。
+  const firstWork = rawWorks[0] as { title: string; thumbnail?: unknown } | undefined;
+  const worksImage: WorksImage | undefined = firstWork?.thumbnail
+    ? {
+        url: urlFor(firstWork.thumbnail).width(1400).height(700).fit("crop").auto("format").url(),
+        alt: firstWork.title,
+      }
+    : undefined;
 
   const articles: ArticleItem[] = rawArticles
     .filter((a: { noindex?: boolean }) => !a.noindex)
@@ -84,7 +73,7 @@ export default async function Home() {
         <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
         <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
-        <WorksCard works={works} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
+        <WorksCard image={worksImage} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={articles} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
         <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
