@@ -55,19 +55,30 @@ export default async function Home() {
       }),
     );
 
+  // 【見た目確認用の疑似表示】Blogs は PC で4行の見え方を確認するため、実記事が4本に満たないときは
+  // 既存の記事を繰り返して埋める（社長指示 2026-11-24）。リンク先は元の記事と同じ。
+  // 実記事が4本以上になれば自動で不要になる。公開前にこの埋め込みを外すかどうか、社長が判断する。
+  const BLOG_PREVIEW_ROWS = 4;
+  const blogRows: ArticleItem[] = articles.length
+    ? Array.from({ length: Math.max(articles.length, BLOG_PREVIEW_ROWS) }, (_, i) => {
+        const a = articles[i % articles.length];
+        return i < articles.length ? a : { ...a, _id: `${a._id}-preview-${i}` };
+      })
+    : [];
+
   // 並び：PC（lg）は DOM 順＝配置図どおり。スマホ・タブレットは order で
   // 自己紹介 → 相談する → 頼めること → 実績 → 記事 → 写真 → マーキー の順に入れ替える。
   return (
     <SiteFrame>
       {/* PC：縦も横と同じ分割法で揃える（細分化。社長指示 2026-11-24）。
           1段目（自己紹介）と4段目（相談）は元の高さ（200px／77px）に固定。
-          2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。 */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[200px_clamp(240px,30dvh,330px)_clamp(160px,20dvh,220px)_77px]">
+          2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。2段目は Blogs の4行が入る最小270px。 */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[200px_clamp(270px,30dvh,330px)_clamp(160px,20dvh,220px)_77px]">
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
         <WorksCard image={worksImage} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
-        <ArticlesCard articles={articles} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ArticlesCard articles={blogRows} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
         <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>

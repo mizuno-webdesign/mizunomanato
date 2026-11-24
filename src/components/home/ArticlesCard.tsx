@@ -9,8 +9,9 @@ export type ArticleItem = {
   date: string; // 表示用に整形済み（例：2026.09.24）
 };
 
-// 最新記事3本の文字一覧。見出しは「Blogs」（社長指示 2026-11-24。Articles では伝わりにくいため）。
-// 行の区切り線は使わない。一覧へのリンクは、矢印の削除に伴い一旦なし（社長が検討中。一覧へはナビの Articles から）。
+// 最新記事の文字一覧（PCは4行。社長指示 2026-11-24）。見出しは「Blogs」。
+// 右下にグレーの内部リンク「すべて見る」（→ /articles）。行の区切り線は使わない。
+// 4行に収めるため、行の余白を詰め、PCではタイトルを1行で省略する（truncate）。
 export default function ArticlesCard({
   articles,
   className = "",
@@ -21,7 +22,7 @@ export default function ArticlesCard({
   return (
     <section
       aria-labelledby="articles-title"
-      className={`flex flex-col glass rounded-card p-3 shadow-card ${className}`}
+      className={`relative flex flex-col glass rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="articles-title"
@@ -33,17 +34,17 @@ export default function ArticlesCard({
       {articles.length === 0 ? (
         <p className="px-3 text-sm text-ink-sub">記事は準備中です。</p>
       ) : (
-        <ul className="flex flex-1 flex-col justify-evenly">
+        <ul className="flex flex-1 flex-col justify-evenly pb-7">
           {articles.map((a) => (
             <li key={a._id}>
               <Link
                 href={`/articles/${a.slug}`}
-                className="grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-3 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
+                className="grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-2 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
               >
-                <time className="text-[13px] leading-[2] text-ink-sub">
+                <time className="text-[13px] leading-[1.9] text-ink-sub">
                   <Latin>{a.date}</Latin>
                 </time>
-                <span className="leading-[1.7]">
+                <span className="leading-[1.7] lg:truncate">
                   <Latin>{a.title}</Latin>
                 </span>
               </Link>
@@ -51,6 +52,13 @@ export default function ArticlesCard({
           ))}
         </ul>
       )}
+
+      <Link
+        href="/articles"
+        className="absolute right-6 bottom-4 rounded text-[13px] text-ink-sub transition-colors duration-150 hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+      >
+        すべて見る
+      </Link>
     </section>
   );
 }

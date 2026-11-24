@@ -3,7 +3,7 @@ import FlipHeading from "@/components/FlipHeading";
 import MarqueeViewport from "./MarqueeViewport";
 
 // 対応ツールのマーキー（横に流す。アイコンのみ、ホバー中のアイコンの下に名称。社長指示 2026-11-24）。
-// アイコンの出所：Shopify／Framer／Claude／Google Analytics 4／Google Search Console は Simple Icons（simple-icons@14.15.0、CC0）、
+// アイコンの出所：Shopify／Framer／Claude／Google Analytics 4 は Simple Icons（simple-icons@14.15.0、CC0）、
 // カラーミーは shop-pro.jp の公式 icon.svg。いずれも各社の商標。ロゴの利用規約の確認は社長の判断事項（未確認）。
 const ITEMS = [
   { name: "Shopify", icon: "/icons/shopify.svg" },
@@ -11,10 +11,9 @@ const ITEMS = [
   { name: "Framer", icon: "/icons/framer.svg" },
   { name: "Claude", icon: "/icons/claude.svg" },
   { name: "Google Analytics 4", icon: "/icons/ga4.svg" },
-  { name: "Google Search Console", icon: "/icons/gsc.svg" },
 ];
 
-// 1セットが表示幅より長くないと、ループの継ぎ目に空きが出るため、6アイコンを2回並べて1セットにする。
+// 1セットが表示幅より長くないと、ループの継ぎ目に空きが出るため、5アイコンを2回並べて1セットにする。
 const SET = [...ITEMS, ...ITEMS];
 
 export default function MarqueeCard({ className = "" }: { className?: string }) {
