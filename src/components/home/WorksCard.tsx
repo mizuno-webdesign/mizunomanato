@@ -6,7 +6,7 @@ export type WorksImage = { url: string; alt: string };
 // 実績カード：社長指示（2026-11-24）で、これまでの内容（カルーセル・案件名・メタ・シェブロン）を全て外し、
 // プロフィール写真と同じ「写真1枚をカード全面に見せる」形にした。グリッドの大きさは変えない。
 // 写真は仮：実績のサムネイル（先頭の1件）。見出し「Works」は他カードと同じ位置（左上24px）。
-// 写真の上でも読めるよう、見出しは半透明の白い面（すりガラス）に載せ、文字の位置は他カードと一致させている。
+// 見出しの背景は無し（社長指示）。写真の上でも読めるよう、白文字の差分ブレンド（mix-blend-difference）で明暗を自動反転し、位置は他カードと一致させている。写真の差し替え後に読めるか要再確認。
 // リンクは付けない（リンクの見せ方は社長が検討中）。
 export default function WorksCard({
   image,
@@ -33,11 +33,11 @@ export default function WorksCard({
           実績は準備中です。
         </p>
       )}
-      <div className="absolute top-3 left-3 z-10 rounded-2xl bg-white/75 backdrop-blur-md">
+      <div className="absolute top-3 left-3 z-10 text-white mix-blend-difference">
         <FlipHeading
           id="works-title"
           en="Works"
-          ja="実績"
+          ja="事例"
           className="px-3 pt-3 pb-2"
         />
       </div>

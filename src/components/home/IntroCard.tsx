@@ -24,7 +24,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
             ja="水野 学人"
           />
           <span
-            className={`inline-flex items-center gap-2 rounded-full bg-sunken px-3 py-0.5 text-[13px] font-bold ${
+            className={`inline-flex items-center gap-2 text-[13px] font-bold ${
               open ? "text-ok" : "text-ng"
             }`}
           >

@@ -72,9 +72,9 @@ export default async function Home() {
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
-        <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
         <WorksCard image={worksImage} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={articles} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
     </SiteFrame>

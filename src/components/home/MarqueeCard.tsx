@@ -1,5 +1,6 @@
 import Image from "next/image";
 import FlipHeading from "@/components/FlipHeading";
+import MarqueeViewport from "./MarqueeViewport";
 
 // 対応ツールのマーキー（横に流す。アイコンのみ。社長指示 2026-11-24）。
 // アイコンの出所：Shopify／Framer／Claude は Simple Icons（simple-icons@14.15.0、CC0）、
@@ -32,10 +33,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
           <li key={t.name}>{t.name}</li>
         ))}
       </ul>
-      <div
-        aria-hidden
-        className="marquee my-auto overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
-      >
+      <MarqueeViewport className="marquee my-auto overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
         <div className="marquee-track flex w-max gap-4 pl-4">
           {[0, 1].flatMap((copy) =>
             SET.map((t, i) => (
@@ -48,7 +46,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
             )),
           )}
         </div>
-      </div>
+      </MarqueeViewport>
     </section>
   );
 }

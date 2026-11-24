@@ -75,10 +75,7 @@
 .marquee-track {
   animation: marquee var(--marquee-dur, 38s) /* 1セット576px ÷ 15px/秒 ≒ 38秒（社長指示でゆっくりに。アイコン8個×72px） */ linear infinite;
 }
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track {
-  animation-play-state: paused;
-}
+/* ホバー中は止めずに、さらにゆっくり（MarqueeViewport.tsx が playbackRate を動かす） */
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     overflow-x: auto;
