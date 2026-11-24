@@ -18,7 +18,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
   return (
     <section
       aria-labelledby="tools-title"
-      className={`flex flex-col overflow-hidden rounded-card bg-surface p-3 shadow-card ${className}`}
+      className={`flex flex-col overflow-hidden glass rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="tools-title"

@@ -21,7 +21,7 @@ export default function ArticlesCard({
   return (
     <section
       aria-labelledby="articles-title"
-      className={`flex flex-col rounded-card bg-surface p-3 shadow-card ${className}`}
+      className={`flex flex-col glass rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="articles-title"

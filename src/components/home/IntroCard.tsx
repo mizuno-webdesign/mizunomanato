@@ -13,7 +13,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
   return (
     <section
       aria-labelledby="intro-name"
-      className={`flex min-h-[200px] flex-col gap-3 rounded-card bg-surface p-6 shadow-card ${className}`}
+      className={`flex min-h-[200px] flex-col gap-3 glass rounded-card p-6 shadow-card ${className}`}
     >
       <div className="flex flex-col gap-1">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">

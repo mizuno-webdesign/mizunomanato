@@ -34,7 +34,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
   return (
     <section
       aria-labelledby="services-title"
-      className={`rounded-card bg-surface p-3 shadow-card ${className}`}
+      className={`glass rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="services-title"

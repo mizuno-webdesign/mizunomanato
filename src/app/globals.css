@@ -27,6 +27,18 @@
   --font-sans: var(--font-plex), "Hiragino Sans", "Yu Gothic", sans-serif;
 }
 
+/* グラスモーフィズム風の試行（社長指示 2026-11-24：各グリッドに若干の透過）。
+   背景の淡いにじみ（body）に透けて見えるよう、白55%＋ぼかし。外周の線は outline（レイアウトを1pxも動かさない）。
+   やめる場合は、各カードの glass を bg-surface に戻し、body の background-image を消すだけ。
+   文字のコントラスト：最悪ケース（最も濃いにじみの上）でも 補足文字 5.38以上、本文 14.46（計算値）。 */
+@utility glass {
+  background-color: rgb(255 255 255 / 0.55);
+  /* 生の backdrop-filter を書くとビルド時に接頭辞つきだけが残り Chrome で効かないため、Tailwind のユーティリティで指定する */
+  @apply backdrop-blur-[20px] backdrop-saturate-[1.5];
+  outline: 1px solid rgb(255 255 255 / 0.7);
+  outline-offset: -1px;
+}
+
 /* 和文の中の英字・数字（Latin.tsx）。行の高さを広げないよう line-height を 1 にする。 */
 .latin {
   font-size: 1.1em;
@@ -82,6 +94,11 @@
   }
   body {
     background-color: var(--color-canvas);
+    background-image:
+      radial-gradient(60rem 36rem at 8% -8%, rgb(10 95 216 / 0.16), transparent 62%),
+      radial-gradient(52rem 34rem at 96% 18%, rgb(124 92 255 / 0.14), transparent 62%),
+      radial-gradient(56rem 34rem at 42% 108%, rgb(20 184 196 / 0.14), transparent 62%);
+    background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 15px;

@@ -8,7 +8,7 @@ export default function CtaBand({ className = "" }: { className?: string }) {
   return (
     <section
       aria-labelledby="contact-title"
-      className={`flex flex-wrap items-start justify-between gap-4 rounded-card bg-surface p-3 shadow-card ${className}`}
+      className={`flex flex-wrap items-start justify-between gap-4 glass rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="contact-title"
