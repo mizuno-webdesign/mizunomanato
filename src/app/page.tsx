@@ -3,7 +3,7 @@ import IntroCard from "@/components/home/IntroCard";
 import PhotoCard from "@/components/home/PhotoCard";
 import MarqueeCard from "@/components/home/MarqueeCard";
 import ServiceCards from "@/components/home/ServiceCards";
-import WorksCard, { type WorksImage } from "@/components/home/WorksCard";
+import WorksCard from "@/components/home/WorksCard";
 import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
 import CtaBand from "@/components/home/CtaBand";
 import { getArticles } from "@/lib/sanity";
@@ -34,9 +34,6 @@ function formatDate(iso?: string) {
 
 export default async function Home() {
   const rawArticles = await load(getArticles, []);
-
-  // 実績カードは写真1枚（社長が用意した画像。2026-11-24）。Sanity の実績データはこのカードでは使わない。
-  const worksImage: WorksImage = { url: "/images/works-cocorome.jpg", alt: "COCOROMe" };
 
   const articles: ArticleItem[] = rawArticles
     .filter((a: { noindex?: boolean }) => !a.noindex)
@@ -78,7 +75,7 @@ export default async function Home() {
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-5 md:col-span-6 lg:order-none lg:col-span-3" />
-        <WorksCard image={worksImage} className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
+        <WorksCard className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={blogRows} className="order-4 md:col-span-3 lg:order-none lg:col-span-6" />
         <ServiceCards className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-6 md:col-span-6 lg:order-none lg:col-span-12" />
