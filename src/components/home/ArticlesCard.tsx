@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
-import { ArrowLink } from "@/components/ArrowCircle";
 import FlipHeading from "@/components/FlipHeading";
 
 export type ArticleItem = {
@@ -11,7 +10,7 @@ export type ArticleItem = {
 };
 
 // 最新記事3本の文字一覧。見出しは「Blogs」（社長指示 2026-11-24。Articles では伝わりにくいため）。
-// 行の区切り線は使わない。一覧へは右下の「↗」丸ボタン（内部リンク）。
+// 行の区切り線は使わない。一覧へのリンクは、矢印の削除に伴い一旦なし（社長が検討中。一覧へはナビの Articles から）。
 export default function ArticlesCard({
   articles,
   className = "",
@@ -52,10 +51,6 @@ export default function ArticlesCard({
           ))}
         </ul>
       )}
-
-      <div className="flex justify-end px-1 pt-2">
-        <ArrowLink href="/articles" label="記事一覧へ" />
-      </div>
     </section>
   );
 }

@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
-import { ArrowCircle } from "@/components/ArrowCircle";
 import FlipHeading from "@/components/FlipHeading";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
-// 区切り線は使わない（社長指示）。矢印は右下の「↗」丸ボタン。アイコンは自作の線画（ライセンス問題なし）。
+// 区切り線は使わない（社長指示）。矢印は削除（2026-11-24、リンクの見せ方は社長が検討中）。アイコンは自作の線画（ライセンス問題なし）。
 const SERVICES = [
   {
     name: "新規構築",
@@ -72,7 +71,6 @@ export default function ServiceCards({ className = "" }: { className?: string })
                   <Latin>{s.line}</Latin>
                 </span>
               </span>
-              <ArrowCircle className="self-end max-md:self-center lg:self-end" />
             </Link>
           </li>
         ))}

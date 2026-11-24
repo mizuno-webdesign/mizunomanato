@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
-import { ArrowLink } from "@/components/ArrowCircle";
 
 export type WorkItem = {
   _id: string;
@@ -112,12 +111,6 @@ export default function WorksCard({
             {work.note && work.year ? "　" : null}
             {work.year ? <Latin>{work.year}</Latin> : null}
           </p>
-          <div className="mt-auto flex justify-end pt-3">
-            <ArrowLink
-              href={work.slug ? `/works/${work.slug}` : "/works"}
-              label={`${work.title}の詳細へ`}
-            />
-          </div>
         </div>
 
         {count > 1 ? (
