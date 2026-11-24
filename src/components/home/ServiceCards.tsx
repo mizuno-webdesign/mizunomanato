@@ -3,7 +3,7 @@ import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
-// 区切り線は使わない（社長指示）。矢印は削除（2026-11-24、リンクの見せ方は社長が検討中）。アイコンは自作の線画（ライセンス問題なし）。
+// 区切り線は使わない（社長指示）。矢印は削除（2026-11-24、リンクの見せ方は社長が検討中）。アイコンは自作の線画（ライセンス問題なし）。アイコン背景は、ページ背景のにじみ（青→紫）に合わせた淡いグラデ。
 const SERVICES = [
   {
     name: "新規構築",
@@ -34,7 +34,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
   return (
     <section
       aria-labelledby="services-title"
-      className={`glass rounded-card p-3 shadow-card ${className}`}
+      className={`glass flex flex-col rounded-card p-3 shadow-card ${className}`}
     >
       <FlipHeading
         id="services-title"
@@ -42,7 +42,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
         ja="サービス"
         className="px-3 pt-3 pb-2"
       />
-      <ul className="grid md:grid-cols-3">
+      <ul className="grid flex-1 items-center md:grid-cols-3">
         {SERVICES.map((s) => (
           <li key={s.name}>
             <Link
@@ -51,7 +51,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
             >
               <span
                 aria-hidden
-                className="grid size-12 shrink-0 place-items-center rounded-2xl bg-accent/10 text-accent"
+                className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,rgb(10_95_216/0.18),rgb(124_92_255/0.10))] text-accent"
               >
                 <svg
                   viewBox="0 0 24 24"

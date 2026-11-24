@@ -8,7 +8,7 @@ export default function SiteFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-full px-4">
       <SiteNav />
-      <main className="pb-16 pt-8">{children}</main>
+      <main className="pb-4 pt-8">{children}</main>
     </div>
   );
 }

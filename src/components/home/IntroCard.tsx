@@ -13,12 +13,13 @@ export default function IntroCard({ className = "" }: { className?: string }) {
   return (
     <section
       aria-labelledby="intro-name"
-      className={`flex min-h-[200px] flex-col gap-3 glass rounded-card p-6 shadow-card ${className}`}
+      className={`flex min-h-[200px] flex-col gap-3 glass lg:min-h-0 rounded-card p-6 shadow-card ${className}`}
     >
       <div className="flex flex-col gap-1">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <FlipHeading
             as="h1"
+            size="text-2xl"
             id="intro-name"
             en={<Latin>Manato Mizuno</Latin>}
             ja="水野 学人"
@@ -39,7 +40,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
           <Latin>Shizuoka, Japan</Latin>
         </p>
       </div>
-      <p className="max-w-[34em] text-base leading-[1.8] font-medium lg:max-w-none lg:text-lg">
+      <p className="max-w-[34em] text-base leading-[1.8] font-normal lg:max-w-none lg:text-lg">
         <span className="lg:block">
           <Latin>Shopify を中心に、ECサイト専門家として</Latin>
         </span>

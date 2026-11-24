@@ -33,7 +33,7 @@ export default function ArticlesCard({
       {articles.length === 0 ? (
         <p className="px-3 text-sm text-ink-sub">記事は準備中です。</p>
       ) : (
-        <ul className="flex-1">
+        <ul className="flex flex-1 flex-col justify-evenly">
           {articles.map((a) => (
             <li key={a._id}>
               <Link

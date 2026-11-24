@@ -9,16 +9,18 @@ export default function FlipHeading({
   en,
   ja,
   as: Tag = "h2",
+  size = "text-lg",
   className = "",
 }: {
   id?: string;
   en: ReactNode;
   ja: string;
   as?: "h1" | "h2";
+  size?: string; // 文字サイズの Tailwind クラス（既定 text-lg）
   className?: string;
 }) {
   return (
-    <Tag id={id} className={`text-lg font-bold ${className}`}>
+    <Tag id={id} className={`${size} font-bold ${className}`}>
       <span className="sr-only">{en}</span>
       <span
         aria-hidden
