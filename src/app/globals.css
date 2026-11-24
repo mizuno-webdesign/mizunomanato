@@ -24,6 +24,35 @@
   --font-sans: var(--font-plex), "Hiragino Sans", "Yu Gothic", sans-serif;
 }
 
+/* 和文の中の英字・数字（Latin.tsx）。行の高さを広げないよう line-height を 1 にする。 */
+.latin {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* 対応領域マーキー（社長決定：vexoo 程度のゆっくりさで目立たない。仮の速度）。
+   1セット約1,270px を 50秒で流す＝約25px/秒。ホバー・フォーカスで一時停止。 */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 50s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

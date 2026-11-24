@@ -1,28 +1,94 @@
 import SiteFrame from "@/components/SiteFrame";
+import IntroCard from "@/components/home/IntroCard";
+import PhotoCard from "@/components/home/PhotoCard";
+import MarqueeCard from "@/components/home/MarqueeCard";
+import ServiceCards from "@/components/home/ServiceCards";
+import WorksCard, { type WorkItem } from "@/components/home/WorksCard";
+import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
+import CtaBand from "@/components/home/CtaBand";
+import { getArticles, getWorks, urlFor } from "@/lib/sanity";
 
-// 段階1（土台）の確認用プレースホルダー。TOP の8カードは段階2で作る。
-export default function Home() {
+// Sanity の記事・実績を常に最新で表示するため、動的レンダリングのままにする（旧TOPの方針を引き継ぎ）。
+export const dynamic = "force-dynamic";
+
+// Sanity の取得に失敗しても TOP 全体を落とさない（各カードは空状態を表示する）。
+async function load<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch {
+    return fallback;
+  }
+}
+
+function formatDate(iso?: string) {
+  if (!iso) return "";
+  return new Date(iso)
+    .toLocaleDateString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replaceAll("/", ".");
+}
+
+export default async function Home() {
+  const [rawWorks, rawArticles] = await Promise.all([
+    load(getWorks, []),
+    load(getArticles, []),
+  ]);
+
+  const works: WorkItem[] = rawWorks.map(
+    (w: {
+      _id: string;
+      title: string;
+      slug?: { current?: string };
+      year?: string;
+      note?: string;
+      thumbnail?: unknown;
+    }) => ({
+      _id: w._id,
+      title: w.title,
+      slug: w.slug?.current,
+      year: w.year,
+      note: w.note,
+      thumbUrl: w.thumbnail
+        ? urlFor(w.thumbnail).width(1000).height(560).fit("crop").auto("format").url()
+        : undefined,
+    }),
+  );
+
+  const articles: ArticleItem[] = rawArticles
+    .filter((a: { noindex?: boolean }) => !a.noindex)
+    .slice(0, 3)
+    .map(
+      (a: {
+        _id: string;
+        title: string;
+        slug: { current: string };
+        excerpt?: string;
+        publishedAt?: string;
+      }) => ({
+        _id: a._id,
+        title: a.title,
+        slug: a.slug.current,
+        excerpt: a.excerpt,
+        date: formatDate(a.publishedAt),
+      }),
+    );
+
+  // 並び：PC（lg）は DOM 順＝配置図どおり。スマホ・タブレットは order で
+  // 自己紹介 → 相談する → 頼めること → 実績 → 記事 → 写真 → マーキー の順に入れ替える。
   return (
     <SiteFrame>
-      <div className="grid gap-4 sm:grid-cols-3">
-        <section className="rounded-card bg-surface p-6 sm:col-span-2">
-          <h1 className="text-lg font-bold">Manato Mizuno</h1>
-          <p className="mt-2 text-[17px] leading-[1.8] font-medium sm:text-xl">
-            Shopify を中心に、ECサイト専門家として新規構築・改修・運用支援を行っています。
-          </p>
-          <p className="mt-4 text-[13px] text-ink-sub">
-            段階1（土台）の確認用ページです。TOP のカードは段階2で作ります。
-          </p>
-        </section>
-        <section className="rounded-card bg-surface p-6">
-          <h2 className="text-lg font-bold">トークン確認</h2>
-          <div className="mt-3 flex flex-wrap gap-2 text-[13px]">
-            <span className="rounded-full bg-sunken px-3 py-0.5 text-ink-sub">補足</span>
-            <span className="rounded-full bg-accent px-3 py-0.5 font-bold text-white">操作</span>
-            <span className="rounded-full bg-sunken px-3 py-0.5 font-bold text-ok">受付中</span>
-            <span className="rounded-full bg-sunken px-3 py-0.5 font-bold text-ng">停止中</span>
-          </div>
-        </section>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12">
+        <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
+        <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
+        <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
+        <ServiceCards />
+        <WorksCard works={works} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ArticlesCard articles={articles} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
+        <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
     </SiteFrame>
   );
