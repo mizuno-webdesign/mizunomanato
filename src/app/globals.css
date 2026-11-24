@@ -42,7 +42,7 @@
 }
 
 /* ==== タイプスケール（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
-   Display 24／Lead 20（自己紹介の肩書き行のみ。社長承認で主役に）／Heading 17／Body 15／Caption 13。
+   Display 24／Lead 20／400（自己紹介の肩書き行のみ。社長承認で主役に。太字にはしない）／Heading 17／Body 15／Caption 13。
    サイズ・太さ・行間・色は、ここだけで管理する。例外は、ナビ（13〜14px/500）と、写真の上の白文字のみ。 */
 @utility type-display {
   font-size: 24px;
@@ -56,7 +56,7 @@
 }
 @utility type-lead {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400; /* 社長指示 2026-11-24：肩書き行は大きさのみで主役にし、太字にはしない */
   line-height: 1.5;
 }
 @utility type-body {
