@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 // 上部ピル型ナビ（社長決定 2026-11-24：marco.fyi 型）。項目と順序は案。
 // Service／About／Contact／Works 一覧は段階4で作成するまで 404 になる。
+// 「Articles」→「Blogs」（社長指示 2026-11-24）：カード見出しと揃え、ラベルを短くしてスマホの窮屈さを減らす。URL は /articles のまま。
 const ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Articles", href: "/articles" },
+  { label: "Blogs", href: "/articles" },
   { label: "Service", href: "/service" },
   { label: "Works", href: "/works" },
   { label: "About", href: "/about" },
@@ -34,7 +35,7 @@ export default function SiteNav() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={[
-                  "block whitespace-nowrap rounded-full px-[7px] py-1.5 text-xs leading-[1.6] transition-colors duration-150 motion-reduce:transition-none min-[400px]:px-2 min-[400px]:text-[13px] sm:px-[18px] sm:text-sm",
+                  "block whitespace-nowrap rounded-full px-[7px] py-2 text-[13px] leading-[1.6] transition-colors duration-150 motion-reduce:transition-none min-[400px]:px-3 sm:px-[18px] sm:py-1.5 sm:text-sm",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                   active
                     ? "bg-white font-medium text-ink shadow-[0_1px_3px_rgba(0,0,0,0.12)]"

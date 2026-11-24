@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
@@ -68,7 +67,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
               <span className="flex-1">
                 <span className="type-heading block text-heading">{s.name}</span>
                 <span className="type-body mt-0.5 block text-body-2">
-                  <Latin>{s.line}</Latin>
+                  {s.line}
                 </span>
               </span>
             </Link>

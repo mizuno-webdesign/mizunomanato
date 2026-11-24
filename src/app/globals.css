@@ -41,8 +41,9 @@
   outline-offset: -1px;
 }
 
-/* ==== タイプスケール4段（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
-   サイズ・太さ・行間・色は、ここだけで管理する。例外は、ナビ（14px/500）と、写真の上の白文字のみ。 */
+/* ==== タイプスケール（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
+   Display 24／Lead 20（自己紹介の肩書き行のみ。社長承認で主役に）／Heading 17／Body 15／Caption 13。
+   サイズ・太さ・行間・色は、ここだけで管理する。例外は、ナビ（13〜14px/500）と、写真の上の白文字のみ。 */
 @utility type-display {
   font-size: 24px;
   font-weight: 700;
@@ -53,6 +54,11 @@
   font-weight: 600;
   line-height: 1.4;
 }
+@utility type-lead {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+}
 @utility type-body {
   font-size: 15px;
   font-weight: 400;
@@ -62,12 +68,6 @@
   font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
-}
-
-/* 和文の中の英字・数字（Latin.tsx）。行の高さを広げないよう line-height を 1 にする。 */
-.latin {
-  font-size: 1.1em;
-  line-height: 1;
 }
 
 /* 受付中の丸の穏やかな明滅（社長指示 2026-11-24：軽く、うるさくない範囲）。2.8秒で不透明度 1 → 0.35 → 1。
@@ -142,4 +142,3 @@
     }
   }
 }
-

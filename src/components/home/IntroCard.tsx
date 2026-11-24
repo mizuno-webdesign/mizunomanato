@@ -1,4 +1,3 @@
-import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
 import {
   ACCEPTING_NEW_REQUESTS,
@@ -22,7 +21,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
             size="type-display"
             tone="text-ink"
             id="intro-name"
-            en={<Latin>Manato Mizuno</Latin>}
+            en="Manato Mizuno"
             ja="水野 学人"
           />
           <span
@@ -38,12 +37,12 @@ export default function IntroCard({ className = "" }: { className?: string }) {
           </span>
         </div>
         <p className="type-caption text-ink-sub">
-          <Latin>Shizuoka, Japan</Latin>
+          Shizuoka, Japan
         </p>
       </div>
-      <p className="max-w-[34em] type-body lg:max-w-none">
+      <p className="type-lead max-w-[34em] lg:max-w-none">
         <span className="lg:block">
-          <Latin>Shopify を中心に、ECサイト専門家として</Latin>
+          Shopify を中心に、ECサイト専門家として
         </span>
         <span className="lg:block">新規構築・改修・運用支援を行っています。</span>
       </p>

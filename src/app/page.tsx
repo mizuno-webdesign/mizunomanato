@@ -67,7 +67,8 @@ export default async function Home() {
     : [];
 
   // 並び：PC（lg）は DOM 順＝配置図どおり。スマホ・タブレットは order で
-  // 自己紹介 → 相談する → 頼めること → 実績 → 記事 → 写真 → マーキー の順に入れ替える。
+  // 自己紹介 → 頼めること → 実績 → 記事 → 写真 → マーキー → 相談する（最下部。社長指示 2026-11-24）の順に入れ替える。
+  // スマホでも、上部の固定ナビの「Contact」から常に1タップで届く。
   return (
     <SiteFrame>
       {/* PC：縦も横と同じ分割法で揃える（細分化。社長指示 2026-11-24）。
@@ -80,7 +81,7 @@ export default async function Home() {
         <WorksCard image={worksImage} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={blogRows} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
         <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
-        <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
+        <CtaBand className="order-10 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
     </SiteFrame>
   );

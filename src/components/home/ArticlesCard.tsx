@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
 
 export type ArticleItem = {
@@ -42,10 +41,10 @@ export default function ArticlesCard({
                 className="grid grid-cols-[84px_1fr] items-baseline gap-3 rounded-xl px-3 py-2 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
               >
                 <time className="type-caption text-ink-sub">
-                  <Latin>{a.date}</Latin>
+                  {a.date}
                 </time>
                 <span className="type-body lg:truncate">
-                  <Latin>{a.title}</Latin>
+                  {a.title}
                 </span>
               </Link>
             </li>
