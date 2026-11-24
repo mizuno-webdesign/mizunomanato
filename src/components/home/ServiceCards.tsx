@@ -3,7 +3,7 @@ import Latin from "@/components/Latin";
 import FlipHeading from "@/components/FlipHeading";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
-// 区切り線は使わない（社長指示）。矢印は削除（2026-11-24、リンクの見せ方は社長が検討中）。アイコンは自作の線画（ライセンス問題なし）。アイコン背景は、ページ背景のにじみ（青→紫）に合わせた淡いグラデ。
+// 区切り線は使わない（社長指示）。矢印は削除（2026-11-24、リンクの見せ方は社長が検討中）。アイコンは自作の線画（ライセンス問題なし）。アイコン背景は、ページ背景のにじみ（緑系。社長指示 2026-11-24）に合わせた淡いグラデ。アイコンの線も同系の濃い緑（--color-ok）。
 const SERVICES = [
   {
     name: "新規構築",
@@ -51,7 +51,7 @@ export default function ServiceCards({ className = "" }: { className?: string })
             >
               <span
                 aria-hidden
-                className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,rgb(10_95_216/0.18),rgb(124_92_255/0.10))] text-accent"
+                className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,rgb(16_160_106/0.20),rgb(124_194_78/0.12))] text-ok"
               >
                 <svg
                   viewBox="0 0 24 24"

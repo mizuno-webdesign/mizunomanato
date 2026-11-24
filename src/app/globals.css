@@ -92,9 +92,9 @@
   body {
     background-color: var(--color-canvas);
     background-image:
-      radial-gradient(60rem 36rem at 8% -8%, rgb(10 95 216 / 0.22), transparent 62%),
-      radial-gradient(52rem 34rem at 96% 18%, rgb(124 92 255 / 0.20), transparent 62%),
-      radial-gradient(56rem 34rem at 42% 108%, rgb(20 184 196 / 0.20), transparent 62%);
+      radial-gradient(60rem 36rem at 8% -8%, rgb(16 160 106 / 0.22), transparent 62%),
+      radial-gradient(52rem 34rem at 96% 18%, rgb(124 194 78 / 0.20), transparent 62%),
+      radial-gradient(56rem 34rem at 42% 108%, rgb(23 179 160 / 0.20), transparent 62%);
     background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-sans);
