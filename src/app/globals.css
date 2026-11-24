@@ -14,7 +14,9 @@
   --color-ink: #1c1c1e;      /* 本文・見出し（地に対して 15.25:1） */
   --color-ink-sub: #55555c;  /* 補足（強いグラス上の最悪ケースでも 5.4:1 以上。計算値） */
   --color-line: #d1d1d6;
-  --color-accent: #0a5fd8;   /* 操作専用（白に対して 5.77:1） */
+  --color-accent: #0b6b3e;   /* フォーカス枠など操作専用。緑（社長指示 2026-11-24：青をやめ、フォーカス枠は緑）。強いグラス上でも 5.2:1 以上・白に 6.6:1（計算値） */
+  --color-heading: #2c2c30;  /* カード見出し・Services名称（ほぼ黒より一段やわらかい。グラス上 11:1 以上） */
+  --color-body-2: #3a3a3f;   /* Services 本文（グラス上 8.9:1 以上） */
   --color-ok: #136a2a;       /* 対応可否の「受付中」専用（強いグラス上の最悪ケースでも 4.9:1 以上） */
   --color-ng: #b01f16;       /* 対応可否の「停止中」専用（強いグラス上の最悪ケースでも 5.0:1 以上） */
 
@@ -37,6 +39,29 @@
   @apply backdrop-blur-[32px] backdrop-saturate-[1.8];
   outline: 1px solid rgb(255 255 255 / 0.85);
   outline-offset: -1px;
+}
+
+/* ==== タイプスケール4段（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
+   サイズ・太さ・行間・色は、ここだけで管理する。例外は、ナビ（14px/500）と、写真の上の白文字のみ。 */
+@utility type-display {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+@utility type-heading {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+@utility type-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+@utility type-caption {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 /* 和文の中の英字・数字（Latin.tsx）。行の高さを広げないよう line-height を 1 にする。 */

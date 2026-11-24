@@ -19,13 +19,14 @@ export default function IntroCard({ className = "" }: { className?: string }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <FlipHeading
             as="h1"
-            size="text-2xl"
+            size="type-display"
+            tone="text-ink"
             id="intro-name"
             en={<Latin>Manato Mizuno</Latin>}
             ja="水野 学人"
           />
           <span
-            className={`inline-flex items-center gap-2 text-[13px] font-bold ${
+            className={`type-caption inline-flex items-center gap-2 font-semibold ${
               open ? "text-ok" : "text-ng"
             }`}
           >
@@ -36,11 +37,11 @@ export default function IntroCard({ className = "" }: { className?: string }) {
             {open ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
           </span>
         </div>
-        <p className="text-[13px] leading-[1.6] text-ink-sub">
+        <p className="type-caption text-ink-sub">
           <Latin>Shizuoka, Japan</Latin>
         </p>
       </div>
-      <p className="max-w-[34em] text-base leading-[1.8] font-normal lg:max-w-none lg:text-lg">
+      <p className="max-w-[34em] type-body lg:max-w-none">
         <span className="lg:block">
           <Latin>Shopify を中心に、ECサイト専門家として</Latin>
         </span>

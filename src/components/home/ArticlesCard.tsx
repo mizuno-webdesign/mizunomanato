@@ -32,19 +32,19 @@ export default function ArticlesCard({
       />
 
       {articles.length === 0 ? (
-        <p className="px-3 text-sm text-ink-sub">記事は準備中です。</p>
+        <p className="type-caption px-3 text-ink-sub">記事は準備中です。</p>
       ) : (
         <ul className="flex flex-1 flex-col justify-evenly pb-7">
           {articles.map((a) => (
             <li key={a._id}>
               <Link
                 href={`/articles/${a.slug}`}
-                className="grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-2 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
+                className="grid grid-cols-[84px_1fr] items-baseline gap-3 rounded-xl px-3 py-2 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
               >
-                <time className="text-[13px] leading-[1.9] text-ink-sub">
+                <time className="type-caption text-ink-sub">
                   <Latin>{a.date}</Latin>
                 </time>
-                <span className="leading-[1.7] lg:truncate">
+                <span className="type-body lg:truncate">
                   <Latin>{a.title}</Latin>
                 </span>
               </Link>
@@ -55,7 +55,7 @@ export default function ArticlesCard({
 
       <Link
         href="/articles"
-        className="absolute right-6 bottom-4 rounded text-[13px] text-ink-sub transition-colors duration-150 hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+        className="absolute right-6 bottom-4 type-caption rounded text-ink-sub transition-colors duration-150 hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
       >
         すべて見る
       </Link>

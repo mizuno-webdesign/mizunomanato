@@ -66,8 +66,8 @@ export default function ServiceCards({ className = "" }: { className?: string })
                 </svg>
               </span>
               <span className="flex-1">
-                <span className="block text-base font-bold">{s.name}</span>
-                <span className="mt-0.5 block text-sm leading-[1.7] text-ink-sub">
+                <span className="type-heading block text-heading">{s.name}</span>
+                <span className="type-body mt-0.5 block text-body-2">
                   <Latin>{s.line}</Latin>
                 </span>
               </span>

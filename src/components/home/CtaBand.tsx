@@ -19,7 +19,7 @@ export default function CtaBand({ className = "" }: { className?: string }) {
       />
       <Link
         href="/contact"
-        className="rounded-full bg-ink px-9 py-3 text-[15px] font-bold text-white shadow-[0_2px_8px_rgba(0,0,0,0.18)] transition-[background-color,transform,box-shadow] duration-200 ease-out hover:scale-[1.04] hover:bg-ink/70 hover:shadow-[0_4px_14px_rgba(0,0,0,0.14)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+        className="rounded-full bg-ink px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_2px_8px_rgba(0,0,0,0.18)] transition-[background-color,transform,box-shadow] duration-200 ease-out hover:scale-[1.04] hover:bg-ink/70 hover:shadow-[0_4px_14px_rgba(0,0,0,0.14)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
       >
         相談する
       </Link>

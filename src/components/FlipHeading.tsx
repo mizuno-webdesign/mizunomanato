@@ -9,18 +9,20 @@ export default function FlipHeading({
   en,
   ja,
   as: Tag = "h2",
-  size = "text-lg",
+  size = "type-heading",
+  tone = "text-heading",
   className = "",
 }: {
   id?: string;
   en: ReactNode;
   ja: string;
   as?: "h1" | "h2";
-  size?: string; // 文字サイズの Tailwind クラス（既定 text-lg）
+  size?: string; // タイプスケールのクラス（既定 type-heading。氏名は type-display）
+  tone?: string; // 文字色のクラス（既定 text-heading。写真の上は text-white）
   className?: string;
 }) {
   return (
-    <Tag id={id} className={`${size} font-bold ${className}`}>
+    <Tag id={id} className={`${size} ${tone} ${className}`}>
       <span className="sr-only">{en}</span>
       <span
         aria-hidden

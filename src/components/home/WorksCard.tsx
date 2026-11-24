@@ -37,7 +37,7 @@ export default function WorksCard({
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         ) : (
-          <span className="absolute inset-0 grid place-items-center text-sm text-ink-sub">
+          <span className="absolute inset-0 type-caption grid place-items-center text-ink-sub">
             実績は準備中です。
           </span>
         )}
@@ -46,17 +46,18 @@ export default function WorksCard({
           aria-hidden
           className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black/0 motion-reduce:transition-none"
         />
-        <span className="absolute top-3 left-3 z-10 text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.4)]">
+        <span className="absolute top-3 left-3 z-10 [text-shadow:0_1px_10px_rgba(0,0,0,0.4)]">
           <FlipHeading
             id="works-title"
             en="Works"
             ja="事例"
             className="px-3 pt-3 pb-2"
+            tone="text-white"
           />
         </span>
         <span
           aria-hidden
-          className="absolute right-6 bottom-4 z-10 text-[13px] text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] group-hover:underline group-hover:underline-offset-4"
+          className="absolute right-6 bottom-4 z-10 type-caption text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] group-hover:underline group-hover:underline-offset-4"
         >
           すべて見る
         </span>

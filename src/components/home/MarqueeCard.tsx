@@ -50,7 +50,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
                     unoptimized
                   />
                 </span>
-                <span className="pointer-events-none absolute top-full left-1/2 mt-1 -translate-x-1/2 text-xs whitespace-nowrap text-ink-sub opacity-0 transition-opacity duration-150 group-hover/tile:opacity-100 motion-reduce:transition-none">
+                <span className="pointer-events-none absolute top-full left-1/2 mt-1 -translate-x-1/2 type-caption whitespace-nowrap text-ink-sub opacity-0 transition-opacity duration-150 group-hover/tile:opacity-100 motion-reduce:transition-none">
                   {t.name}
                 </span>
               </span>
