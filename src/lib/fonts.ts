@@ -4,6 +4,7 @@ import {
   Shippori_Mincho,
   Inter,
   IBM_Plex_Sans_JP,
+  Outfit,
 } from "next/font/google";
 
 // 新デザインの書体（社長決定 2026-11-24）。和文・欧文ともこの1書体。
@@ -45,5 +46,13 @@ export const inter = Inter({
   variable: "--font-ui",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
+});
+
+// カード見出しの英字だけに使う書体（社長決定 2026-11-24：Outfit）。FlipHeading の英語面が --font-heading を読む。
+export const outfit = Outfit({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["600"],
   display: "swap",
 });

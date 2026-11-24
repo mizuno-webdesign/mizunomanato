@@ -32,7 +32,7 @@ export default function FlipHeading({
       >
         <span className="grid transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover/flip:[transform:rotateX(180deg)] motion-reduce:transition-none">
           <span
-            className={`[grid-area:1/1] [backface-visibility:hidden] ${upper ? "tracking-[0.01em] uppercase" : ""}`}
+            className={`[grid-area:1/1] [backface-visibility:hidden] ${upper ? "tracking-[0.01em] uppercase font-[family-name:var(--font-heading)]" : ""}`}
           >
             {en}
           </span>
