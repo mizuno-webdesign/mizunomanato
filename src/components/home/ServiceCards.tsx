@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
 import { ArrowCircle } from "@/components/ArrowCircle";
+import FlipHeading from "@/components/FlipHeading";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
 // 区切り線は使わない（社長指示）。矢印は右下の「↗」丸ボタン。アイコンは自作の線画（ライセンス問題なし）。
@@ -34,11 +35,14 @@ export default function ServiceCards({ className = "" }: { className?: string })
   return (
     <section
       aria-labelledby="services-title"
-      className={`rounded-card bg-surface p-3 ${className}`}
+      className={`rounded-card bg-surface p-3 shadow-card ${className}`}
     >
-      <h2 id="services-title" className="px-3 pt-3 pb-2 text-lg font-bold">
-        Services
-      </h2>
+      <FlipHeading
+        id="services-title"
+        en="Services"
+        ja="サービス"
+        className="px-3 pt-3 pb-2"
+      />
       <ul className="grid md:grid-cols-3">
         {SERVICES.map((s) => (
           <li key={s.name}>

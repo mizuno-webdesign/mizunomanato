@@ -25,7 +25,7 @@ export default function SiteNav() {
       aria-label="メイン"
       className="sticky top-3 z-50 flex justify-center pt-3"
     >
-      <ul className="flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full border border-black/10 bg-white/70 p-[3px] backdrop-blur-xl backdrop-saturate-150 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <ul className="flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full bg-white/70 p-[3px] shadow-card backdrop-blur-xl backdrop-saturate-150 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {ITEMS.map((item) => {
           const active = isActive(item.href);
           return (

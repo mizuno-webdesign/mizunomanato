@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
 import { ArrowLink } from "@/components/ArrowCircle";
+import FlipHeading from "@/components/FlipHeading";
 
 export type ArticleItem = {
   _id: string;
@@ -21,11 +22,14 @@ export default function ArticlesCard({
   return (
     <section
       aria-labelledby="articles-title"
-      className={`flex flex-col rounded-card bg-surface p-3 ${className}`}
+      className={`flex flex-col rounded-card bg-surface p-3 shadow-card ${className}`}
     >
-      <h2 id="articles-title" className="px-3 pt-3 pb-2 text-lg font-bold">
-        Blogs
-      </h2>
+      <FlipHeading
+        id="articles-title"
+        en="Blogs"
+        ja="ブログ"
+        className="px-3 pt-3 pb-2"
+      />
 
       {articles.length === 0 ? (
         <p className="px-3 text-sm text-ink-sub">記事は準備中です。</p>

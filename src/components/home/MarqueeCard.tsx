@@ -1,4 +1,5 @@
 import Image from "next/image";
+import FlipHeading from "@/components/FlipHeading";
 
 // 対応ツールのマーキー（横に流す。アイコンのみ。社長指示 2026-11-24）。
 // アイコンの出所：Shopify／Framer／Claude は Simple Icons（simple-icons@14.15.0、CC0）、
@@ -17,11 +18,14 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
   return (
     <section
       aria-labelledby="tools-title"
-      className={`flex flex-col justify-center gap-4 overflow-hidden rounded-card bg-surface py-5 ${className}`}
+      className={`flex flex-col overflow-hidden rounded-card bg-surface p-3 shadow-card ${className}`}
     >
-      <h2 id="tools-title" className="px-6 text-lg font-bold">
-        Tools
-      </h2>
+      <FlipHeading
+        id="tools-title"
+        en="Tools"
+        ja="ツール"
+        className="px-3 pt-3 pb-2"
+      />
       {/* 読み上げ用：流れる帯は装飾として隠し、名称は静的な一覧で持つ */}
       <ul className="sr-only">
         {ITEMS.map((t) => (
@@ -30,7 +34,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
       </ul>
       <div
         aria-hidden
-        className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
+        className="marquee my-auto overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
       >
         <div className="marquee-track flex w-max gap-4 pl-4">
           {[0, 1].flatMap((copy) =>

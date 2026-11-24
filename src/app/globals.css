@@ -18,6 +18,9 @@
   --color-ok: #187a32;       /* 対応可否の「受付中」専用（白に対して 5.43:1） */
   --color-ng: #d12b20;       /* 対応可否の「停止中」専用（白に対して 5.15:1） */
 
+  /* カードの影（社長指示 2026-11-24：少しだけ）。ナビも同じ影で揃える。 */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 6px 20px rgb(0 0 0 / 0.05);
+
   --radius-card: 24px;
   --radius-inner: 16px;
 
@@ -58,7 +61,7 @@
   }
 }
 .marquee-track {
-  animation: marquee var(--marquee-dur, 23s) /* 1セット576px ÷ 25px/秒 ≒ 23秒（実測。アイコン8個×72px） */ linear infinite;
+  animation: marquee var(--marquee-dur, 38s) /* 1セット576px ÷ 15px/秒 ≒ 38秒（社長指示でゆっくりに。アイコン8個×72px） */ linear infinite;
 }
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track {
