@@ -20,6 +20,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
             as="h1"
             size="type-display"
             tone="text-ink"
+            upper={false}
             id="intro-name"
             en="Manato Mizuno"
             ja="水野 学人"

@@ -11,6 +11,7 @@ export default function FlipHeading({
   as: Tag = "h2",
   size = "type-heading",
   tone = "text-heading",
+  upper = true,
   className = "",
 }: {
   id?: string;
@@ -19,6 +20,7 @@ export default function FlipHeading({
   as?: "h1" | "h2";
   size?: string; // タイプスケールのクラス（既定 type-heading。氏名は type-display）
   tone?: string; // 文字色のクラス（既定 text-heading。写真の上は text-white）
+  upper?: boolean; // 英語を全て大文字にする（既定 true。社長指示 2026-11-24。氏名は false）
   className?: string;
 }) {
   return (
@@ -29,7 +31,11 @@ export default function FlipHeading({
         className="group/flip inline-block cursor-default [perspective:700px]"
       >
         <span className="grid transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover/flip:[transform:rotateX(180deg)] motion-reduce:transition-none">
-          <span className="[grid-area:1/1] [backface-visibility:hidden]">{en}</span>
+          <span
+            className={`[grid-area:1/1] [backface-visibility:hidden] ${upper ? "tracking-[0.01em] uppercase" : ""}`}
+          >
+            {en}
+          </span>
           <span className="[grid-area:1/1] whitespace-nowrap [backface-visibility:hidden] [transform:rotateX(180deg)]">
             {ja}
           </span>
