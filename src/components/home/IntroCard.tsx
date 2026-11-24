@@ -53,11 +53,11 @@ export default function IntroCard({ className = "" }: { className?: string }) {
         </p>
       </div>
       </div>
-      <p className="type-lead max-w-[34em] lg:max-w-none">
-        <span className="lg:block">
+      <p className="type-lead max-w-[34em] max-md:text-[15px] max-md:leading-[1.7] lg:max-w-none">
+        <span className="inline-block lg:block">
           Shopify を中心に、ECサイト専門家として
         </span>
-        <span className="lg:block">新規構築・改修・運用支援を行っています。</span>
+        <span className="inline-block lg:block">新規構築・改修・運用支援を行っています。</span>
       </p>
     </section>
   );
