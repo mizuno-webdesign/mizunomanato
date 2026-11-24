@@ -22,12 +22,15 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
       aria-labelledby="tools-title"
       className={`flex flex-col overflow-hidden glass rounded-card p-3 shadow-card ${className}`}
     >
-      <FlipHeading
-        id="tools-title"
-        en="Tools"
-        ja="ツール"
-        className="px-3 pt-3 pb-2"
-      />
+      {/* スマホ・タブレットでは見出しを視覚的に隠す（読み上げ用には残す。社長指示 2026-11-24） */}
+      <div className="max-lg:sr-only">
+        <FlipHeading
+          id="tools-title"
+          en="Tools"
+          ja="ツール"
+          className="px-3 pt-3 pb-2"
+        />
+      </div>
       {/* 読み上げ用：流れる帯は装飾として隠し、名称は静的な一覧で持つ */}
       <ul className="sr-only">
         {ITEMS.map((t) => (

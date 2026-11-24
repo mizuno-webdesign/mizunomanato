@@ -19,7 +19,7 @@ export default function CtaBand({ className = "" }: { className?: string }) {
       />
       <Link
         href="/contact"
-        className="rounded-full bg-cta px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_2px_8px_rgba(0,0,0,0.18)] transition-[background-color,transform,box-shadow] duration-200 ease-out hover:scale-[1.04] hover:bg-cta/80 hover:shadow-[0_4px_14px_rgba(0,0,0,0.14)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+        className="rounded-full bg-[linear-gradient(180deg,rgb(16_122_72),rgb(9_92_53))] px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),inset_0_0_0_1px_rgba(255,255,255,0.12),0_2px_8px_rgba(9,92,53,0.28)] transition-[opacity,transform,box-shadow] duration-200 ease-out hover:scale-[1.04] hover:opacity-80 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),inset_0_0_0_1px_rgba(255,255,255,0.12),0_4px_14px_rgba(9,92,53,0.22)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
       >
         相談してみる
       </Link>

@@ -76,12 +76,12 @@ export default async function Home() {
           2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。2段目は Blogs の4行が入る最小270px。 */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[200px_clamp(270px,30dvh,330px)_clamp(160px,20dvh,220px)_77px]">
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
-        <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
-        <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
-        <WorksCard image={worksImage} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
-        <ArticlesCard articles={blogRows} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
-        <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
-        <CtaBand className="order-10 md:col-span-6 lg:order-none lg:col-span-12" />
+        <PhotoCard className="lg:order-none lg:col-span-2" />
+        <MarqueeCard className="order-5 md:col-span-6 lg:order-none lg:col-span-3" />
+        <WorksCard image={worksImage} className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ArticlesCard articles={blogRows} className="order-4 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ServiceCards className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
+        <CtaBand className="order-6 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
     </SiteFrame>
   );

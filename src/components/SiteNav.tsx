@@ -8,10 +8,10 @@ import { usePathname } from "next/navigation";
 // 「Articles」→「Blogs」（社長指示 2026-11-24）：カード見出しと揃え、ラベルを短くしてスマホの窮屈さを減らす。URL は /articles のまま。
 const ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Blogs", href: "/articles" },
+  { label: "About", href: "/about" },
   { label: "Service", href: "/service" },
   { label: "Works", href: "/works" },
-  { label: "About", href: "/about" },
+  { label: "Blogs", href: "/articles" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

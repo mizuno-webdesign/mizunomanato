@@ -1,3 +1,4 @@
+import Image from "next/image";
 import FlipHeading from "@/components/FlipHeading";
 import {
   ACCEPTING_NEW_REQUESTS,
@@ -14,6 +15,16 @@ export default function IntroCard({ className = "" }: { className?: string }) {
       aria-labelledby="intro-name"
       className={`flex min-h-[200px] flex-col gap-3 glass lg:min-h-0 rounded-card p-6 shadow-card ${className}`}
     >
+      {/* スマホ・タブレット：写真カードの代わりに、名前の左に丸いアイコン（SNS風。社長指示 2026-11-24）。PC では写真カードを使う */}
+      <div className="flex items-center gap-4">
+        <Image
+          src="/portrait.webp"
+          alt="Manato Mizuno"
+          width={64}
+          height={64}
+          sizes="64px"
+          className="size-16 shrink-0 rounded-full object-cover shadow-card lg:hidden"
+        />
       <div className="flex flex-col gap-1">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <FlipHeading
@@ -40,6 +51,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
         <p className="type-caption text-ink-sub">
           Shizuoka, Japan
         </p>
+      </div>
       </div>
       <p className="type-lead max-w-[34em] lg:max-w-none">
         <span className="lg:block">

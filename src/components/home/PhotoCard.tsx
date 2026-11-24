@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function PhotoCard({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`relative aspect-square overflow-hidden rounded-card bg-sunken shadow-card lg:aspect-auto ${className}`}
+      className={`relative hidden overflow-hidden rounded-card bg-sunken shadow-card lg:block ${className}`}
     >
       <Image
         src="/portrait.webp"
