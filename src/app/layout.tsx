@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { cormorant, notoSansJP, shipporiMincho, inter } from "@/lib/fonts";
+import { cormorant, notoSansJP, shipporiMincho, inter, plex } from "@/lib/fonts";
 import "./globals.css";
 
 const GA_ID = "G-377SE17230";
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSansJP.variable} ${shipporiMincho.variable} ${inter.variable}`}
+      className={`${plex.variable} ${cormorant.variable} ${notoSansJP.variable} ${shipporiMincho.variable} ${inter.variable}`}
     >
       <head>
         <Script
@@ -51,11 +51,9 @@ export default function RootLayout({
           gtag('config', '${GA_ID}');
         `}</Script>
       </head>
-      <body
-        style={{
-          fontFamily: "var(--font-body), 'Hiragino Kaku Gothic ProN', sans-serif",
-        }}
-      >
+      {/* 旧ページ（作り直し前）の旧書体変数（--font-display 等）は、旧コンポーネントが
+          個別に参照している。全ページの作り直し後に旧書体の読み込みごと削除する。 */}
+      <body>
         {children}
       </body>
     </html>

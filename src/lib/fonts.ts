@@ -1,4 +1,19 @@
-import { Cormorant_Garamond, Noto_Sans_JP, Shippori_Mincho, Inter } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Noto_Sans_JP,
+  Shippori_Mincho,
+  Inter,
+  IBM_Plex_Sans_JP,
+} from "next/font/google";
+
+// 新デザインの書体（社長決定 2026-11-24）。和文・欧文ともこの1書体。
+// 以下の旧書体（cormorant〜inter）は、旧コンポーネントを作り直し終えたら削除する。
+export const plex = IBM_Plex_Sans_JP({
+  variable: "--font-plex",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
 
 export const cormorant = Cormorant_Garamond({
   variable: "--font-display",
