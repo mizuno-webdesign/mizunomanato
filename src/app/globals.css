@@ -73,7 +73,7 @@
   }
 }
 .marquee-track {
-  animation: marquee var(--marquee-dur, 38s) /* 1セット576px ÷ 15px/秒 ≒ 38秒（社長指示でゆっくりに。アイコン8個×72px） */ linear infinite;
+  animation: marquee var(--marquee-dur, 58s) /* 1セット864px ÷ 15px/秒 ≒ 58秒（社長指示でゆっくりに。アイコン12個×72px） */ linear infinite;
 }
 /* ホバー中は止めずに、さらにゆっくり（MarqueeViewport.tsx が playbackRate を動かす） */
 @media (prefers-reduced-motion: reduce) {

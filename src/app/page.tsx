@@ -59,9 +59,10 @@ export default async function Home() {
   // 自己紹介 → 相談する → 頼めること → 実績 → 記事 → 写真 → マーキー の順に入れ替える。
   return (
     <SiteFrame>
-      {/* PC：縦も横と同じ分割法で揃える。行の高さ＝ 2 : 3 : 2 : 1（自己紹介／事例・ブログ／サービス／相談）。
-          グリッド全体の高さは画面の高さに合わせる（ナビ分84px＋下余白16px＝100px を引く）。低い画面（640px未満）ではスクロール。 */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:h-[calc(100dvh-100px)] lg:min-h-[640px] lg:grid-cols-12 lg:grid-rows-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,2fr)_minmax(0,1fr)]">
+      {/* PC：縦も横と同じ分割法で揃える（細分化。社長指示 2026-11-24）。
+          1段目（自己紹介）と4段目（相談）は元の高さ（200px／77px）に固定。
+          2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。 */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[200px_clamp(240px,30dvh,330px)_clamp(160px,20dvh,220px)_77px]">
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
