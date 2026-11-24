@@ -25,7 +25,7 @@ export default function IntroCard({ className = "" }: { className?: string }) {
           {open ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
         </span>
       </div>
-      <p className="max-w-[34em] text-[17px] leading-[1.8] font-medium lg:text-[21px]">
+      <p className="max-w-[34em] text-base leading-[1.8] font-medium lg:text-lg">
         <Latin>
           Shopify を中心に、ECサイト専門家として新規構築・改修・運用支援を行っています。
         </Latin>

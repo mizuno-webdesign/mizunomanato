@@ -31,14 +31,14 @@
 }
 
 /* 対応領域マーキー（社長決定：vexoo 程度のゆっくりさで目立たない。仮の速度）。
-   1セット約1,270px を 50秒で流す＝約25px/秒。ホバー・フォーカスで一時停止。 */
+   1セット（4アイコン）の幅を測り、約25px/秒になるよう --marquee-dur で調整。ホバー・フォーカスで一時停止。 */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
 .marquee-track {
-  animation: marquee 50s linear infinite;
+  animation: marquee var(--marquee-dur, 20s) /* 1セット504px ÷ 25px/秒 ≒ 20秒（実測） */ linear infinite;
 }
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track {

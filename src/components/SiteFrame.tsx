@@ -7,7 +7,7 @@ export default function SiteFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
       <SiteNav />
-      <main className="pb-16 pt-4">{children}</main>
+      <main className="pb-16 pt-8">{children}</main>
     </div>
   );
 }

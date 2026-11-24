@@ -66,13 +66,11 @@ export default async function Home() {
         _id: string;
         title: string;
         slug: { current: string };
-        excerpt?: string;
         publishedAt?: string;
       }) => ({
         _id: a._id,
         title: a.title,
         slug: a.slug.current,
-        excerpt: a.excerpt,
         date: formatDate(a.publishedAt),
       }),
     );
@@ -85,7 +83,7 @@ export default async function Home() {
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="order-8 md:col-span-3 lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-9 md:col-span-3 lg:order-none lg:col-span-3" />
-        <ServiceCards />
+        <ServiceCards className="order-3 md:col-span-6 lg:order-none lg:col-span-12" />
         <WorksCard works={works} className="order-6 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={articles} className="order-7 md:col-span-3 lg:order-none lg:col-span-6" />
         <CtaBand className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
