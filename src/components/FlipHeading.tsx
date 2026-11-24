@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
-// 見出し：英語が基本、ホバーでくるっと回って日本語に変わる（社長指示 2026-11-24）。
+// 見出し：英語が基本、ホバーで英語が上へ抜け、日本語が下から上がってくる「ロール」（社長決定 2026-11-24。旧：縦フリップ）。
 // 英語・日本語を同じセルに重ね、広い方の幅に合わせる（日本語が長くても、ホバー領域が欠けない）。
-// 読み上げには英語だけを渡し（装飾の二重読みを避ける）、動きを減らす設定では回転せず即時に切り替わる。
+// 読み上げには英語だけを渡し（装飾の二重読みを避ける）、動きを減らす設定では動かさず即時に切り替わる。
 // タッチ端末では、タップ時の :hover で切り替わる。
 export default function FlipHeading({
   id,
@@ -26,17 +26,18 @@ export default function FlipHeading({
   return (
     <Tag id={id} className={`${size} ${tone} ${className}`}>
       <span className="sr-only">{en}</span>
+      {/* 外側：ホバーを受ける領域（見出しの周りに余白を足して、触れやすくする）。内側：はみ出しを切るマスク */}
       <span
         aria-hidden
-        className="group/flip inline-block cursor-default [perspective:700px]"
+        className="group/flip -m-2 inline-block cursor-default p-2"
       >
-        <span className="grid transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover/flip:[transform:rotateX(180deg)] motion-reduce:transition-none">
+        <span className="inline-grid overflow-hidden">
           <span
-            className={`[grid-area:1/1] [backface-visibility:hidden] ${upper ? "tracking-[0.01em] uppercase font-[family-name:var(--font-heading)]" : ""}`}
+            className={`[grid-area:1/1] transition-[transform,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:-translate-y-[110%] group-hover/flip:opacity-0 motion-reduce:transition-none ${upper ? "tracking-[0.01em] uppercase font-[family-name:var(--font-heading)]" : ""}`}
           >
             {en}
           </span>
-          <span className="[grid-area:1/1] whitespace-nowrap [backface-visibility:hidden] [transform:rotateX(180deg)]">
+          <span className="[grid-area:1/1] translate-y-[110%] whitespace-nowrap opacity-0 transition-[transform,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:translate-y-0 group-hover/flip:opacity-100 motion-reduce:transition-none">
             {ja}
           </span>
         </span>
