@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
+import { ArrowCircle } from "@/components/ArrowCircle";
 
 // 頼めること：大きな1枚のカードを3分割（社長指示 2026-11-24）。TOPは名前＋1行のみ、詳細は /service。
-// アイコンは自作の線画（24×24、ライセンス問題なし）。
+// 区切り線は使わない（社長指示）。矢印は右下の「↗」丸ボタン。アイコンは自作の線画（ライセンス問題なし）。
 const SERVICES = [
   {
     name: "新規構築",
@@ -39,11 +40,11 @@ export default function ServiceCards({ className = "" }: { className?: string })
         Services
       </h2>
       <ul className="grid md:grid-cols-3">
-        {SERVICES.map((s, i) => (
-          <li key={s.name} className={i > 0 ? "md:border-l md:border-line" : ""}>
+        {SERVICES.map((s) => (
+          <li key={s.name}>
             <Link
               href="/service"
-              className="group relative flex h-full items-start gap-4 rounded-2xl p-3 pr-9 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:flex-col lg:flex-row"
+              className="group flex h-full items-start gap-4 rounded-2xl p-3 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:flex-col lg:flex-row"
             >
               <span
                 aria-hidden
@@ -61,18 +62,13 @@ export default function ServiceCards({ className = "" }: { className?: string })
                   {s.icon}
                 </svg>
               </span>
-              <span>
+              <span className="flex-1">
                 <span className="block text-base font-bold">{s.name}</span>
                 <span className="mt-0.5 block text-sm leading-[1.7] text-ink-sub">
                   <Latin>{s.line}</Latin>
                 </span>
               </span>
-              <span
-                aria-hidden
-                className="absolute top-4 right-4 text-2xl leading-none text-ink-sub"
-              >
-                ›
-              </span>
+              <ArrowCircle className="self-end max-md:self-center lg:self-end" />
             </Link>
           </li>
         ))}

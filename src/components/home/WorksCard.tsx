@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Latin from "@/components/Latin";
+import { ArrowLink } from "@/components/ArrowCircle";
 
 export type WorkItem = {
   _id: string;
@@ -14,9 +15,29 @@ export type WorkItem = {
   thumbUrl?: string;
 };
 
-// 実績：3件すべて載せ、1枚のカード内で切り替える（社長決定 2026-11-24）。
-// 左右分割：左に大きな画像、右に見出し・案件名・切替タブ（PCのみ。タブレット以下は縦積み）。
-// 自動では切り替えない。タブはキーボード（←→ Home End）でも操作できる。見出しは英語。
+function Chevron({ dir }: { dir: "prev" | "next" }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      className="size-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={dir === "prev" ? "m14.5 6-6 6 6 6" : "m9.5 6 6 6-6 6"} />
+    </svg>
+  );
+}
+
+const chevronClass =
+  "absolute top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-black/10 bg-white/85 text-ink shadow-[0_1px_4px_rgba(0,0,0,0.12)] backdrop-blur transition-[background-color,transform] duration-150 hover:bg-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:active:scale-100";
+
+// 実績：3件すべて載せ、1枚のカード内でカルーセルにする（社長指示 2026-11-24）。
+// タブは廃止。カード内側の両端にシェブロン（前へ／次へ）。自動では切り替えない。端から端へは循環する。
+// 見出し「Works」は他カードと同じ左上。案件名は一段小さくして、見出しと同じ階層に見えないようにする。
 export default function WorksCard({
   works,
   className = "",
@@ -25,69 +46,57 @@ export default function WorksCard({
   className?: string;
 }) {
   const [index, setIndex] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
 
   if (works.length === 0) {
     return (
       <section
         aria-labelledby="works-title"
-        className={`rounded-card bg-surface p-6 ${className}`}
+        className={`rounded-card bg-surface p-3 ${className}`}
       >
-        <h2 id="works-title" className="text-lg font-bold">
+        <h2 id="works-title" className="px-3 pt-3 pb-2 text-lg font-bold">
           Works
         </h2>
-        <p className="mt-2 text-sm text-ink-sub">実績は準備中です。</p>
+        <p className="px-3 text-sm text-ink-sub">実績は準備中です。</p>
       </section>
     );
   }
 
-  const work = works[Math.min(index, works.length - 1)];
-
-  const move = (to: number) => {
-    const next = (to + works.length) % works.length;
-    setIndex(next);
-    tabs.current[next]?.focus();
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") move(index + 1);
-    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") move(index - 1);
-    else if (e.key === "Home") move(0);
-    else if (e.key === "End") move(works.length - 1);
-    else return;
-    e.preventDefault();
-  };
+  const count = works.length;
+  const work = works[Math.min(index, count - 1)];
+  const go = (to: number) => setIndex((to + count) % count);
 
   return (
     <section
       aria-labelledby="works-title"
-      className={`grid gap-4 rounded-card bg-surface p-4 lg:grid-cols-[1.25fr_1fr] ${className}`}
+      aria-roledescription="carousel"
+      className={`flex flex-col rounded-card bg-surface p-3 ${className}`}
     >
-      <div
-        role="tabpanel"
-        id={`work-panel-${work._id}`}
-        aria-labelledby={`work-tab-${work._id}`}
-        className="relative h-[200px] overflow-hidden rounded-inner bg-sunken lg:h-auto lg:min-h-[240px]"
-      >
-        {work.thumbUrl ? (
-          <Image
-            src={work.thumbUrl}
-            alt={work.title}
-            fill
-            sizes="(min-width: 1024px) 40vw, 90vw"
-            className="object-cover"
-          />
-        ) : null}
-      </div>
+      <h2 id="works-title" className="px-3 pt-3 pb-2 text-lg font-bold">
+        Works
+      </h2>
 
-      <div className="flex flex-col gap-4 p-2 lg:py-2">
-        <h2 id="works-title" className="text-lg font-bold">
-          Works
-        </h2>
-        <div>
+      <div
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${index + 1} / ${count}`}
+        className="relative grid flex-1 gap-4 lg:grid-cols-[1.25fr_1fr]"
+      >
+        <div className="relative h-[200px] overflow-hidden rounded-inner bg-sunken lg:h-auto lg:min-h-[200px]">
+          {work.thumbUrl ? (
+            <Image
+              src={work.thumbUrl}
+              alt={work.title}
+              fill
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover"
+            />
+          ) : null}
+        </div>
+
+        <div className="flex flex-col gap-1 px-3 pt-1 pb-1 lg:pr-14 lg:pl-1">
           <Link
             href={work.slug ? `/works/${work.slug}` : "/works"}
-            className="text-base font-bold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="text-[15px] font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             <Latin>{work.title}</Latin>
           </Link>
@@ -96,41 +105,40 @@ export default function WorksCard({
             {work.note && work.year ? "　" : null}
             {work.year ? <Latin>{work.year}</Latin> : null}
           </p>
+          <div className="mt-auto flex justify-end pt-3">
+            <ArrowLink
+              href={work.slug ? `/works/${work.slug}` : "/works"}
+              label={`${work.title}の詳細へ`}
+            />
+          </div>
         </div>
 
-        <div
-          role="tablist"
-          aria-label="Works"
-          onKeyDown={onKeyDown}
-          className="mt-auto flex max-w-full flex-wrap gap-0.5 self-start rounded-[10px] bg-sunken p-[3px] text-[13px]"
-        >
-          {works.map((w, i) => {
-            const selected = i === index;
-            return (
-              <button
-                key={w._id}
-                ref={(el) => {
-                  tabs.current[i] = el;
-                }}
-                type="button"
-                role="tab"
-                id={`work-tab-${w._id}`}
-                aria-selected={selected}
-                aria-controls={`work-panel-${w._id}`}
-                tabIndex={selected ? 0 : -1}
-                onClick={() => setIndex(i)}
-                className={`rounded-lg px-3 py-1 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent motion-reduce:transition-none ${
-                  selected
-                    ? "bg-white font-medium text-ink shadow-[0_1px_3px_rgba(0,0,0,0.14)]"
-                    : "text-ink-sub hover:text-ink"
-                }`}
-              >
-                <Latin>{w.title}</Latin>
-              </button>
-            );
-          })}
-        </div>
+        {count > 1 ? (
+          <>
+            <button
+              type="button"
+              aria-label="前の実績"
+              onClick={() => go(index - 1)}
+              className={`${chevronClass} left-2`}
+            >
+              <Chevron dir="prev" />
+            </button>
+            <button
+              type="button"
+              aria-label="次の実績"
+              onClick={() => go(index + 1)}
+              className={`${chevronClass} right-2`}
+            >
+              <Chevron dir="next" />
+            </button>
+          </>
+        ) : null}
       </div>
+
+      {/* 読み上げ用：切り替わったことを知らせる */}
+      <p aria-live="polite" className="sr-only">
+        {`${index + 1} / ${count}：${work.title}`}
+      </p>
     </section>
   );
 }

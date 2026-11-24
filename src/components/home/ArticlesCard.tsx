@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Latin from "@/components/Latin";
+import { ArrowLink } from "@/components/ArrowCircle";
 
 export type ArticleItem = {
   _id: string;
@@ -8,8 +9,8 @@ export type ArticleItem = {
   date: string; // 表示用に整形済み（例：2026.09.24）
 };
 
-// 最新記事3本の文字一覧。社長指示（2026-11-24）で冒頭の一文（抜粋）のプレビューは廃止。
-// 画像・タグは使わない（現状すべて空）。見出しは英語。
+// 最新記事3本の文字一覧。見出しは「Blogs」（社長指示 2026-11-24。Articles では伝わりにくいため）。
+// 行の区切り線は使わない。一覧へは右下の「↗」丸ボタン（内部リンク）。
 export default function ArticlesCard({
   articles,
   className = "",
@@ -20,10 +21,10 @@ export default function ArticlesCard({
   return (
     <section
       aria-labelledby="articles-title"
-      className={`flex flex-col rounded-card bg-surface p-3 pb-4 ${className}`}
+      className={`flex flex-col rounded-card bg-surface p-3 ${className}`}
     >
       <h2 id="articles-title" className="px-3 pt-3 pb-2 text-lg font-bold">
-        Articles
+        Blogs
       </h2>
 
       {articles.length === 0 ? (
@@ -31,7 +32,7 @@ export default function ArticlesCard({
       ) : (
         <ul className="flex-1">
           {articles.map((a) => (
-            <li key={a._id} className="border-t border-line first:border-t-0">
+            <li key={a._id}>
               <Link
                 href={`/articles/${a.slug}`}
                 className="grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-3 transition-colors duration-150 hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
@@ -48,12 +49,9 @@ export default function ArticlesCard({
         </ul>
       )}
 
-      <Link
-        href="/articles"
-        className="mx-3 mt-3 self-start text-sm text-accent underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      >
-        記事一覧へ
-      </Link>
+      <div className="flex justify-end px-1 pt-2">
+        <ArrowLink href="/articles" label="記事一覧へ" />
+      </div>
     </section>
   );
 }

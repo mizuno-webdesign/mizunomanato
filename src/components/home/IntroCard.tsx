@@ -4,7 +4,8 @@ import {
   AVAILABILITY_LABEL,
 } from "@/lib/availability";
 
-// 自己紹介（社長確定 2026-11-24）。名前の横に対応可否（色＋文言）。
+// 自己紹介（社長確定 2026-11-24）。名前の横に対応可否（色＋短い文言）。
+// 受付中のときだけ、丸が穏やかに明滅する（globals.css の status-dot。動きを減らす設定では止まる）。
 export default function IntroCard({ className = "" }: { className?: string }) {
   const open = ACCEPTING_NEW_REQUESTS;
   return (
@@ -21,7 +22,10 @@ export default function IntroCard({ className = "" }: { className?: string }) {
             open ? "text-ok" : "text-ng"
           }`}
         >
-          <span aria-hidden className="size-2 rounded-full bg-current" />
+          <span
+            aria-hidden
+            className={`size-2 rounded-full bg-current ${open ? "status-dot" : ""}`}
+          />
           {open ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
         </span>
       </div>

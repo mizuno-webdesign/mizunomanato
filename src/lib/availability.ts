@@ -4,6 +4,6 @@
 export const ACCEPTING_NEW_REQUESTS = true;
 
 export const AVAILABILITY_LABEL = {
-  open: "新規相談を受付中",
-  closed: "新規相談は停止中",
+  open: "相談受付中",
+  closed: "相談停止中",
 } as const;
