@@ -85,7 +85,8 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               src={imgUrl}
               alt={`${work.title} のサイト画面`}
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 848px) 720px, 100vw"
               className="object-cover object-top"
             />

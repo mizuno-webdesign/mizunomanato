@@ -45,7 +45,7 @@ export default async function WorksPage() {
         <p className="type-body px-3 pb-3 text-ink-sub">事例は準備中です。</p>
       ) : (
         <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-          {works.map((w) => (
+          {works.map((w, i) => (
             <li key={w._id}>
               <Link
                 href={`/works/${w.slug!.current}`}
@@ -57,6 +57,9 @@ export default async function WorksPage() {
                       src={urlFor(w.thumbnail).width(1200).auto("format").url()}
                       alt=""
                       fill
+                      // 1行目（3件まで）は最初の画面に出るので後回しにしない。先頭は優先して取得する
+                      loading={i < 3 ? "eager" : "lazy"}
+                      fetchPriority={i === 0 ? "high" : "auto"}
                       sizes="(min-width: 1024px) 340px, (min-width: 768px) 50vw, 100vw"
                       className="object-cover object-top transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />

@@ -34,7 +34,7 @@ export default function AboutPage() {
               width={96}
               height={96}
               sizes="96px"
-              priority
+              loading="eager"
               className="size-20 shrink-0 rounded-full object-cover shadow-card md:size-24"
             />
             <div className="min-w-0">

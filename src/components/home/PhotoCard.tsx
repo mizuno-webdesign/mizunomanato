@@ -10,6 +10,9 @@ export default function PhotoCard({ className = "" }: { className?: string }) {
         src="/portrait.webp"
         alt="Manato Mizuno"
         fill
+        // PC の最初の画面でいちばん大きい画像なので、後回しにしない（段階5-5の計測）
+        loading="eager"
+        fetchPriority="high"
         sizes="(min-width: 1024px) 200px, (min-width: 768px) 50vw, 100vw"
         className="object-cover"
       />
