@@ -1,9 +1,4 @@
-/* レイヤー順：旧CSS（legacy）を最下位に置き、Tailwind のユーティリティが常に勝つようにする。
-   旧CSSの `* { margin:0; padding:0 }` が、層なしだとユーティリティの余白を打ち消してしまうため。 */
-@layer legacy, theme, base, components, utilities;
-
 @import "tailwindcss";
-@import "./legacy.css";
 
 /* ==== デザイントークン（社長決定 2026-11-24：案C 青／アプリ風／IBM Plex Sans JP）====
    値の根拠は .rework/design.md。コントラスト比は計算値（WCAG）を同ファイルに記載。 */

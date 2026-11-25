@@ -1,51 +1,10 @@
-import {
-  Cormorant_Garamond,
-  Noto_Sans_JP,
-  Shippori_Mincho,
-  Inter,
-  IBM_Plex_Sans_JP,
-  Outfit,
-} from "next/font/google";
+import { IBM_Plex_Sans_JP, Outfit } from "next/font/google";
 
-// 新デザインの書体（社長決定 2026-11-24）。和文・欧文ともこの1書体。
-// 以下の旧書体（cormorant〜inter）は、旧コンポーネントを作り直し終えたら削除する。
+// サイトの書体（社長決定 2026-11-24）。和文・欧文ともこの1書体。
 export const plex = IBM_Plex_Sans_JP({
   variable: "--font-plex",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  display: "swap",
-});
-
-export const cormorant = Cormorant_Garamond({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-export const notoSansJP = Noto_Sans_JP({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
-
-// 記事本文の見出し用。Cormorant Garamond（欧文専用）は和文グリフを持たないため、
-// 和文と半角数字が混在する見出しに使うと、和文がブラウザ標準フォールバックの
-// ゴシック体になってしまい字面がちぐはぐになる。Shippori Minchoは和文・欧文とも
-// 対応した明朝体で、Cormorantに近い細身で上品なトーンを保ちつつ字面を揃えられる。
-export const shipporiMincho = Shippori_Mincho({
-  variable: "--font-display-jp",
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  display: "swap",
-});
-
-export const inter = Inter({
-  variable: "--font-ui",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
