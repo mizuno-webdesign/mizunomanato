@@ -146,9 +146,7 @@ export default async function ArticlePage({
                 画面の高さに収まらないときは目次の側を縮めて、ボタンを常に見える位置に残す。 */}
             <div className="sticky top-20 flex max-h-[calc(100dvh-96px)] flex-col gap-4">
               <TocAside items={toc} />
-              <div className="flex shrink-0 flex-col glass rounded-card p-4 shadow-card">
-                <CtaButton className="text-center" />
-              </div>
+              <CtaButton className="shrink-0 text-center" />
             </div>
           </div>
         )}
