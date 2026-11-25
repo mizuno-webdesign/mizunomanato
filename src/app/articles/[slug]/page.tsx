@@ -142,11 +142,10 @@ export default async function ArticlePage({
         {hasToc && (
           // 目次を追従させるため、列は本文の高さまで伸ばす（grid の既定の stretch）
           <div className="hidden lg:block">
-            {/* top は上部の固定ナビの下端（約64px）より下。目次と相談ボタンをまとめて追従させ、
-                画面の高さに収まらないときは目次の側を縮めて、ボタンを常に見える位置に残す。 */}
-            <div className="sticky top-20 flex max-h-[calc(100dvh-96px)] flex-col gap-4">
+            {/* top は上部の固定ナビの下端（約64px）より下。目次と相談ボタンをまとめて追従させる。 */}
+            <div className="sticky top-20 flex flex-col gap-4">
               <TocAside items={toc} />
-              <CtaButton className="shrink-0 text-center" />
+              <CtaButton className="text-center" />
             </div>
           </div>
         )}
