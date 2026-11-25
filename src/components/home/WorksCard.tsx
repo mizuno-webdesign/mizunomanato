@@ -24,7 +24,9 @@ export default function WorksCard({
       {/* PC はカードの高さが決まっているので中身を敷き詰める。スマホは中身の高さに合わせる */}
       <div className="flex flex-1 flex-col p-3 lg:absolute lg:inset-0">
         <FlipHeading id="works-title" en="Works" ja="事例" className="w-fit px-3 pt-3 pb-2" />
-        {works.length > 0 && (
+        {works.length === 0 ? (
+          <p className="type-caption px-3 text-ink-sub">事例は準備中です。</p>
+        ) : (
           <ul className="grid min-h-0 flex-1 grid-cols-3 grid-rows-[minmax(0,1fr)] gap-3 px-3 pb-9">
             {works.map((w) => (
               <li key={w._id} className="flex min-h-0 min-w-0 flex-col">

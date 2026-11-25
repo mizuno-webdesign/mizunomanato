@@ -145,6 +145,8 @@
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.9;
+    /* 区切りのない長い英数字（URL など）が、カードや画面を押し広げないように（段階5-3の崩れテスト） */
+    overflow-wrap: anywhere;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
