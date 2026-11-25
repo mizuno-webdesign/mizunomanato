@@ -1,78 +1,29 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "お問い合わせありがとうございます | Manato Mizuno",
+  // 送信後にだけ見るページなので、検索結果には出さない
+  robots: { index: false, follow: false },
 };
 
 export default function ThanksPage() {
   return (
-    <main
-      style={{
-        background: "var(--ink)",
-        color: "var(--inverse)",
-        minHeight: "100svh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        fontFamily: "var(--font-body), 'Hiragino Kaku Gothic ProN', sans-serif",
-        padding: "40px 24px",
-        textAlign: "center",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "var(--font-ui)",
-          fontSize: "11px",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          opacity: 0.5,
-          marginBottom: "32px",
-        }}
-      >
-        Manato Mizuno — EC構築・運用パートナー
-      </div>
-
-      <div
-        style={{
-          fontFamily: "var(--font-display), 'Times New Roman', serif",
-          fontSize: "clamp(48px, 8vw, 96px)",
-          lineHeight: 0.95,
-          letterSpacing: "-0.02em",
-          fontWeight: 400,
-          marginBottom: "48px",
-        }}
-      >
-        <div>Thank</div>
-        <div style={{ fontStyle: "italic", opacity: 0.75 }}>you.</div>
-      </div>
-
-      <div style={{ fontSize: "15px", lineHeight: 2.1, opacity: 0.82, marginBottom: "12px" }}>
-        お問い合わせを受け付けました。
-      </div>
-      <div style={{ fontSize: "14px", lineHeight: 2, opacity: 0.65, marginBottom: "56px" }}>
+    <section className="mx-auto max-w-[640px] glass rounded-card px-6 py-12 text-center shadow-card md:px-12">
+      <h1 className="type-display text-ink">お問い合わせを受け付けました</h1>
+      <p className="mt-4 type-body text-ink-sub">
         通常2営業日以内にご返信いたします。
         <br />
         今しばらくお待ちください。
-      </div>
-
-      <Link
-        href="/"
-        style={{
-          padding: "16px 32px",
-          border: "1px solid rgba(235,231,218,0.3)",
-          color: "var(--inverse)",
-          fontFamily: "var(--font-ui)",
-          fontSize: "11px",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          display: "inline-block",
-        }}
-      >
-        トップページへ戻る
-      </Link>
-    </main>
+      </p>
+      <p className="mt-8">
+        <Link
+          href="/"
+          className="inline-block rounded-full px-4 py-2 type-caption text-ink-sub underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          トップページへ戻る
+        </Link>
+      </p>
+    </section>
   );
 }
