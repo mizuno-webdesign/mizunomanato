@@ -54,7 +54,7 @@ export default function ArticlesCard({
 
       <Link
         href="/articles"
-        className="absolute right-6 bottom-4 type-caption rounded text-ink-sub transition-colors duration-150 hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+        className="after:absolute after:-inset-x-2 after:-top-1 after:-bottom-3 after:content-[''] absolute right-6 bottom-4 type-caption rounded text-ink-sub transition-colors duration-150 hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
       >
         すべて見る
       </Link>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   verification: {
     google: "u6UKhn9XOMoMHEZIoU3GJ3fflf7q5NiMu1QkTYScd-k",
   },
+};
+
+// スマホのブラウザ上部の色は、ページ上端の地の色に合わせる。サイトはライト表示のみ。
+export const viewport: Viewport = {
+  themeColor: "#f2f2f7",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

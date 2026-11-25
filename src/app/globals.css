@@ -109,6 +109,30 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* スマホ向け（段階5-2）：タップ時の灰色の四角を消し（代わりに下の :active で反応を返す）、
+       横向きにしたときの文字の自動拡大を止める。ピンチでの拡大は制限しない。 */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  a,
+  button,
+  summary,
+  label {
+    touch-action: manipulation; /* ダブルタップ拡大の判定を待たずに反応させる */
+  }
+  /* 操作部品の文字は、長押しで選択されないようにする（本文は選択できるまま） */
+  button,
+  summary,
+  nav[aria-label="メイン"] a {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  /* 押している間の反応（相談ボタンと送信ボタンは、それぞれの指定が優先される） */
+  a:active,
+  summary:active {
+    opacity: 0.7;
   }
   body {
     background-color: var(--color-canvas);

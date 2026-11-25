@@ -56,7 +56,7 @@ export default function WorksCard({
       <Link
         href="/works"
         aria-label="事例一覧をすべて見る"
-        className="absolute right-4 bottom-3 rounded-full px-2 py-0.5 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
+        className="after:absolute after:-inset-x-2 after:-top-1 after:-bottom-3 after:content-[''] absolute right-4 bottom-3 rounded-full px-2 py-0.5 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
       >
         すべて見る
       </Link>

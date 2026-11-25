@@ -19,7 +19,7 @@ export default function ThanksPage() {
       <p className="mt-8">
         <Link
           href="/"
-          className="inline-block rounded-full px-4 py-2 type-caption text-ink-sub underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
+          className="inline-block rounded-full px-4 py-3 type-caption text-ink-sub underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
         >
           トップページへ戻る
         </Link>

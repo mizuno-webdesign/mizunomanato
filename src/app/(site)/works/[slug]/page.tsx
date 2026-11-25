@@ -101,7 +101,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         <p className="mt-12 text-center">
           <Link
             href="/works"
-            className="inline-block rounded-full px-4 py-2 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
+            className="inline-block rounded-full px-4 py-3 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
           >
             事例一覧へ
           </Link>

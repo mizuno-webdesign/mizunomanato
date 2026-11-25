@@ -60,7 +60,7 @@ export function TocDisclosure({ items }: { items: TocItem[] }) {
           />
         </summary>
         <div className="px-2 pb-3">
-          <TocList items={items} />
+          <TocList items={items} itemClass="py-2.5" />
         </div>
       </details>
     </nav>
