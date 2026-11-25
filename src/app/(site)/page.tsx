@@ -65,17 +65,6 @@ export default async function Home() {
       }),
     );
 
-  // 【見た目確認用の疑似表示】Blogs は PC で4行の見え方を確認するため、実記事が4本に満たないときは
-  // 既存の記事を繰り返して埋める（社長指示 2026-11-24）。リンク先は元の記事と同じ。
-  // 実記事が4本以上になれば自動で不要になる。公開前にこの埋め込みを外すかどうか、社長が判断する。
-  const BLOG_PREVIEW_ROWS = 4;
-  const blogRows: ArticleItem[] = articles.length
-    ? Array.from({ length: Math.max(articles.length, BLOG_PREVIEW_ROWS) }, (_, i) => {
-        const a = articles[i % articles.length];
-        return i < articles.length ? a : { ...a, _id: `${a._id}-preview-${i}` };
-      })
-    : [];
-
   // 並び：PC（lg）は DOM 順＝配置図どおり。スマホ・タブレットは order で
   // 自己紹介 → 頼めること → 実績 → 記事 → 写真 → マーキー → 相談する（最下部。社長指示 2026-11-24）の順に入れ替える。
   // スマホでも、上部の固定ナビの「Contact」から常に1タップで届く。
@@ -101,7 +90,7 @@ export default async function Home() {
         <PhotoCard className="lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-5 md:col-span-6 lg:order-none lg:col-span-3" />
         <WorksCard works={works} className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
-        <ArticlesCard articles={blogRows} className="order-4 md:col-span-3 lg:order-none lg:col-span-6" />
+        <ArticlesCard articles={articles} className="order-4 md:col-span-3 lg:order-none lg:col-span-6" />
         <ServiceCards className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-6 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>

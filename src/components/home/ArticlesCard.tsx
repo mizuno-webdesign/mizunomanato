@@ -8,9 +8,9 @@ export type ArticleItem = {
   date: string; // 表示用に整形済み（例：2026.09.24）
 };
 
-// 最新記事の文字一覧（PCは4行。社長指示 2026-11-24）。見出しは「Blogs」。
+// 最新記事の文字一覧（最新3本）。見出しは「Blogs」。
 // 右下にグレーの内部リンク「すべて見る」（→ /articles）。行の区切り線は使わない。
-// 4行に収めるため、行の余白を詰め、PCではタイトルを1行で省略する（truncate）。
+// PC はカードの高さが決まっているため、行の余白を詰め、タイトルを1行で省略する（truncate）。
 export default function ArticlesCard({
   articles,
   className = "",
