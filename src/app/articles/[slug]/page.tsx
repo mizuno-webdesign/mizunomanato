@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { client, urlFor } from "@/lib/sanity";
 import { notFound } from "next/navigation";
-import { extractToc } from "@/lib/toc";
-import FooterSection from "@/components/FooterSection";
-import TableOfContents from "@/components/TableOfContents";
 import ArticleBody from "@/components/ArticleBody";
-import SiteHeader from "@/components/SiteHeader";
-import ArticleCta from "@/components/ArticleCta";
-
-// 記事タイトルは和文と半角数字が混在する。Cormorant Garamond単体だと
-// 和文グリフを持たずフォールバックでゴシック体になり字面が揃わないため、
-// 和文対応の明朝体（Shippori Mincho）を優先フォントに指定する。
-const TITLE_FONT_FAMILY =
-  "var(--font-display-jp), var(--font-display), 'Times New Roman', serif";
+import AuthorCard from "@/components/AuthorCard";
+import SiteFrame from "@/components/SiteFrame";
+import { TocAside, TocDisclosure } from "@/components/TableOfContents";
+import CtaBand from "@/components/home/CtaBand";
+import { formatDate } from "@/lib/date";
+import { client, urlFor } from "@/lib/sanity";
+import { extractToc } from "@/lib/toc";
 
 type Article = {
   _id: string;
@@ -36,11 +31,6 @@ async function getArticle(slug: string): Promise<Article | null> {
     }`,
     { slug }
   );
-}
-
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return `${d.getFullYear()} / ${String(d.getMonth() + 1).padStart(2, "0")} / ${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export async function generateMetadata({
@@ -81,6 +71,8 @@ export async function generateMetadata({
   };
 }
 
+// 記事詳細（社長承認 2026-11-25）：本文は大きなカード1枚（本文の幅は最大720px）、ページ全体でスクロール。
+// 目次は PC で右に追従、それ未満は本文の上に折りたたみ。下に著者紹介と「相談してみる」の帯。
 export default async function ArticlePage({
   params,
 }: {
@@ -91,106 +83,67 @@ export default async function ArticlePage({
   if (!article) notFound();
 
   const imgUrl = article.mainImage
-    ? urlFor(article.mainImage).width(1600).auto("format").url()
+    ? urlFor(article.mainImage).width(1440).auto("format").url()
     : null;
   const toc = extractToc(article.body);
+  const hasToc = toc.length > 0;
 
   return (
-    <>
-      <main style={{ background: "var(--paper)", minHeight: "100svh" }}>
-        <SiteHeader basePath="/" />
+    <SiteFrame>
+      {/* 本文カード 816px（本文720px＋左右48px）。目次があるときは右に 272px の列を足す。
+          列は grid-cols の minmax(0,…) で、長い英数字があっても広がらないようにする。 */}
+      <div
+        className={`mx-auto grid grid-cols-[minmax(0,1fr)] gap-4 ${
+          hasToc
+            ? "max-w-[816px] lg:max-w-[1104px] lg:grid-cols-[minmax(0,1fr)_272px]"
+            : "max-w-[816px]"
+        }`}
+      >
+        <div className="flex min-w-0 flex-col gap-4">
+          <article className="glass rounded-card p-6 shadow-card md:p-12">
+            <header>
+              <p className="type-caption text-ink-sub">
+                <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+                {article.tags && article.tags.length > 0 && ` ・ ${article.tags.join(" ・ ")}`}
+              </p>
+              <h1 className="mt-2 type-display break-words text-ink">{article.title}</h1>
+            </header>
 
-        {/* 戻るリンク */}
-        <div style={{ padding: "32px clamp(20px, 5vw, 56px) 0" }}>
-          <Link
-            href="/articles"
-            style={{
-              fontFamily: "var(--font-ui)",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "var(--ink)",
-              textDecoration: "none",
-              opacity: 0.55,
-            }}
-          >
-            ← Articles
-          </Link>
+            {/* 画像があるときだけ表示する（無いときの代わりの絵は出さない。見出しと重複するため） */}
+            {imgUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={imgUrl} alt="" className="mt-6 block h-auto w-full rounded-inner" />
+            )}
+
+            {hasToc && <TocDisclosure items={toc} />}
+
+            {article.body && (
+              <div className="mt-10 break-words [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+                <ArticleBody body={article.body} />
+              </div>
+            )}
+
+            <p className="mt-12 text-center">
+              <Link
+                href="/articles"
+                className="inline-block rounded-full px-4 py-2 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
+              >
+                記事一覧へ
+              </Link>
+            </p>
+          </article>
+
+          <AuthorCard />
+          <CtaBand />
         </div>
 
-        {/* サムネイル（画像がある場合のみ表示。画像が無い時は下の本文タイトルと
-            表示内容が重複するため、代替ビジュアルは出さない） */}
-        {imgUrl && (
-          <div style={{ marginTop: "40px", width: "100%", aspectRatio: "16 / 7", overflow: "hidden" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imgUrl}
-              alt={article.title}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
+        {hasToc && (
+          // 目次を追従させるため、列は本文の高さまで伸ばす（grid の既定の stretch）
+          <div className="hidden lg:block">
+            <TocAside items={toc} />
           </div>
         )}
-
-        {/* 本文 */}
-        <div style={{ padding: "64px clamp(20px, 5vw, 56px) 120px", maxWidth: "800px", margin: "0 auto" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-ui)",
-              fontSize: "10px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              opacity: 0.55,
-              marginBottom: "16px",
-            }}
-          >
-            {article.tags && article.tags.length > 0 ? article.tags.join(" · ") : "Article"}
-            {" · "}
-            {formatDate(article.publishedAt)}
-          </div>
-          <h1
-            style={{
-              fontFamily: TITLE_FONT_FAMILY,
-              fontSize: "clamp(24px, 3.2vw, 42px)",
-              fontWeight: 400,
-              lineHeight: 1.3,
-              marginBottom: "48px",
-            }}
-          >
-            {article.title}
-          </h1>
-
-          <TableOfContents items={toc} />
-
-          {article.body && <ArticleBody body={article.body} />}
-
-          {/* 記事一覧に戻る */}
-          <div style={{ marginTop: "64px", textAlign: "center" }}>
-            <Link
-              href="/articles"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                fontFamily: "var(--font-ui)",
-                fontSize: "11px",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                opacity: 0.65,
-                textDecoration: "none",
-                color: "var(--ink)",
-                borderBottom: "1px solid var(--ink-soft)",
-                paddingBottom: "4px",
-              }}
-            >
-              ← 記事一覧に戻る
-            </Link>
-          </div>
-        </div>
-
-        <ArticleCta />
-      </main>
-      <hr style={{ border: "none", borderTop: "1px solid var(--ink-soft)", margin: "0 clamp(20px, 5vw, 56px)" }} />
-      <FooterSection />
-    </>
+      </div>
+    </SiteFrame>
   );
 }

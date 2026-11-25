@@ -1,52 +1,55 @@
 import type { TocItem } from "@/lib/toc";
 
-export default function TableOfContents({ items }: { items: TocItem[] }) {
-  if (items.length === 0) return null;
-
+// 目次（社長承認 2026-11-25）。
+// PC（lg 以上）：本文の右の小さいカードで、スクロールに追従する（TocAside）。
+// それ未満：本文の上に折りたたんで置く（TocDisclosure）。開閉は <details> のみで、JavaScript は使わない。
+function TocList({ items }: { items: TocItem[] }) {
   return (
+    <ol className="flex list-none flex-col">
+      {items.map((item) => (
+        <li key={item.id}>
+          <a
+            href={`#${item.id}`}
+            className={`block rounded-lg py-1.5 pr-2 type-caption transition-colors duration-150 hover:bg-white/60 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${
+              item.level === 3 ? "pl-6 text-ink-sub" : "pl-2 text-ink"
+            }`}
+          >
+            {item.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export function TocAside({ items }: { items: TocItem[] }) {
+  return (
+    // top は上部の固定ナビの下端（約64px）より下。項目が画面より長いときは、カードの中をスクロールする。
     <nav
       aria-label="目次"
-      style={{
-        margin: "48px 0 56px",
-        padding: "24px clamp(20px, 4vw, 32px)",
-        border: "1px solid var(--ink-soft)",
-      }}
+      className="sticky top-20 hidden max-h-[calc(100dvh-96px)] overflow-y-auto glass rounded-card p-4 shadow-card lg:block"
     >
-      <div
-        style={{
-          fontFamily: "var(--font-ui)",
-          fontSize: "10px",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          opacity: 0.55,
-          marginBottom: "16px",
-        }}
-      >
-        目次
-      </div>
-      <ol style={{ display: "flex", flexDirection: "column", gap: "10px", listStyle: "none" }}>
-        {items.map((item) => (
-          <li
-            key={item.id}
-            style={{
-              marginLeft: item.level === 3 ? "1.4em" : 0,
-            }}
-          >
-            <a
-              href={`#${item.id}`}
-              style={{
-                fontSize: item.level === 3 ? "13px" : "14px",
-                lineHeight: 1.6,
-                color: "var(--ink)",
-                opacity: item.level === 3 ? 0.65 : 0.85,
-                textDecoration: "none",
-              }}
-            >
-              {item.text}
-            </a>
-          </li>
-        ))}
-      </ol>
+      <p className="px-2 pt-1 pb-2 type-heading text-heading">目次</p>
+      <TocList items={items} />
+    </nav>
+  );
+}
+
+export function TocDisclosure({ items }: { items: TocItem[] }) {
+  return (
+    <nav aria-label="目次" className="mt-6 lg:hidden">
+      <details className="group rounded-inner bg-white/60">
+        <summary className="flex cursor-pointer list-none items-center justify-between rounded-inner px-4 py-3 type-heading text-heading focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
+          目次
+          <span
+            aria-hidden
+            className="mr-1 size-2 -translate-y-0.5 rotate-45 border-r-2 border-b-2 border-ink-sub group-open:translate-y-0.5 group-open:rotate-[225deg]"
+          />
+        </summary>
+        <div className="px-2 pb-3">
+          <TocList items={items} />
+        </div>
+      </details>
     </nav>
   );
 }

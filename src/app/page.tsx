@@ -6,6 +6,7 @@ import ServiceCards from "@/components/home/ServiceCards";
 import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
 import CtaBand from "@/components/home/CtaBand";
 import WorksCard, { type WorkItem } from "@/components/home/WorksCard";
+import { formatDate } from "@/lib/date";
 import { getArticles, getWorks, urlFor } from "@/lib/sanity";
 
 // Sanity の記事・実績を常に最新で表示するため、動的レンダリングのままにする（旧TOPの方針を引き継ぎ）。
@@ -18,18 +19,6 @@ async function load<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   } catch {
     return fallback;
   }
-}
-
-function formatDate(iso?: string) {
-  if (!iso) return "";
-  return new Date(iso)
-    .toLocaleDateString("ja-JP", {
-      timeZone: "Asia/Tokyo",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .replaceAll("/", ".");
 }
 
 export default async function Home() {

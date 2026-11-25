@@ -2,94 +2,50 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity";
 import { headingId } from "@/lib/toc";
 
-// 記事本文の見出し（H1/H2/H3）は和文と半角数字が混在する。
-// var(--font-display)（Cormorant Garamond）は和文グリフを持たないため、
-// 和文部分がブラウザ標準フォールバックのゴシック体になり字面がちぐはぐになる。
-// var(--font-display-jp)（Shippori Mincho）は和文・欧文とも対応した明朝体で、
-// Cormorantに近い細身のトーンを保ちつつ和文・数字を同一フォントで統一できる。
-const HEADING_FONT_FAMILY =
-  "var(--font-display-jp), var(--font-display), 'Times New Roman', serif";
+// 記事本文（社長承認 2026-11-25）：TOP と同じ書体と文字サイズの段階（20／17／15）を使い、行間は広めにする。
+// 見出しの scroll-mt は、目次から移動したときに上部の固定ナビへ隠れないための余白。
+// 余白は「上を広く、下を狭く」。先頭の要素だけは上の余白を消す（呼び出し側の [&>*:first-child]:mt-0）。
+const TEXT = "text-[15px] leading-[2] text-ink";
 
 const components: PortableTextComponents = {
   block: {
     h2: ({ value, children }) => (
       <h2
         id={headingId(value)}
-        style={{
-          fontFamily: HEADING_FONT_FAMILY,
-          fontSize: "clamp(24px, 3vw, 32px)",
-          fontWeight: 400,
-          lineHeight: 1.35,
-          marginTop: "64px",
-          marginBottom: "20px",
-          scrollMarginTop: "32px",
-        }}
+        className="mt-14 mb-4 scroll-mt-24 text-[20px] leading-[1.5] font-semibold text-heading"
       >
         {children}
       </h2>
     ),
     h3: ({ value, children }) => (
-      <h3
-        id={headingId(value)}
-        style={{
-          fontFamily: HEADING_FONT_FAMILY,
-          fontSize: "clamp(19px, 2.2vw, 23px)",
-          fontWeight: 400,
-          lineHeight: 1.4,
-          marginTop: "44px",
-          marginBottom: "16px",
-          scrollMarginTop: "32px",
-        }}
-      >
+      <h3 id={headingId(value)} className="mt-10 mb-3 scroll-mt-24 type-heading text-heading">
         {children}
       </h3>
     ),
-    normal: ({ children }) => (
-      <p style={{ margin: "0 0 24px", fontSize: "15px", lineHeight: 2.1, opacity: 0.85 }}>
-        {children}
-      </p>
-    ),
+    normal: ({ children }) => <p className={`mb-6 ${TEXT}`}>{children}</p>,
     blockquote: ({ children }) => (
-      <blockquote
-        style={{
-          margin: "32px 0",
-          padding: "4px 0 4px 24px",
-          borderLeft: "2px solid var(--ink-soft)",
-          fontSize: "15px",
-          lineHeight: 2,
-          opacity: 0.75,
-          fontStyle: "italic",
-        }}
-      >
+      <blockquote className="my-8 border-l-2 border-line pl-5 text-[15px] leading-[2] text-body-2">
         {children}
       </blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => (
-      <ul style={{ margin: "0 0 24px", paddingLeft: "1.4em", fontSize: "15px", lineHeight: 2.1, opacity: 0.85 }}>
-        {children}
-      </ul>
-    ),
-    number: ({ children }) => (
-      <ol style={{ margin: "0 0 24px", paddingLeft: "1.4em", fontSize: "15px", lineHeight: 2.1, opacity: 0.85 }}>
-        {children}
-      </ol>
-    ),
+    bullet: ({ children }) => <ul className={`mb-6 list-disc pl-6 ${TEXT}`}>{children}</ul>,
+    number: ({ children }) => <ol className={`mb-6 list-decimal pl-6 ${TEXT}`}>{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li style={{ marginBottom: "8px" }}>{children}</li>,
-    number: ({ children }) => <li style={{ marginBottom: "8px" }}>{children}</li>,
+    bullet: ({ children }) => <li className="mb-2">{children}</li>,
+    number: ({ children }) => <li className="mb-2">{children}</li>,
   },
   marks: {
-    strong: ({ children }) => <strong style={{ fontWeight: 700 }}>{children}</strong>,
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
     link: ({ value, children }) => (
       <a
         href={value?.href}
         target={value?.href?.startsWith("http") ? "_blank" : undefined}
         rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-        style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}
+        className="rounded-sm break-words text-accent underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-accent"
       >
         {children}
       </a>
@@ -98,16 +54,16 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset) return null;
-      const imgUrl = urlFor(value).width(1200).auto("format").url();
+      const imgUrl = urlFor(value).width(1440).auto("format").url();
       return (
-        <div style={{ margin: "40px 0" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imgUrl}
-            alt={value.alt ?? ""}
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-        </div>
+        // 画像の縦横比がデータから分からないため、next/image ではなく img を使う
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={imgUrl}
+          alt={value.alt ?? ""}
+          loading="lazy"
+          className="my-8 block h-auto w-full rounded-inner"
+        />
       );
     },
   },
