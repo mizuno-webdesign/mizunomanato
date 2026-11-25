@@ -3,7 +3,7 @@ import FlipHeading from "@/components/FlipHeading";
 
 // 相談する（TOPはCTAボタンのみ・内部リンクのみ。社長確定 2026-11-24）。
 // 見出しの位置は他カードと同じ（左上、カード上端から24px）に揃える（社長指示）。
-// ボタン：深い緑（#095C35）の丸いボタン。ホバーで80%に透過し、わずかに大きくなる／押すと少し縮む（社長指示 2026-11-24）。
+// ボタン：深い緑（#095C35）の丸いボタン。ホバーで80%に透過（大きさは変えない）／押すと少し縮む（社長指示）。
 // 遷移先 /contact は段階4で作成（それまでは 404）。
 export default function CtaBand({ className = "" }: { className?: string }) {
   return (
@@ -19,7 +19,7 @@ export default function CtaBand({ className = "" }: { className?: string }) {
       />
       <Link
         href="/contact"
-        className="rounded-full bg-cta px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_1px_3px_rgba(9,92,53,0.25)]transition-[opacity,transform] duration-150 ease-out hover:opacity-80 active:scale-[0.97] active:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:active:scale-100"
+        className="rounded-full bg-cta px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_1px_3px_rgba(9,92,53,0.25)] transition-[opacity,scale]duration-150 ease-out hover:opacity-80 active:scale-[0.97] active:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:active:scale-100"
       >
         相談してみる
       </Link>
