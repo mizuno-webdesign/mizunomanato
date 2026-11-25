@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import ArticleBody from "@/components/ArticleBody";
 import AuthorCard from "@/components/AuthorCard";
 import CtaButton from "@/components/CtaButton";
-import SiteFrame from "@/components/SiteFrame";
 import { TocAside, TocDisclosure } from "@/components/TableOfContents";
 import CtaBand from "@/components/home/CtaBand";
 import { formatDate } from "@/lib/date";
@@ -91,7 +90,7 @@ export default async function ArticlePage({
   const hasToc = toc.length > 0;
 
   return (
-    <SiteFrame>
+    <>
       {/* 本文カード 816px（本文720px＋左右48px）。目次があるときは右に 272px の列を足す。
           列は grid-cols の minmax(0,…) で、長い英数字があっても広がらないようにする。 */}
       <div
@@ -150,6 +149,6 @@ export default async function ArticlePage({
           </div>
         )}
       </div>
-    </SiteFrame>
+    </>
   );
 }

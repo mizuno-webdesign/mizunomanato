@@ -1,4 +1,3 @@
-import SiteFrame from "@/components/SiteFrame";
 import IntroCard from "@/components/home/IntroCard";
 import PhotoCard from "@/components/home/PhotoCard";
 import MarqueeCard from "@/components/home/MarqueeCard";
@@ -74,7 +73,7 @@ export default async function Home() {
   // 自己紹介 → 頼めること → 実績 → 記事 → 写真 → マーキー → 相談する（最下部。社長指示 2026-11-24）の順に入れ替える。
   // スマホでも、上部の固定ナビの「Contact」から常に1タップで届く。
   return (
-    <SiteFrame>
+    <>
       {/* PC：縦も横と同じ分割法で揃える（細分化。社長指示 2026-11-24）。
           1段目（自己紹介）と4段目（相談）は元の高さ（200px／77px）に固定。
           2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。2段目は Blogs の4行が入る最小270px。 */}
@@ -87,6 +86,6 @@ export default async function Home() {
         <ServiceCards className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-6 md:col-span-6 lg:order-none lg:col-span-12" />
       </div>
-    </SiteFrame>
+    </>
   );
 }

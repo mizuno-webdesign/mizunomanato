@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
-import SiteFrame from "@/components/SiteFrame";
 import { formatDate } from "@/lib/date";
 import { getArticles } from "@/lib/sanity";
 
@@ -47,7 +46,7 @@ export default async function ArticlesPage() {
   }
 
   return (
-    <SiteFrame>
+    <>
       <section
         aria-labelledby="articles-title"
         className="mx-auto max-w-[816px] glass rounded-card p-3 shadow-card md:p-6"
@@ -86,6 +85,6 @@ export default async function ArticlesPage() {
           </ul>
         )}
       </section>
-    </SiteFrame>
+    </>
   );
 }
