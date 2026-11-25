@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/ArticleBody";
 import AuthorCard from "@/components/AuthorCard";
+import CtaButton from "@/components/CtaButton";
 import SiteFrame from "@/components/SiteFrame";
 import { TocAside, TocDisclosure } from "@/components/TableOfContents";
 import CtaBand from "@/components/home/CtaBand";
@@ -72,7 +73,8 @@ export async function generateMetadata({
 }
 
 // 記事詳細（社長承認 2026-11-25）：本文は大きなカード1枚（本文の幅は最大720px）、ページ全体でスクロール。
-// 目次は PC で右に追従、それ未満は本文の上に折りたたみ。下に著者紹介と「相談してみる」の帯。
+// 目次は PC で右に追従（下に相談ボタン。社長指示 2026-11-25）、それ未満は本文の上に折りたたみ。
+// 本文の下には著者紹介と「相談してみる」の帯。
 export default async function ArticlePage({
   params,
 }: {
@@ -140,7 +142,14 @@ export default async function ArticlePage({
         {hasToc && (
           // 目次を追従させるため、列は本文の高さまで伸ばす（grid の既定の stretch）
           <div className="hidden lg:block">
-            <TocAside items={toc} />
+            {/* top は上部の固定ナビの下端（約64px）より下。目次と相談ボタンをまとめて追従させ、
+                画面の高さに収まらないときは目次の側を縮めて、ボタンを常に見える位置に残す。 */}
+            <div className="sticky top-20 flex max-h-[calc(100dvh-96px)] flex-col gap-4">
+              <TocAside items={toc} />
+              <div className="flex shrink-0 flex-col glass rounded-card p-4 shadow-card">
+                <CtaButton className="text-center" />
+              </div>
+            </div>
           </div>
         )}
       </div>

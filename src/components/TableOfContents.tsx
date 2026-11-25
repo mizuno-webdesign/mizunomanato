@@ -24,13 +24,18 @@ function TocList({ items }: { items: TocItem[] }) {
 
 export function TocAside({ items }: { items: TocItem[] }) {
   return (
-    // top は上部の固定ナビの下端（約64px）より下。項目が画面より長いときは、カードの中をスクロールする。
+    // 上の余白 79px は、見出し「目次」を記事タイトル（1行目）と同じ高さにするための値（社長指示 2026-11-25）。
+    // 本文カードの上の余白48px＋日付19.5px＋間隔8px＋タイトル行31.2pxの半分 − 「目次」の行23.8pxの半分。
+    // 本文カードの上側の余白や日付・タイトルの大きさを変えたら、この値も直す。
+    // 高さが足りないときは、見出しは残したまま、項目の一覧だけがスクロールする。
     <nav
       aria-label="目次"
-      className="sticky top-20 hidden max-h-[calc(100dvh-96px)] overflow-y-auto glass rounded-card p-4 shadow-card lg:block"
+      className="flex min-h-0 flex-col glass rounded-card px-4 pt-[79px] pb-4 shadow-card"
     >
-      <p className="px-2 pt-1 pb-2 type-heading text-heading">目次</p>
-      <TocList items={items} />
+      <p className="px-2 pb-2 type-heading text-heading">目次</p>
+      <div className="min-h-0 overflow-y-auto">
+        <TocList items={items} />
+      </div>
     </nav>
   );
 }
