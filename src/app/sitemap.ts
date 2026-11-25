@@ -9,6 +9,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 1,
     },
+    ...["about", "service", "works", "contact"].map((path) => ({
+      url: `https://mizunomanato.com/${path}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: "https://mizunomanato.com/works/lipico",
       lastModified: new Date(),

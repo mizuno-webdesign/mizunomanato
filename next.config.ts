@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 旧「最近の対応」ページは外し、事例一覧へ一時転送する（社長判断 2026-11-25。Sanity のデータは残す）。
+      // 復活させる可能性があるので、恒久転送（permanent: true）にはしない。
+      {
+        source: "/activity",
+        destination: "/works",
+        permanent: false,
+      },
       {
         source: "/works-post/lipico",
         destination: "/works/lipico",
