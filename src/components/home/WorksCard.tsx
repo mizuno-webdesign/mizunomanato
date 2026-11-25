@@ -41,7 +41,7 @@ export default function WorksCard({
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 17vw, 33vw"
-                        className="object-cover transition-[scale] duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        className="object-cover transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                       />
                     )}
                   </span>

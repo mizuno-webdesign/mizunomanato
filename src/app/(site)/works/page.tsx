@@ -58,7 +58,7 @@ export default async function WorksPage() {
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 340px, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover object-top transition-[scale] duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      className="object-cover object-top transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />
                   )}
                 </span>
