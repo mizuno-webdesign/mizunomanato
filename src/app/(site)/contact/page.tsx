@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import FlipHeading from "@/components/FlipHeading";
+import { pageMetadata } from "@/lib/site";
 
 const DESCRIPTION = "EC構築・改修・運用支援のご相談はこちらから。";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/contact",
   title: "Contact — Manato Mizuno",
   description: DESCRIPTION,
-  alternates: { canonical: "https://mizunomanato.com/contact" },
-  openGraph: {
-    title: "Contact — Manato Mizuno",
-    description: DESCRIPTION,
-    url: "https://mizunomanato.com/contact",
-    type: "website",
-  },
-};
+});
 
 export default function ContactPage() {
   return (

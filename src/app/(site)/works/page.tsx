@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
 import { getWorks, urlFor } from "@/lib/sanity";
+import { pageMetadata } from "@/lib/site";
 
 // Sanity の事例を常に最新で表示する（記事一覧と同じ理由）。
 export const dynamic = "force-dynamic";
@@ -19,17 +20,11 @@ type Work = {
 
 const DESCRIPTION = "EC構築の事例一覧です。";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/works",
   title: "Works — Manato Mizuno",
   description: DESCRIPTION,
-  alternates: { canonical: "https://mizunomanato.com/works" },
-  openGraph: {
-    title: "Works — Manato Mizuno",
-    description: DESCRIPTION,
-    url: "https://mizunomanato.com/works",
-    type: "website",
-  },
-};
+});
 
 export default async function WorksPage() {
   let works: Work[] = [];

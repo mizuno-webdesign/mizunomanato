@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import IntroCard from "@/components/home/IntroCard";
 import PhotoCard from "@/components/home/PhotoCard";
 import MarqueeCard from "@/components/home/MarqueeCard";
@@ -7,6 +8,12 @@ import CtaBand from "@/components/home/CtaBand";
 import WorksCard, { type WorkItem } from "@/components/home/WorksCard";
 import { formatDate } from "@/lib/date";
 import { getArticles, getWorks, urlFor } from "@/lib/sanity";
+import JsonLd from "@/components/JsonLd";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: SITE_URL },
+};
 
 // Sanity の記事・実績を常に最新で表示するため、動的レンダリングのままにする（旧TOPの方針を引き継ぎ）。
 export const dynamic = "force-dynamic";
@@ -74,6 +81,18 @@ export default async function Home() {
   // スマホでも、上部の固定ナビの「Contact」から常に1タップで届く。
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: SITE_NAME,
+          alternateName: "水野 学人",
+          url: SITE_URL,
+          image: `${SITE_URL}/portrait.webp`,
+          description: SITE_DESCRIPTION,
+          address: { "@type": "PostalAddress", addressRegion: "静岡県", addressCountry: "JP" },
+        }}
+      />
       {/* PC：縦も横と同じ分割法で揃える（細分化。社長指示 2026-11-24）。
           1段目（自己紹介）と4段目（相談）は元の高さ（200px／77px）に固定。
           2段目（事例・ブログ）と3段目（サービス）は画面の高さに比例（30dvh：20dvh＝3：2）で、前回より少し狭く（900px画面で 270／180px）。2段目は Blogs の4行が入る最小270px。 */}

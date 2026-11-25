@@ -2,20 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import FlipHeading from "@/components/FlipHeading";
 import CtaBand from "@/components/home/CtaBand";
+import { pageMetadata } from "@/lib/site";
 
 const DESCRIPTION = "Manato Mizuno（水野 学人）のプロフィールです。";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
   title: "About — Manato Mizuno",
   description: DESCRIPTION,
-  alternates: { canonical: "https://mizunomanato.com/about" },
-  openGraph: {
-    title: "About — Manato Mizuno",
-    description: DESCRIPTION,
-    url: "https://mizunomanato.com/about",
-    type: "profile",
-  },
-};
+  type: "profile",
+});
 
 // 紹介文は下書きを社長が承認して掲載（2026-11-25）。経歴の数字は載せない（社長判断）。
 // 対応サービスの一覧は旧サイトのもの。【公開前に確認】今も対応できると言ってよいか、社長の確認が未了。

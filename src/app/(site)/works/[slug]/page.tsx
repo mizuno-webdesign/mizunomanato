@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaBand from "@/components/home/CtaBand";
 import { client, urlFor } from "@/lib/sanity";
+import { pageMetadata } from "@/lib/site";
 
 type Work = {
   _id: string;
@@ -33,10 +34,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const work = await getWork(slug);
   if (!work) return {};
-  return {
+  return pageMetadata({
+    path: `/works/${work.slug.current}`,
     title: `${work.title} — Manato Mizuno`,
-    alternates: { canonical: `https://mizunomanato.com/works/${work.slug.current}` },
-  };
+    description: [`${work.title} の事例`, work.category, work.note].filter(Boolean).join(" ・ "),
+  });
 }
 
 // 説明文は Sanity のプレーンテキスト。改行はそのまま出し、URL だけをリンクにする。

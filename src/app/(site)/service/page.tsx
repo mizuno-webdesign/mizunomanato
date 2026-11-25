@@ -3,20 +3,15 @@ import FlipHeading from "@/components/FlipHeading";
 import ServiceIcon from "@/components/ServiceIcon";
 import CtaBand from "@/components/home/CtaBand";
 import { SERVICES } from "@/lib/services";
+import { pageMetadata } from "@/lib/site";
 
 const DESCRIPTION = "Shopify の新規構築・改修・運用支援について。";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/service",
   title: "Service — Manato Mizuno",
   description: DESCRIPTION,
-  alternates: { canonical: "https://mizunomanato.com/service" },
-  openGraph: {
-    title: "Service — Manato Mizuno",
-    description: DESCRIPTION,
-    url: "https://mizunomanato.com/service",
-    type: "website",
-  },
-};
+});
 
 export default function ServicePage() {
   return (

@@ -2,28 +2,15 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
 const GA_ID = "G-377SE17230";
 
 export const metadata: Metadata = {
-  title: "Manato Mizuno — EC構築・運用パートナー",
-  description:
-    "ECサイト運営の課題を紐解き、前進させるパートナー。EC構築・改善・運用支援まで。状況に合わせて、無理のない一手を提案します。",
-  metadataBase: new URL("https://mizunomanato.com"),
-  openGraph: {
-    title: "Manato Mizuno — EC構築・運用パートナー",
-    description:
-      "ECサイト運営の課題を紐解き、前進させるパートナー。",
-    url: "https://mizunomanato.com",
-    siteName: "Manato Mizuno",
-    locale: "ja_JP",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Manato Mizuno — EC構築・運用パートナー",
-    description: "ECサイト運営の課題を紐解き、前進させるパートナー。",
-  },
+  ...pageMetadata({ path: "/", title: SITE_TITLE, description: SITE_DESCRIPTION }),
+  // canonical は各ページで指定する（ここに置くと、指定のないページが TOP 扱いになるため）
+  alternates: undefined,
+  metadataBase: new URL(SITE_URL),
   verification: {
     google: "u6UKhn9XOMoMHEZIoU3GJ3fflf7q5NiMu1QkTYScd-k",
   },

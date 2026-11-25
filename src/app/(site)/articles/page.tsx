@@ -3,6 +3,7 @@ import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
 import { formatDate } from "@/lib/date";
 import { getArticles } from "@/lib/sanity";
+import { pageMetadata } from "@/lib/site";
 
 // このページはSanityの記事一覧を表示するため、ビルド時の静的
 // プリレンダリングのままだと公開後の新規記事が反映されない
@@ -18,22 +19,11 @@ type Article = {
   publishedAt?: string;
 };
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/articles",
   title: "Articles — Manato Mizuno",
-  description:
-    "EC構築・改善・運用にまつわる知見や考え方をまとめた記事一覧です。",
-  openGraph: {
-    title: "Articles — Manato Mizuno",
-    description: "EC構築・改善・運用にまつわる知見や考え方をまとめた記事一覧です。",
-    url: "https://mizunomanato.com/articles",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Articles — Manato Mizuno",
-    description: "EC構築・改善・運用にまつわる知見や考え方をまとめた記事一覧です。",
-  },
-};
+  description: "EC構築・改善・運用にまつわる知見や考え方をまとめた記事一覧です。",
+});
 
 // 記事一覧（社長承認 2026-11-25）：大きなグラスのカード1枚に、文字だけの行を並べる
 // （現状の記事にサムネイル・タグがないため、画像と絞り込みは置かない）。行全体がリンク。

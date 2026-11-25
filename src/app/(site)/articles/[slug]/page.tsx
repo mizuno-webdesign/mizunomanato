@@ -9,6 +9,8 @@ import CtaBand from "@/components/home/CtaBand";
 import { formatDate } from "@/lib/date";
 import { client, urlFor } from "@/lib/sanity";
 import { extractToc } from "@/lib/toc";
+import JsonLd from "@/components/JsonLd";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, pageMetadata } from "@/lib/site";
 
 type Article = {
   _id: string;
@@ -42,32 +44,18 @@ export async function generateMetadata({
   const article = await getArticle(slug);
   if (!article) return {};
 
-  const title = `${article.title} — Manato Mizuno`;
-  const description = article.excerpt ?? "";
-  const ogImageUrl = article.mainImage
-    ? urlFor(article.mainImage).width(1200).height(630).auto("format").url()
-    : undefined;
-  const url = `https://mizunomanato.com/articles/${article.slug.current}`;
-
   return {
-    title,
-    description,
-    alternates: { canonical: url },
-    robots: article.noindex ? { index: false, follow: false } : undefined,
-    openGraph: {
-      title,
-      description,
-      url,
+    ...pageMetadata({
+      path: `/articles/${article.slug.current}`,
+      title: `${article.title} — Manato Mizuno`,
+      description: article.excerpt ?? SITE_DESCRIPTION,
       type: "article",
       publishedTime: article.publishedAt,
-      images: ogImageUrl ? [{ url: ogImageUrl, width: 1200, height: 630 }] : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ogImageUrl ? [ogImageUrl] : undefined,
-    },
+      image: article.mainImage
+        ? urlFor(article.mainImage).width(1200).height(630).auto("format").url()
+        : undefined,
+    }),
+    robots: article.noindex ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -91,6 +79,18 @@ export default async function ArticlePage({
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: article.title,
+          description: article.excerpt,
+          datePublished: article.publishedAt,
+          mainEntityOfPage: `${SITE_URL}/articles/${article.slug.current}`,
+          image: imgUrl ?? `${SITE_URL}/opengraph-image`,
+          author: { "@type": "Person", name: SITE_NAME, url: `${SITE_URL}/about` },
+        }}
+      />
       {/* 本文カード 816px（本文720px＋左右48px）。目次があるときは右に 272px の列を足す。
           列は grid-cols の minmax(0,…) で、長い英数字があっても広がらないようにする。 */}
       <div

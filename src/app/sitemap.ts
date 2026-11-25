@@ -1,5 +1,8 @@
 import { MetadataRoute } from "next";
-import { getArticles } from "@/lib/sanity";
+import { getArticles, getWorks } from "@/lib/sanity";
+
+// 公開後に Sanity で足した記事・事例も載るように、1時間ごとに作り直す。
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -15,24 +18,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-    {
-      url: "https://mizunomanato.com/works/lipico",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: "https://mizunomanato.com/works/cocorome",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: "https://mizunomanato.com/works/local-guide-stars",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
     {
       url: "https://mizunomanato.com/articles",
       lastModified: new Date(),
@@ -62,5 +47,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     articleRoutes = [];
   }
 
-  return [...staticRoutes, ...articleRoutes];
+  // 事例の URL は Sanity から作る（事例を足したときに、書き足さなくてよいように）
+  let workRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const works: { slug?: { current?: string } }[] = await getWorks();
+    workRoutes = works
+      .filter((w) => w.slug?.current)
+      .map((w) => ({
+        url: `https://mizunomanato.com/works/${w.slug!.current}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      }));
+  } catch {
+    workRoutes = [];
+  }
+
+  return [...staticRoutes, ...workRoutes, ...articleRoutes];
 }

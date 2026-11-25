@@ -1,145 +1,70 @@
 import { ImageResponse } from "next/og";
+import { SITE_TITLE } from "@/lib/site";
 
 export const runtime = "nodejs";
-export const alt = "Manato Mizuno — EC構築・運用パートナー";
+export const alt = SITE_TITLE;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// SNS で共有されたときの画像：サイトと同じ淡い緑の背景に、名前と1行（社長承認 2026-11-25）。
+// 書体はサイトと同じ IBM Plex Sans JP を Google Fonts から取得する。
+// （取得できないときは、標準の書体で描く。画像の生成自体は失敗させない）
+async function loadFont(weight: 400 | 700) {
+  try {
+    const css = await fetch(
+      `https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@${weight}`,
+    ).then((r) => r.text());
+    const url = css.match(/src: url\(([^)]+)\) format\('(?:truetype|opentype)'\)/)?.[1];
+    if (!url) return null;
+    const data = await fetch(url).then((r) => r.arrayBuffer());
+    return { name: "Plex", data, weight, style: "normal" as const };
+  } catch {
+    return null;
+  }
+}
+
 export default async function OGImage() {
-  const fontData = await fetch(
-    "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf"
-  ).then((res) => res.arrayBuffer());
+  const fonts = (await Promise.all([loadFont(400), loadFont(700)])).filter((f) => f !== null);
 
   return new ImageResponse(
     (
       <div
         style={{
-          width: "1200px",
-          height: "630px",
-          background: "#1c241b",
+          width: "100%",
+          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "56px 72px",
-          fontFamily: "Cormorant Garamond",
+          padding: "56px",
+          backgroundColor: "#f2f2f7",
+          backgroundImage:
+            "linear-gradient(135deg, #d3eee2 0%, #f2f2f7 45%, #e4f1d9 75%, #d2efea 100%)",
+          fontFamily: "Plex",
         }}
       >
-        {/* ヘッダー */}
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottom: "1px solid rgba(235,231,218,0.22)",
-            paddingBottom: "24px",
-          }}
-        >
-          <div
-            style={{
-              color: "#ebe7da",
-              fontSize: "22px",
-              letterSpacing: "0.14em",
-              fontFamily: "Cormorant Garamond",
-            }}
-          >
-            Manato Mizuno
-          </div>
-          <div
-            style={{
-              color: "rgba(235,231,218,0.55)",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-            }}
-          >
-            e-commerce partner
-          </div>
-        </div>
-
-        {/* メインタイポグラフィ */}
-        <div
-          style={{
+            width: "100%",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
-            lineHeight: 0.95,
+            justifyContent: "center",
+            padding: "0 80px",
+            borderRadius: "40px",
+            backgroundColor: "rgba(255,255,255,0.66)",
+            border: "2px solid rgba(255,255,255,0.9)",
           }}
         >
-          <div
-            style={{
-              color: "#ebe7da",
-              fontSize: "136px",
-              fontFamily: "Cormorant Garamond",
-              fontWeight: 400,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Build.
+          <div style={{ display: "flex", fontSize: "84px", fontWeight: 700, color: "#1c1c1e" }}>
+            Manato Mizuno
           </div>
-          <div
-            style={{
-              color: "rgba(235,231,218,0.85)",
-              fontSize: "136px",
-              fontFamily: "Cormorant Garamond",
-              fontWeight: 400,
-              letterSpacing: "-0.02em",
-              marginLeft: "80px",
-            }}
-          >
-            Rethink.
+          <div style={{ display: "flex", marginTop: "28px", fontSize: "40px", color: "#2c2c30" }}>
+            Shopify の構築・改修・運用支援
           </div>
-          <div
-            style={{
-              color: "#ebe7da",
-              fontSize: "136px",
-              fontFamily: "Cormorant Garamond",
-              fontWeight: 400,
-              letterSpacing: "-0.02em",
-              marginLeft: "160px",
-            }}
-          >
-            Operate.
-          </div>
-        </div>
-
-        {/* フッター */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-        >
-          <div
-            style={{
-              color: "rgba(235,231,218,0.65)",
-              fontSize: "14px",
-              lineHeight: 1.8,
-            }}
-          >
-            ECサイト運営の課題を紐解き、前進させるパートナー。
-          </div>
-          <div
-            style={{
-              color: "rgba(235,231,218,0.4)",
-              fontSize: "11px",
-              letterSpacing: "0.08em",
-            }}
-          >
-            mizunomanato.com
+          <div style={{ display: "flex", marginTop: "56px", fontSize: "26px", color: "#55555c" }}>
+            Shizuoka, Japan ・ mizunomanato.com
           </div>
         </div>
       </div>
     ),
-    {
-      ...size,
-      fonts: [
-        {
-          name: "Cormorant Garamond",
-          data: fontData,
-          weight: 400,
-          style: "normal",
-        },
-      ],
-    }
+    { ...size, ...(fonts.length ? { fonts } : {}) },
   );
 }
