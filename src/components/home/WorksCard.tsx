@@ -1,34 +1,64 @@
+import Image from "next/image";
 import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
 
-// 事例カード：画像は一旦なし（社長指示 2026-11-24：画像に印象が引っ張られるため）。他カードと同じグラスのカードに、
-// 見出しと「すべて見る」だけを置く。カード全体を1つの内部リンク（→ /works 一覧）にする方針（1カード＝1リンク）は維持。
-// 画像を戻すときは public/images/works-cocorome.jpg が残っている（git 履歴にも前の実装あり）。
-// ホバー：背景がわずかに白く濃くなる。キーボードのフォーカス枠あり。読み上げは「事例一覧へ」。
-// 遷移先 /works は段階4で作成（それまでは 404）。
-export default function WorksCard({ className = "" }: { className?: string }) {
+// 事例カード（社長決定 2026-11-25）：サムネ3枚＋タイトル。タイトルは所在地（Shizuoka, Japan）と同じ
+// 書体・大きさ・色（type-caption／ink-sub）にして目立たせない。
+// 画像とタイトルをまとめて1つのリンクにし、それぞれの事例（/works/[slug]）へ移動する。
+// 画像の alt は空（同じリンク内のタイトルがリンク名になるため、二重に読み上げない）。
+// 「すべて見る」→ /works 一覧は段階4で作成（それまでは 404）。
+export type WorkItem = { _id: string; title: string; slug: string; image: string | null };
+
+export default function WorksCard({
+  works,
+  className = "",
+}: {
+  works: WorkItem[];
+  className?: string;
+}) {
   return (
     <section
       aria-labelledby="works-title"
-      className={`relative min-h-[260px] glass rounded-card shadow-card lg:min-h-0 ${className}`}
+      className={`relative flex min-h-[260px] flex-col overflow-hidden glass rounded-card shadow-card lg:min-h-0 ${className}`}
     >
+      {/* PC はカードの高さが決まっているので中身を敷き詰める。スマホは中身の高さに合わせる */}
+      <div className="flex flex-1 flex-col p-3 lg:absolute lg:inset-0">
+        <FlipHeading id="works-title" en="Works" ja="事例" className="w-fit px-3 pt-3 pb-2" />
+        {works.length > 0 && (
+          <ul className="grid min-h-0 flex-1 grid-cols-3 grid-rows-[minmax(0,1fr)] gap-3 px-3 pb-9">
+            {works.map((w) => (
+              <li key={w._id} className="flex min-h-0 min-w-0 flex-col">
+                <Link
+                  href={`/works/${w.slug}`}
+                  className="group flex min-h-0 flex-1 flex-col gap-1.5 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  <span className="relative block aspect-[3/4] overflow-hidden rounded-xl bg-sunken lg:aspect-auto lg:min-h-0 lg:flex-1">
+                    {w.image && (
+                      <Image
+                        src={w.image}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 17vw, 33vw"
+                        className="object-cover transition-[scale] duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      />
+                    )}
+                  </span>
+                  {/* スマホは2行まで（長い名前が途中で切れないように）。PC は1行 */}
+                  <span className="type-caption line-clamp-2 text-ink-sub transition-colors duration-150 group-hover:text-ink lg:line-clamp-1">
+                    {w.title}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <Link
         href="/works"
-        aria-label="事例一覧へ"
-        className="group absolute inset-0 block rounded-card p-3 transition-colors duration-200 hover:bg-white/30 focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-accent motion-reduce:transition-none"
+        aria-label="事例一覧をすべて見る"
+        className="absolute right-4 bottom-3 rounded-full px-2 py-0.5 type-caption text-ink-sub hover:text-ink hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
       >
-        <FlipHeading
-          id="works-title"
-          en="Works"
-          ja="事例"
-          className="px-3 pt-3 pb-2"
-        />
-        <span
-          aria-hidden
-          className="absolute right-6 bottom-4 type-caption text-ink-sub group-hover:text-ink group-hover:underline group-hover:underline-offset-4"
-        >
-          すべて見る
-        </span>
+        すべて見る
       </Link>
     </section>
   );

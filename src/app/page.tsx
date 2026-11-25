@@ -3,10 +3,10 @@ import IntroCard from "@/components/home/IntroCard";
 import PhotoCard from "@/components/home/PhotoCard";
 import MarqueeCard from "@/components/home/MarqueeCard";
 import ServiceCards from "@/components/home/ServiceCards";
-import WorksCard from "@/components/home/WorksCard";
 import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
 import CtaBand from "@/components/home/CtaBand";
-import { getArticles } from "@/lib/sanity";
+import WorksCard, { type WorkItem } from "@/components/home/WorksCard";
+import { getArticles, getWorks, urlFor } from "@/lib/sanity";
 
 // Sanity の記事・実績を常に最新で表示するため、動的レンダリングのままにする（旧TOPの方針を引き継ぎ）。
 export const dynamic = "force-dynamic";
@@ -34,6 +34,24 @@ function formatDate(iso?: string) {
 
 export default async function Home() {
   const rawArticles = await load(getArticles, []);
+
+  const rawWorks = await load(getWorks, []);
+  const works: WorkItem[] = rawWorks
+    .filter((w: { slug?: { current?: string } }) => w.slug?.current)
+    .slice(0, 3)
+    .map(
+      (w: {
+        _id: string;
+        title: string;
+        slug: { current: string };
+        thumbnail?: object;
+      }) => ({
+        _id: w._id,
+        title: w.title,
+        slug: w.slug.current,
+        image: w.thumbnail ? urlFor(w.thumbnail).width(1200).auto("format").url() : null,
+      }),
+    );
 
   const articles: ArticleItem[] = rawArticles
     .filter((a: { noindex?: boolean }) => !a.noindex)
@@ -75,7 +93,7 @@ export default async function Home() {
         <IntroCard className="order-1 md:col-span-6 lg:order-none lg:col-span-7" />
         <PhotoCard className="lg:order-none lg:col-span-2" />
         <MarqueeCard className="order-5 md:col-span-6 lg:order-none lg:col-span-3" />
-        <WorksCard className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
+        <WorksCard works={works} className="order-3 md:col-span-3 lg:order-none lg:col-span-6" />
         <ArticlesCard articles={blogRows} className="order-4 md:col-span-3 lg:order-none lg:col-span-6" />
         <ServiceCards className="order-2 md:col-span-6 lg:order-none lg:col-span-12" />
         <CtaBand className="order-6 md:col-span-6 lg:order-none lg:col-span-12" />
