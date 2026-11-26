@@ -171,7 +171,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={sending}
-          className="w-full max-w-[320px] cursor-pointer rounded-full bg-cta px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_1px_3px_rgba(9,92,53,0.25)] transition-[opacity,scale] duration-150 ease-out hover:opacity-80 active:scale-[0.97] active:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-wait disabled:opacity-60 motion-reduce:transition-none motion-reduce:active:scale-100"
+          className="w-full max-w-[320px] cursor-pointer rounded-full bg-cta px-9 py-3.5 text-[17px] leading-[1.4] font-semibold text-white shadow-[0_1px_3px_rgba(19,119,74,0.25)] transition-[opacity,scale] duration-150 ease-out hover:opacity-90 active:scale-[0.97] active:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-wait disabled:opacity-60 motion-reduce:transition-none motion-reduce:active:scale-100"
         >
           {sending ? "送信中..." : "送信する"}
         </button>

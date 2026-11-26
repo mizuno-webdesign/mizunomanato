@@ -45,7 +45,7 @@ const components: PortableTextComponents = {
         href={value?.href}
         target={value?.href?.startsWith("http") ? "_blank" : undefined}
         rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="rounded-sm break-words text-accent underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-accent"
+        className="rounded-sm break-words text-accent underline underline-offset-4 hover:decoration-2 focus-visible:outline-2 focus-visible:outline-accent"
       >
         {children}
       </a>

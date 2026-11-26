@@ -50,7 +50,7 @@ function withLinks(text: string) {
         href={part}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-sm break-all text-accent underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-accent"
+        className="rounded-sm break-all text-accent underline underline-offset-4 hover:decoration-2 focus-visible:outline-2 focus-visible:outline-accent"
       >
         {part}
       </a>

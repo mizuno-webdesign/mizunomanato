@@ -239,7 +239,7 @@ export default function DesktopMock({
           href="/contact"
           aria-label="相談する"
           style={{ ...box({ x: 1257, y: 25, w: 170, h: 50 }), borderRadius: u(25), background: CTA }}
-          className="group/arrow transition-opacity duration-150 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+          className="group/arrow transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
         >
           <MovingArrow s={13} color="#fff" still="" style={{ position: "absolute", left: u(119), top: u(18.5), display: "flex" }} />
         </Link>
