@@ -85,6 +85,7 @@ export default function StackedHome({
                 </h1>
                 {/* 所在地と受付状況は名前の下 */}
                 <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-0.5 type-caption">
+                  <span className="whitespace-nowrap text-[var(--top-sub)]">水野学人</span>
                   <span className="whitespace-nowrap text-[var(--top-sub)]">Shizuoka, Japan</span>
                   <span className={`inline-flex items-center gap-2 font-medium whitespace-nowrap ${open ? "text-ok" : "text-ng"}`}>
                     <span aria-hidden className={`size-2 rounded-full bg-current ${open ? "status-dot" : ""}`} />

@@ -185,7 +185,6 @@ export default function DesktopHome({
             const active = i === 0;
             return (
               <div key={n.en} className="flex items-center">
-                {i > 1 && <span aria-hidden style={{ width: 1, height: u(22), background: "var(--top-sep)" }} />}
                 <Link
                   href={n.href}
                   aria-current={active ? "page" : undefined}
@@ -204,15 +203,11 @@ export default function DesktopHome({
         />
         <Link
           href="/contact"
-          aria-label="相談する"
-          style={{ ...box({ x: 1257, y: 25, w: 170, h: 50 }), borderRadius: u(25), background: CTA }}
-          className="group/arrow transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+          className="flex items-center justify-center whitespace-nowrap transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+          style={{ ...box({ x: 1257, y: 25, w: 170, h: 50 }), borderRadius: u(25), background: CTA, color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
         >
-          <MovingArrow s={13} color="#fff" still="" style={{ position: "absolute", left: u(119), top: u(18.5), display: "flex" }} />
+          相談する
         </Link>
-        <div className="pointer-events-none" aria-hidden>
-          <T x={1303} cy={50} size={16} weight={500} color="#fff">相談する</T>
-        </div>
 
         {/* ---- 紹介 ---- */}
         <section aria-labelledby="pc-intro-name">
@@ -237,6 +232,7 @@ export default function DesktopHome({
             Mizuno
           </h1>
           <p className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(67), top: u(426), height: u(20), gap: u(16), fontSize: u(13.5), lineHeight: 1 }}>
+            <span style={{ color: SUB }}>水野学人</span>
             <span style={{ color: SUB }}>Shizuoka, Japan</span>
             <span className={`flex items-center font-medium ${ACCEPTING_NEW_REQUESTS ? "text-ok" : "text-ng"}`} style={{ gap: u(7) }}>
               <span aria-hidden className={`rounded-full bg-current ${ACCEPTING_NEW_REQUESTS ? "status-dot" : ""}`} style={{ width: u(7), height: u(7) }} />

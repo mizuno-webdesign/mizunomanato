@@ -90,7 +90,6 @@ export default function SiteNav() {
           })}
         </ul>
         {/* 明暗の切り替え。スマホで横にスクロールしても、常に右端に見える */}
-        <span aria-hidden className="h-5 w-px shrink-0 bg-line" />
         <ThemeToggle className="size-10 md:size-8" />
       </div>
     </nav>
