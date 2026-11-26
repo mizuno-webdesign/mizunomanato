@@ -19,6 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     })),
     {
+      url: "https://mizunomanato.com/privacy",
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
       url: "https://mizunomanato.com/articles",
       lastModified: new Date(),
       changeFrequency: "weekly",

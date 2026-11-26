@@ -173,6 +173,14 @@ export default function ContactForm() {
       </label>
 
       <div className="flex flex-col items-center gap-3">
+        <p className="type-caption text-ink-sub">
+          送信の前に
+          {/* 入力中の内容が消えないように、別のタブで開く */}
+          <a href="/privacy" target="_blank" className="mx-1 rounded-sm text-accent underline underline-offset-4 hover:no-underline focus-visible:outline-2 focus-visible:outline-accent">
+            プライバシーポリシー
+          </a>
+          をご確認ください。
+        </p>
         <button
           type="submit"
           disabled={sending}
