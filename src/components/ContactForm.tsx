@@ -178,6 +178,7 @@ export default function ContactForm() {
           {/* 入力中の内容が消えないように、別のタブで開く */}
           <a href="/privacy" target="_blank" className="mx-1 rounded-sm text-accent underline underline-offset-4 hover:no-underline focus-visible:outline-2 focus-visible:outline-accent">
             プライバシーポリシー
+            <span className="sr-only">（別のタブで開きます）</span>
           </a>
           をご確認ください。
         </p>

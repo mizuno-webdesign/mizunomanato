@@ -36,6 +36,8 @@ function isSameOrigin(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   if (!isSameOrigin(request)) {
+    // 正しい利用者を拒否していないか、あとで確かめられるように理由を残す（入力内容は残さない）
+    console.warn("Contact rejected: origin", { origin: request.headers.get("origin"), host: request.headers.get("host") });
     return NextResponse.json({ error: "送信できませんでした" }, { status: 403 });
   }
   // JSON 以外は受け付けない（他サイトのフォームから、事前確認なしに送れる形式をふさぐ）
@@ -54,6 +56,7 @@ export async function POST(request: NextRequest) {
   // 隠し入力欄（人には見えない）に値があれば、自動送信とみなして送らない。
   // 誤って判定された人が気づけるように、成功にはせず失敗を返す。
   if (typeof json === "object" && json !== null && (json as Record<string, unknown>)[HONEYPOT_FIELD]) {
+    console.warn("Contact rejected: honeypot");
     return NextResponse.json({ error: "送信できませんでした" }, { status: 400 });
   }
 
