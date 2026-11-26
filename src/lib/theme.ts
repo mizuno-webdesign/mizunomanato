@@ -5,7 +5,7 @@
 export const THEME_KEY = "theme";
 
 // スマホのブラウザ上部の色。ページ上端の地の色に合わせる（globals.css の --color-canvas と同じ値）。
-export const THEME_COLORS = { light: "#f2f2f7", dark: "#101312" } as const;
+export const THEME_COLORS = { light: "#f2f2f7", dark: "#151817" } as const;
 
 // 描画の前に実行するスクリプト（ちらつきを防ぐ）。記事の管理画面（/studio）は独自の見た目なので、何もしない。
 // 参考：node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md

@@ -3,7 +3,6 @@ import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
 import InlineScript from "@/components/InlineScript";
-import DarkTuner from "@/components/dev/DarkTuner";
 import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
@@ -52,8 +51,6 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {/* 暗い背景の調整パネル（開発サーバーだけ。値が決まったら消す） */}
-        {process.env.NODE_ENV === "development" && <DarkTuner />}
       </body>
     </html>
   );
