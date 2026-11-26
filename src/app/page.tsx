@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import SiteFooter from "@/components/SiteFooter";
 import DesktopHome from "@/components/home/DesktopHome";
 import StackedHome from "@/components/home/StackedHome";
 import { formatDate } from "@/lib/date";
@@ -66,6 +67,7 @@ export default async function Home() {
       {/* 背景は下層ページと同じ（globals.css の body のグラデーション） */}
       <div className="hidden min-h-dvh xl:block">
         <DesktopHome works={works} articles={articles} />
+        <SiteFooter />
       </div>
       <StackedHome works={works} articles={articles} className="xl:hidden" />
     </>

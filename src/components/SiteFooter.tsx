@@ -1,4 +1,4 @@
-// 上下の余白は小さめ：PC（1440×900）の TOP がスクロールなしで収まる高さにする。
+// 全ページ共通のフッター（下層ページは SiteFrame、TOP は app/page.tsx と StackedHome から呼ぶ）。上下の余白は小さめ。
 export default function SiteFooter() {
   return (
     <footer className="py-2 text-center">

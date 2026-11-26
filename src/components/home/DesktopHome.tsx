@@ -155,7 +155,8 @@ export default function DesktopHome({
     <div className={className} style={{ containerType: "inline-size" }}>
       <div
         className="relative overflow-hidden"
-        style={{ "--u": "calc(100cqw / 1487)", height: u(1058) } as React.CSSProperties}
+        // 案の高さは1058。下の余白（68）の一部は、下に置くフッター（page.tsx）に回す
+        style={{ "--u": "calc(100cqw / 1487)", height: u(1018) } as React.CSSProperties}
       >
         {/* ---- ヘッダー ---- */}
         {/* ロゴは社長提供の画像。左右の位置と中心の高さは案のロゴに合わせる（74×31） */}
