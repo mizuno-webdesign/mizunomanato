@@ -49,7 +49,7 @@ export default async function WorksPage() {
             <li key={w._id}>
               <Link
                 href={`/works/${w.slug!.current}`}
-                className="group flex h-full flex-col gap-3 rounded-2xl p-3 transition-colors duration-150 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
+                className="group flex h-full flex-col gap-3 rounded-2xl p-3 transition-colors duration-150 hover:bg-hover focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
               >
                 <span className="relative block aspect-[4/3] overflow-hidden rounded-xl bg-sunken">
                   {w.thumbnail && (

@@ -40,7 +40,7 @@ export default function MarqueeCard({ className = "" }: { className?: string }) 
           {[0, 1].flatMap((copy) =>
             SET.map((t, i) => (
               <span key={`${copy}-${i}`} className="group/tile relative shrink-0">
-                <span className="grid size-14 place-items-center rounded-2xl bg-canvas transition-colors duration-150 group-hover/tile:bg-white motion-reduce:transition-none">
+                <span className="grid size-14 place-items-center rounded-2xl bg-tile transition-colors duration-150 group-hover/tile:bg-tile-hover motion-reduce:transition-none">
                   <Image
                     src={t.icon}
                     alt=""

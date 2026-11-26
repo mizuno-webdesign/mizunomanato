@@ -18,7 +18,7 @@ function TocList({
         <li key={item.id} className={item.level === 3 ? subClass : undefined}>
           <a
             href={`#${item.id}`}
-            className={`block rounded-lg ${itemClass} pr-2 type-caption transition-colors duration-150 hover:bg-white/60 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${
+            className={`block rounded-lg ${itemClass} pr-2 type-caption transition-colors duration-150 hover:bg-hover hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${
               item.level === 3 ? "pl-6 text-ink-sub" : "pl-2 text-ink"
             }`}
           >
@@ -51,7 +51,7 @@ export function TocAside({ items }: { items: TocItem[] }) {
 export function TocDisclosure({ items }: { items: TocItem[] }) {
   return (
     <nav aria-label="目次" className="mt-6 lg:hidden">
-      <details className="group rounded-inner bg-white/60">
+      <details className="group rounded-inner bg-hover">
         <summary className="flex cursor-pointer list-none items-center justify-between rounded-inner px-4 py-3 type-heading text-heading focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
           目次
           <span

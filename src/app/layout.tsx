@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
+import InlineScript from "@/components/InlineScript";
+import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
 const GA_ID = "G-377SE17230";
@@ -16,10 +18,14 @@ export const metadata: Metadata = {
   },
 };
 
-// スマホのブラウザ上部の色は、ページ上端の地の色に合わせる。サイトはライト表示のみ。
+// スマホのブラウザ上部の色は、ページ上端の地の色に合わせる。明るい表示と暗い表示の両方に対応する。
+// 切り替えボタンで端末の設定と違う表示を選んだときは、ThemeToggle が色を書き換える。
 export const viewport: Viewport = {
-  themeColor: "#f2f2f7",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -28,8 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${plex.variable} ${outfit.variable}`}>
+    // data-theme は下のスクリプトが描画の前に付けるため、サーバーの出力との違いは警告しない
+    <html lang="ja" className={`${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
+        <InlineScript html={THEME_INIT_SCRIPT} />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"

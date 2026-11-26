@@ -17,7 +17,7 @@ export default function ServiceFlow({ className = "" }: { className?: string }) 
           <li key={s.id} className="relative flex min-h-0 flex-col">
             <Link
               href="/service"
-              className="group flex min-h-0 flex-1 items-center gap-4 rounded-2xl p-3 transition-colors duration-150 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:flex-col md:items-stretch md:gap-3"
+              className="group flex min-h-0 flex-1 items-center gap-4 rounded-2xl p-3 transition-colors duration-150 hover:bg-hover focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:flex-col md:items-stretch md:gap-3"
             >
               <span className="relative block w-28 shrink-0 max-lg:aspect-[10/7] md:w-auto lg:min-h-0 lg:flex-1">
                 <ServiceDiagram id={s.id} className="size-full lg:absolute lg:inset-0" />

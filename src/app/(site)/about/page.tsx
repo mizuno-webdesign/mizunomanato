@@ -59,7 +59,7 @@ export default function AboutPage() {
                 <dd>
                   <ul className="flex flex-wrap gap-2">
                     {c.items.map((item) => (
-                      <li key={item} className="rounded-full bg-white/70 px-3 py-1 type-caption text-ink">
+                      <li key={item} className="rounded-full bg-raise px-3 py-1 type-caption text-ink">
                         {item}
                       </li>
                     ))}

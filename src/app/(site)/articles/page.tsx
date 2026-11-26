@@ -56,7 +56,7 @@ export default async function ArticlesPage() {
               <li key={a._id}>
                 <Link
                   href={`/articles/${a.slug.current}`}
-                  className="grid gap-1 rounded-2xl px-3 py-4 transition-colors duration-150 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:grid-cols-[96px_1fr] md:gap-x-4"
+                  className="grid gap-1 rounded-2xl px-3 py-4 transition-colors duration-150 hover:bg-hover focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none md:grid-cols-[96px_1fr] md:gap-x-4"
                 >
                   <time dateTime={a.publishedAt} className="type-caption text-ink-sub md:pt-1">
                     {formatDate(a.publishedAt)}

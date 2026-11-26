@@ -20,7 +20,7 @@ type FormData = {
 
 // 入力欄の文字は16px：iPhone で、タップしたときに画面が拡大されないようにするため。
 const INPUT =
-  "w-full rounded-xl border border-line bg-white/80 px-4 py-3 text-[16px] leading-[1.6] text-ink focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent aria-invalid:border-ng";
+  "w-full rounded-xl border border-line bg-field px-4 py-3 text-[16px] leading-[1.6] text-ink focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent aria-invalid:border-ng";
 
 const required = (max: number) => ({
   validate: (v: string) => v.trim().length > 0 || "入力してください",
@@ -33,7 +33,7 @@ function Label({ text, optional = false }: { text: string; optional?: boolean })
       {text}
       <span
         className={`rounded-full px-2 text-[13px] leading-[1.6] font-normal ${
-          optional ? "bg-ink/6 text-ink-sub" : "bg-cta/10 text-cta"
+          optional ? "bg-ink/6 text-ink-sub" : "bg-cta/10 text-cta-text"
         }`}
       >
         {optional ? "任意" : "必須"}
@@ -122,9 +122,9 @@ export default function ContactForm() {
         {options.map((o) => (
           <label
             key={o}
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-white/80 px-4 py-3 type-body has-checked:border-cta has-checked:bg-white has-focus-visible:outline-2 has-focus-visible:outline-accent"
+            className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-field px-4 py-3 type-body has-checked:border-select has-checked:bg-solid has-focus-visible:outline-2 has-focus-visible:outline-accent"
           >
-            <input type="radio" value={o} {...register(key)} className="size-4 shrink-0 accent-cta" />
+            <input type="radio" value={o} {...register(key)} className="size-4 shrink-0 accent-select" />
             {o}
           </label>
         ))}

@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import RollText from "@/components/compare/RollText";
+import ThemeToggle from "@/components/ThemeToggle";
 import ToolMarquee from "@/components/compare/ToolMarquee";
 import type { ArticleItem } from "@/components/home/ArticlesCard";
 import type { WorkItem } from "@/components/home/WorksCard";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
 import servicesImage from "./mock-services.webp";
+import servicesImageDark from "./mock-services-dark.webp";
 
 // 比較版の PC 表示：社長が提示した案（1487×1058px の画像）を実測して再現する（2026-11-26 承認の計画）。
 // 数値はすべて案の画像のピクセル。u(n) で「画面幅 ÷ 1487」の倍率をかけるので、PC のどの幅でも同じ比率になる。
@@ -15,12 +17,13 @@ import servicesImage from "./mock-services.webp";
 
 const u = (n: number) => `calc(${n} * var(--u))`;
 
-const INK = "#16171c";
-const SUB = "#4a4d57";
-const GREEN = "#0b6b3e";
-const CTA = "#095c35";
-const BORDER = "#e3e5ec";
-const RULE = "#eceef3";
+// 色は globals.css の変数（明るい表示と暗い表示で値が変わる）
+const INK = "var(--mock-ink)";
+const SUB = "var(--mock-sub)";
+const GREEN = "var(--mock-green)";
+const CTA = "var(--mock-cta)";
+const BORDER = "var(--mock-border)";
+const RULE = "var(--mock-rule)";
 
 type Box = { x: number; y: number; w: number; h: number };
 const box = ({ x, y, w, h }: Box): React.CSSProperties => ({
@@ -96,7 +99,7 @@ function Arrow({ x, y, s, color = GREEN, sw = 1.6 }: { x?: number; y?: number; s
 // 動きを減らす設定では動かさず、still で指定した色の変化だけにする。
 const MOVE =
   "inline-flex transition-[translate] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/arrow:translate-x-[calc(3*var(--u))] group-hover/arrow:-translate-y-[calc(3*var(--u))] group-focus-visible/arrow:translate-x-[calc(3*var(--u))] group-focus-visible/arrow:-translate-y-[calc(3*var(--u))] motion-reduce:transition-none motion-reduce:group-hover/arrow:translate-none motion-reduce:group-focus-visible/arrow:translate-none";
-const STILL_INK = "motion-reduce:group-hover/arrow:text-[#16171c] motion-reduce:group-focus-visible/arrow:text-[#16171c]";
+const STILL_INK = "motion-reduce:group-hover/arrow:text-[var(--mock-ink)] motion-reduce:group-focus-visible/arrow:text-[var(--mock-ink)]";
 
 function MovingArrow({ s, color = GREEN, still = STILL_INK, style }: { s: number; color?: string; still?: string; style?: React.CSSProperties }) {
   return (
@@ -148,7 +151,7 @@ function Card({ x, y, w, h }: Box) {
   return (
     <div
       aria-hidden
-      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "#f9fafe" }}
+      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--mock-card)" }}
     />
   );
 }
@@ -191,7 +194,8 @@ export default function DesktopMock({
         {/* ---- ヘッダー ---- */}
         {/* ロゴは社長提供の画像。左右の位置と中心の高さは案のロゴに合わせる（74×31） */}
         <Link href="/compare" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 34.5, w: 74, h: 31 })} className="focus-visible:outline-2 focus-visible:outline-accent">
-          <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="size-full object-contain" />
+          <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light size-full object-contain" />
+          <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark size-full object-contain" />
         </Link>
         {/* ナビ：中心は案と同じ（x=743.5）。項目が5つになったので、枠の幅は中身に合わせる */}
         <nav
@@ -206,7 +210,7 @@ export default function DesktopMock({
             padding: `0 ${u(6)}`,
             border: `1px solid ${BORDER}`,
             borderRadius: u(26),
-            background: "#fbfcff",
+            background: "var(--mock-nav)",
             whiteSpace: "nowrap",
           }}
         >
@@ -214,11 +218,11 @@ export default function DesktopMock({
             const active = i === 0;
             return (
               <div key={n.en} className="flex items-center">
-                {i > 1 && <span aria-hidden style={{ width: 1, height: u(22), background: "#e1e3e7" }} />}
+                {i > 1 && <span aria-hidden style={{ width: 1, height: u(22), background: "var(--mock-sep)" }} />}
                 <Link
                   href={n.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[#e9f3ee]" : "hover:bg-[#f1f3f7]"}`}
+                  className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--mock-nav-active)]" : "hover:bg-[var(--mock-nav-hover)]"}`}
                   style={{ height: u(40), minWidth: u(112), padding: `0 ${u(18)}`, borderRadius: u(20), fontSize: u(15), lineHeight: 1.5, fontWeight: 500, color: active ? GREEN : INK }}
                 >
                   <RollText en={n.en} ja={n.ja} center />
@@ -227,6 +231,10 @@ export default function DesktopMock({
             );
           })}
         </nav>
+        {/* 明暗の切り替え。相談ボタンの左に置く */}
+        <ThemeToggle
+          style={{ ...box({ x: 1201, y: 28, w: 44, h: 44 }), border: `1px solid ${BORDER}`, background: "var(--mock-nav)" }}
+        />
         <Link
           href="/contact"
           aria-label="相談する"
@@ -278,7 +286,8 @@ export default function DesktopMock({
         {/* ---- サービス ---- */}
         <section aria-labelledby="m-services-title">
           <Card x={460} y={130} w={992} h={476} />
-          <Image src={servicesImage} alt="" unoptimized loading="eager" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
+          <Image src={servicesImage} alt="" unoptimized loading="eager" className="only-light" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
+          <Image src={servicesImageDark} alt="" unoptimized loading="eager" className="only-dark" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
           <Heading id="m-services-title" x={494} cy={175} en="Services" ja="サービス" />
           <Line x={786} y={500} w={1} h={70} />
           <Line x={1107} y={500} w={1} h={70} />
@@ -308,7 +317,7 @@ export default function DesktopMock({
             const x = i === 0 ? 60 : 378;
             return (
               <Link key={w._id} href={`/works/${w.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
-                <span style={{ ...box({ x, y: 737, w: 299, h: 179 }), overflow: "hidden", borderRadius: u(10), background: "#e5e5ea" }}>
+                <span style={{ ...box({ x, y: 737, w: 299, h: 179 }), overflow: "hidden", borderRadius: u(10), background: "var(--color-sunken)" }}>
                   {w.image && (
                     <Image src={w.image} alt="" fill sizes="22vw" className="object-cover transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none" />
                   )}
@@ -354,8 +363,8 @@ export default function DesktopMock({
           ))}
           {articles.slice(0, 3).map((a, i) => (
             <Link key={a._id} href={`/articles/${a.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
-              <span aria-hidden style={box({ x: 740, y: ROWS[i] - 24, w: 688, h: 48 })} className="transition-colors duration-150 group-hover:bg-[#0b6b3e]/5 motion-reduce:transition-none" />
-              <T x={748} cy={ROWS[i]} size={14} color="#6a6e7a">{a.date}</T>
+              <span aria-hidden style={box({ x: 740, y: ROWS[i] - 24, w: 688, h: 48 })} className="transition-colors duration-150 group-hover:bg-[var(--mock-green)]/5 motion-reduce:transition-none" />
+              <T x={748} cy={ROWS[i]} size={14} color="var(--mock-date)">{a.date}</T>
               {/* 入りきらない題名は「…」で省略する */}
               <span
                 className="overflow-hidden text-ellipsis whitespace-nowrap"

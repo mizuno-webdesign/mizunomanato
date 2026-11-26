@@ -73,7 +73,7 @@ export default async function ComparePage() {
 
   return (
     <>
-      <div className="hidden min-h-dvh bg-[#f9fafe] lg:block">
+      <div className="hidden min-h-dvh bg-[var(--mock-page)] lg:block">
         <DesktopMock works={mockWorks} articles={articles} />
       </div>
 
@@ -84,7 +84,8 @@ export default async function ComparePage() {
             aria-label="Manato Mizuno トップ"
             className="block py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="h-8 w-auto" />
+            <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light h-8 w-auto" />
+            <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark h-8 w-auto" />
           </Link>
           <CtaButton className="px-5! py-2! text-[14px]!" />
         </div>

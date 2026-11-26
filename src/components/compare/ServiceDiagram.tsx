@@ -9,7 +9,7 @@ const SOFT = "rgb(16 160 106 / 0.16)";
 function Frame({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <rect x="8" y="8" width="184" height="124" rx="12" fill="#fff" fillOpacity="0.85" stroke={LINE} />
+      <rect x="8" y="8" width="184" height="124" rx="12" fill="var(--color-solid)" fillOpacity="0.85" stroke={LINE} />
       <path d="M8 30h184" stroke={LINE} />
       {[22, 32, 42].map((x) => (
         <circle key={x} cx={x} cy="19" r="2.6" fill={LINE} />
@@ -45,7 +45,7 @@ const DIAGRAMS: Record<string, React.ReactNode> = {
         [98, 102],
         [174, 102],
       ].map(([x, y]) => (
-        <rect key={`${x}-${y}`} x={x - 4} y={y - 4} width="8" height="8" rx="1.5" fill="#fff" stroke={ACCENT} strokeWidth="1.75" />
+        <rect key={`${x}-${y}`} x={x - 4} y={y - 4} width="8" height="8" rx="1.5" fill="var(--color-solid)" stroke={ACCENT} strokeWidth="1.75" />
       ))}
       <path d="m146 82 24 10-10 3.500-4 10.500z" fill={ACCENT} stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" />
     </Frame>
@@ -65,7 +65,7 @@ const DIAGRAMS: Record<string, React.ReactNode> = {
       <circle cx="99" cy="48" r="4" fill={ACCENT} />
       {[52, 76, 100].map((y, i) => (
         <g key={y}>
-          <rect x="124" y={y - 7} width="14" height="14" rx="4" fill={i < 2 ? ACCENT : "#fff"} stroke={i < 2 ? ACCENT : LINE} />
+          <rect x="124" y={y - 7} width="14" height="14" rx="4" fill={i < 2 ? ACCENT : "var(--color-solid)"} stroke={i < 2 ? ACCENT : LINE} />
           {i < 2 && (
             <path d={`m127.500 ${y} 2.500 2.500 5-5`} fill="none" stroke="#fff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           )}

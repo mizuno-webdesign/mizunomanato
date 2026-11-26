@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // 上部ピル型ナビ（社長決定 2026-11-24：marco.fyi 型）。
 // スマホ（md 未満）は横スクロールのタブ（社長決定 2026-11-25）：
@@ -60,12 +61,12 @@ export default function SiteNav() {
       aria-label="メイン"
       className="sticky top-3 z-50 flex justify-center pt-3"
     >
-      <div className="max-w-full rounded-full bg-white/70 p-1 shadow-card backdrop-blur-xl backdrop-saturate-150 max-md:w-full md:p-[3px]">
+      <div className="flex max-w-full items-center gap-1 rounded-full bg-raise p-1 shadow-card backdrop-blur-xl backdrop-saturate-150 max-md:w-full md:p-[3px]">
         <ul
           ref={listRef}
           onScroll={updateMore}
           style={{ maskImage: mask, WebkitMaskImage: mask }}
-          className="relative flex snap-x snap-mandatory items-center gap-0.5 overflow-x-auto overscroll-x-contain rounded-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="relative flex min-w-0 flex-1 snap-x snap-mandatory items-center gap-0.5 overflow-x-auto overscroll-x-contain rounded-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {ITEMS.map((item) => {
             const active = isActive(item.href);
@@ -78,7 +79,7 @@ export default function SiteNav() {
                     "block whitespace-nowrap rounded-full px-4 py-2 text-[15px] leading-[1.6] font-medium transition-colors duration-150 motion-reduce:transition-none md:px-[18px] md:py-1.5 md:text-sm",
                     "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent",
                     active
-                      ? "bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
+                      ? "bg-solid text-ink shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
                       : "text-ink-sub hover:bg-sunken/70 hover:text-ink md:font-normal",
                   ].join(" ")}
                 >
@@ -88,6 +89,9 @@ export default function SiteNav() {
             );
           })}
         </ul>
+        {/* 明暗の切り替え。スマホで横にスクロールしても、常に右端に見える */}
+        <span aria-hidden className="h-5 w-px shrink-0 bg-line" />
+        <ThemeToggle className="size-10 md:size-8" />
       </div>
     </nav>
   );

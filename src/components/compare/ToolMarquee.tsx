@@ -41,13 +41,13 @@ export default function ToolMarquee() {
                     type="button"
                     tabIndex={-1}
                     onClick={() => setOpenKey(open ? null : key)}
-                    className="grid cursor-pointer place-items-center bg-white transition-[background-color] duration-150 hover:bg-[#eef6f1] motion-reduce:transition-none"
+                    className="grid cursor-pointer place-items-center bg-[var(--mock-tile)] transition-[background-color] duration-150 hover:bg-[var(--mock-tile-hover)] motion-reduce:transition-none"
                     style={{ width: u(40), height: u(40), borderRadius: u(12) }}
                   >
                     <Image src={t.icon} alt="" width={24} height={24} unoptimized style={{ width: u(22), height: u(22), borderRadius: u(5) }} />
                   </button>
                   {open && (
-                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[#4a4d57]" style={{ top: u(44), fontSize: u(11), lineHeight: 1.3 }}>
+                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--mock-sub)]" style={{ top: u(44), fontSize: u(11), lineHeight: 1.3 }}>
                       {t.name}
                     </span>
                   )}
