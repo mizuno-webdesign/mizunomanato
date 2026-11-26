@@ -3,6 +3,7 @@ import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
 import InlineScript from "@/components/InlineScript";
+import PhotoTrial from "@/components/dev/PhotoTrial";
 import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
@@ -51,6 +52,8 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        {/* 顔写真の見比べ用（開発サーバーだけ。写真が決まったら消す） */}
+        {process.env.NODE_ENV === "development" && <PhotoTrial />}
       </body>
     </html>
   );
