@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaButton from "@/components/CtaButton";
+import DesktopMock from "@/components/compare/DesktopMock";
 import ProfileCard from "@/components/compare/ProfileCard";
 import ServiceFlow from "@/components/compare/ServiceFlow";
 import ArticlesCard, { type ArticleItem } from "@/components/home/ArticlesCard";
@@ -16,6 +17,7 @@ import { getArticles, getWorks, urlFor } from "@/lib/sanity";
 // TOP の比較版（2026-11-26）。今の TOP（(site)/page.tsx）と見比べるための一時ページで、開発サーバーでだけ表示する
 // （本番ビルドでは 404）。採否が決まったら、このフォルダと src/components/compare/ は削除するか TOP に反映する。
 // データの取得は今の TOP と同じ内容を写している。
+// 幅1024px以上は、案の画像を実測して再現した DesktopMock を表示する。それより狭い幅は、前の比較版の表示を残す。
 export const metadata: Metadata = {
   title: "TOP 比較版（確認用）",
   robots: { index: false, follow: false },
@@ -57,37 +59,50 @@ export default async function ComparePage() {
       date: formatDate(a.publishedAt),
     }));
 
+  // 案の実績は COCOROMe と Lipico の2件（画像は Sanity の実際のサムネイル）
+  const mockWorks = ["cocorome", "lipico"].flatMap((key) => {
+    const w = rawWorks.find(
+      (r: { title?: string; slug?: { current?: string } }) =>
+        r.slug?.current && r.title?.toLowerCase().includes(key),
+    );
+    return w
+      ? [{ _id: w._id, title: w.title, slug: w.slug.current, image: w.thumbnail ? urlFor(w.thumbnail).width(900).auto("format").url() : null }]
+      : [];
+  });
+
   return (
-    <div className="relative mx-auto flex min-h-dvh w-full max-w-[1560px] flex-col px-4">
-      {/* ロゴと相談ボタン。PC はナビと同じ段の左右の端、それより狭い幅はナビの上の段に置く */}
-      <div className="flex items-center justify-between pt-3 lg:contents">
-        <Link
-          href="/compare"
-          aria-label="Manato Mizuno トップ"
-          className="grid size-10 place-items-center rounded-xl bg-cta text-[20px] leading-none font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:absolute lg:top-3 lg:left-4"
-        >
-          M
-        </Link>
-        <CtaButton className="px-5! py-2! text-[14px]! lg:absolute lg:top-3 lg:right-4 lg:z-[60]" />
+    <>
+      <div className="hidden min-h-dvh bg-[#f9fafe] lg:block">
+        <DesktopMock works={mockWorks} articles={articles} />
       </div>
-      <SiteNav />
-      <main className="flex-1 pt-5">
-        {/* PC：2段。上段＝プロフィール4：サービス8（サービスが主役）、下段＝事例6：ツールとブログ6。
-            下の相談の帯は、PC では右上のボタンに置き換える。 */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[clamp(400px,48dvh,500px)_clamp(330px,38dvh,420px)]">
-          <ProfileCard className="md:col-span-6 lg:col-span-4" />
-          <ServiceFlow className="md:col-span-6 lg:col-span-8" />
-          <WorksCard works={works} className="md:col-span-6 lg:col-span-6" />
-          <div className="flex min-h-0 flex-col gap-4 md:col-span-6 lg:col-span-6">
-            {/* ツールの帯は、PC では見出しと横並びにして低くする（部品は今の TOP と同じもの） */}
-            <MarqueeCard className="order-2 shrink-0 lg:order-1 lg:flex-row lg:items-center lg:py-1.5 lg:[&>.marquee]:min-w-0 lg:[&>.marquee]:flex-1 lg:[&>.marquee]:pt-1 lg:[&>.marquee]:pb-6 lg:[&>h2]:py-0 lg:[&>h2]:pr-4" />
-            <ArticlesCard articles={articles} className="order-1 lg:order-2 lg:min-h-0 lg:flex-1" />
-          </div>
-          {/* スマホ・タブレットは、読み終えた位置にも相談の入口を残す */}
-          <CtaBand className="md:col-span-6 lg:hidden" />
+
+      <div className="relative mx-auto flex min-h-dvh w-full flex-col px-4 lg:hidden">
+        <div className="flex items-center justify-between pt-3">
+          <Link
+            href="/compare"
+            aria-label="Manato Mizuno トップ"
+            className="grid size-10 place-items-center rounded-xl bg-cta text-[20px] leading-none font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            M
+          </Link>
+          <CtaButton className="px-5! py-2! text-[14px]!" />
         </div>
-      </main>
-      <SiteFooter />
-    </div>
+        <SiteNav />
+        <main className="flex-1 pt-5">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
+            <ProfileCard className="md:col-span-6" />
+            <ServiceFlow className="md:col-span-6" />
+            <WorksCard works={works} className="md:col-span-6" />
+            <div className="flex min-h-0 flex-col gap-4 md:col-span-6">
+              <MarqueeCard className="order-2 shrink-0" />
+              <ArticlesCard articles={articles} className="order-1" />
+            </div>
+            {/* 読み終えた位置にも相談の入口を残す */}
+            <CtaBand className="md:col-span-6" />
+          </div>
+        </main>
+        <SiteFooter />
+      </div>
+    </>
   );
 }
