@@ -30,7 +30,7 @@ async function load<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
-type RawWork = { _id: string; title: string; slug?: { current?: string }; thumbnail?: object };
+type RawWork = { _id: string; title: string; slug?: { current?: string }; thumbnail?: { asset?: unknown } };
 type RawArticle = { _id: string; title: string; slug: { current: string }; publishedAt?: string; noindex?: boolean };
 
 export default async function Home() {
@@ -42,7 +42,7 @@ export default async function Home() {
     _id: w._id,
     title: w.title,
     slug: w.slug!.current!,
-    image: w.thumbnail ? urlFor(w.thumbnail).width(900).auto("format").url() : null,
+    image: w.thumbnail?.asset ? urlFor(w.thumbnail).width(900).auto("format").url() : null,
   }));
 
   const articles: ArticleItem[] = rawArticles

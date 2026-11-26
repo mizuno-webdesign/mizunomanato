@@ -131,6 +131,7 @@ const SERVICE_ART = [
 ];
 
 const ROWS = [841.5, 891.5, 944.5];
+const FOCUS_RING = "pointer-events-none group-focus-visible:outline-2 group-focus-visible:outline-accent";
 const LOWER_HEADING_Y = 663; // 下の段（上端627）のカード見出しの縦の中心
 
 export default function DesktopHome({
@@ -152,6 +153,7 @@ export default function DesktopHome({
         {/* ---- ヘッダー（全ページ共通）---- */}
         <DesktopHeader />
 
+        <main>
         {/* ---- 紹介 ---- */}
         <section aria-labelledby="pc-intro-name">
           <Card x={34} y={130} w={409} h={476} />
@@ -223,13 +225,21 @@ export default function DesktopHome({
           {works.slice(0, 2).map((w, i) => {
             const x = i === 0 ? 60 : 378;
             return (
-              <Link key={w._id} href={`/works/${w.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
+              // 中身はキャンバス基準の絶対配置で、リンク自体は大きさを持たない。選択枠は、行を覆う専用の要素に出す
+              <Link key={w._id} href={`/works/${w.slug}`} className="group outline-none">
                 <span style={{ ...box({ x, y: 737, w: 299, h: 179 }), overflow: "hidden", borderRadius: u(10), background: "var(--color-sunken)" }}>
                   {w.image && (
                     <Image src={w.image} alt="" fill sizes="22vw" className="object-cover transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none" />
                   )}
                 </span>
-                <T x={x + 3} cy={940} size={15}>{w.title}</T>
+                {/* 入りきらない題名は「…」で省略する */}
+                <span
+                  className="overflow-hidden text-ellipsis whitespace-nowrap"
+                  style={{ position: "absolute", left: u(x + 3), top: u(928), width: u(293), fontSize: u(15), lineHeight: u(24), color: INK }}
+                >
+                  {w.title}
+                </span>
+                <span aria-hidden className={FOCUS_RING} style={{ ...box({ x: x - 6, y: 731, w: 311, h: 227 }), borderRadius: u(14) }} />
               </Link>
             );
           })}
@@ -262,8 +272,8 @@ export default function DesktopHome({
           ))}
           {articles.length === 0 && <T x={748} cy={ROWS[0]} size={15} color={SUB} as="p">記事は準備中です。</T>}
           {articles.slice(0, 3).map((a, i) => (
-            <Link key={a._id} href={`/articles/${a.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
-              <span aria-hidden style={{ ...box({ x: 736, y: ROWS[i] - 24, w: 701, h: 48 }), borderRadius: u(8) }} className="transition-colors duration-150 group-hover:bg-[var(--top-green)]/5 motion-reduce:transition-none" />
+            <Link key={a._id} href={`/articles/${a.slug}`} className="group outline-none">
+              <span aria-hidden style={{ ...box({ x: 736, y: ROWS[i] - 24, w: 701, h: 48 }), borderRadius: u(8) }} className="group-focus-visible:outline-2 group-focus-visible:-outline-offset-2 group-focus-visible:outline-accent transition-colors duration-150 group-hover:bg-[var(--top-green)]/5 motion-reduce:transition-none" />
               <T x={748} cy={ROWS[i]} size={14} color="var(--top-date)">{a.date}</T>
               {/* 入りきらない題名は「…」で省略する */}
               <span
@@ -278,6 +288,7 @@ export default function DesktopHome({
             </Link>
           ))}
         </section>
+        </main>
       </div>
     </div>
   );

@@ -34,8 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // data-scroll-behavior：画面を移るときは、なめらかスクロールを一時的に切る（Next 16 の指定）
     // data-theme は下のスクリプトが描画の前に付けるため、サーバーの出力との違いは警告しない
-    <html lang="ja" className={`${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
+    <html lang="ja" data-scroll-behavior="smooth" className={`${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={THEME_INIT_SCRIPT} />
         <Script

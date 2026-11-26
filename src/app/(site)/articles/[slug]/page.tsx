@@ -50,7 +50,7 @@ export async function generateMetadata({
       description: article.excerpt ?? SITE_DESCRIPTION,
       type: "article",
       publishedTime: article.publishedAt,
-      image: article.mainImage
+      image: article.mainImage?.asset
         ? urlFor(article.mainImage).width(1200).height(630).auto("format").url()
         : undefined,
     }),
@@ -70,7 +70,7 @@ export default async function ArticlePage({
   const article = await getArticle(slug);
   if (!article) notFound();
 
-  const imgUrl = article.mainImage
+  const imgUrl = article.mainImage?.asset
     ? urlFor(article.mainImage).width(1440).auto("format").url()
     : null;
   const toc = extractToc(article.body);

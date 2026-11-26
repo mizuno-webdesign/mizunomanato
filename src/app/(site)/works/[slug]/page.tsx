@@ -65,7 +65,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const work = await getWork(slug);
   if (!work) notFound();
 
-  const imgUrl = work.thumbnail
+  const imgUrl = work.thumbnail?.asset
     ? urlFor(work.thumbnail).width(1600).auto("format").url()
     : null;
 
