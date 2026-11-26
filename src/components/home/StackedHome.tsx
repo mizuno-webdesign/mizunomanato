@@ -5,7 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { MovingArrow } from "@/components/home/Arrow";
 import RollText from "@/components/home/RollText";
-import ServiceDiagram from "@/components/home/ServiceDiagram";
+import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
 import type { ArticleItem, WorkItem } from "@/lib/home";
@@ -13,7 +13,7 @@ import { SERVICES } from "@/lib/services";
 
 // TOP の縦並びの表示（幅1280px未満：スマホ、タブレット、小さい PC）。内容は PC 表示（DesktopHome）と同じ。
 // PC 表示は画面幅に合わせて全体が縮むため、この幅より狭いと文字が小さくなりすぎるので、こちらに切り替える。
-// サービスの絵は、狭い幅でも見分けられる線の図（ServiceDiagram）を使う。
+// サービスの絵も PC 表示と同じ3枚を使う。
 
 const CARD = "relative rounded-[18px] border border-[var(--top-border)] bg-[var(--top-card)] p-5 md:p-6";
 
@@ -106,13 +106,20 @@ export default function StackedHome({
                     aria-label={`${s.name}の詳細：${s.line}`}
                     className="group/arrow flex h-full items-center gap-4 rounded-xl py-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:flex-col md:items-stretch md:gap-2"
                   >
-                    <ServiceDiagram id={s.id} className="aspect-[10/7] w-24 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
+                    <ServiceIllustration id={s.id} sizes="(min-width: 768px) 220px, 112px" className="aspect-[10/9] h-auto w-28 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
                     <span className="block">
                       <span className="flex items-center gap-2 text-[18px] leading-[1.4] font-bold text-[var(--top-ink)]">
                         {s.name}
                         <MovingArrow s={13} style={{ display: "flex" }} />
                       </span>
-                      <span className="mt-1 block text-balance type-body text-[var(--top-sub)]">{s.line}</span>
+                      <span className="mt-1 block text-balance type-body text-[var(--top-sub)]">
+                        {/* 中黒の後ろで折り返せるように区切る（単語の途中で折り返さない） */}
+                        {s.line.split(/(?<=・)/).map((part) => (
+                          <span key={part} className="inline-block">
+                            {part}
+                          </span>
+                        ))}
+                      </span>
                     </span>
                   </Link>
                 </li>

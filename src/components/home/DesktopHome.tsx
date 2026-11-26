@@ -2,17 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { MovingArrow, u } from "@/components/home/Arrow";
 import RollText from "@/components/home/RollText";
+import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ThemeToggle from "@/components/ThemeToggle";
 import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
 import type { ArticleItem, WorkItem } from "@/lib/home";
 import { SERVICES } from "@/lib/services";
-import servicesImage from "./services-illustration.webp";
-import servicesImageDark from "./services-illustration-dark.webp";
 
 // TOP の PC 表示（幅1280px以上）。社長が提示した案（1487×1058px の画像）を実測して組んでいる。
 // 数値はすべて案の画像のピクセル。u(n) で「画面幅 ÷ 1487」の倍率をかけるので、どの幅でも同じ比率になる。
-// 色は緑。サービスの絵（services-illustration*.webp）は案の画像から切り抜いて色を変えたもの（暗い版は加工）。
+// 色は緑。サービスの絵は社長提供の3枚（ServiceIllustration）で、位置と大きさは案の絵に合わせている。
 // 内容は縦並びの表示（StackedHome）とそろえる。
 
 // 色は globals.css の変数（明るい表示と暗い表示で値が変わる）
@@ -132,6 +131,12 @@ const NAV = [
 
 // サービス3列の左の位置。名前と説明は src/lib/services.tsx。
 const SERVICE_X = [512, 844, 1164];
+// 絵の位置と大きさ。3枚とも下端を y=484 にそろえる。改修の絵は縦に長いので、高さを少し大きくする。
+const SERVICE_ART = [
+  { id: "build", x: 490, y: 229, w: 292, h: 255 },
+  { id: "improve", x: 820, y: 200, w: 270, h: 284 },
+  { id: "operate", x: 1127, y: 235, w: 290, h: 249 },
+];
 
 const ROWS = [841.5, 891.5, 944.5];
 
@@ -244,8 +249,14 @@ export default function DesktopHome({
         {/* ---- サービス ---- */}
         <section aria-labelledby="pc-services-title">
           <Card x={460} y={130} w={992} h={476} />
-          <Image src={servicesImage} alt="" unoptimized loading="eager" className="only-light" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
-          <Image src={servicesImageDark} alt="" unoptimized className="only-dark" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
+          {/* 絵と絵をつなぐ線（絵の下に敷く） */}
+          <svg aria-hidden viewBox="460 130 992 476" style={box({ x: 460, y: 130, w: 992, h: 476 })} fill="none" stroke="var(--top-sep)" strokeWidth="1.5" strokeLinecap="round">
+            <path d="M762 356h22l16-14h38" />
+            <path d="M1074 342h38l16 14h22" />
+          </svg>
+          {SERVICE_ART.map((a) => (
+            <ServiceIllustration key={a.id} id={a.id} sizes="20vw" style={box(a)} />
+          ))}
           <Heading id="pc-services-title" x={494} cy={175} en="Services" ja="サービス" />
           <Line x={786} y={500} w={1} h={70} />
           <Line x={1107} y={500} w={1} h={70} />
