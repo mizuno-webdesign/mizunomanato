@@ -17,7 +17,7 @@ import { SERVICES } from "@/lib/services";
 // サービスの絵も PC 表示と同じ3枚を使う。
 
 // 影は下層ページのカードと同じ
-const CARD = "relative rounded-[18px] border border-[var(--top-border)] bg-[var(--top-card)] p-5 shadow-card md:p-6";
+const CARD = "relative rounded-[18px] border border-[var(--top-border)] bg-[var(--top-card)] [background-image:var(--card-noise)] [background-size:160px_160px] p-5 shadow-card md:p-6";
 
 function Heading({ id, en, ja }: { id: string; en: string; ja: string }) {
   return (

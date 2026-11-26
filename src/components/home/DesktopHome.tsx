@@ -113,7 +113,7 @@ function Card({ x, y, w, h }: Box) {
   return (
     <div
       aria-hidden
-      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--top-card)", boxShadow: "var(--card-shadow)" }}
+      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), backgroundColor: "var(--top-card)", backgroundImage: "var(--card-noise)", backgroundSize: "160px 160px", boxShadow: "var(--card-shadow)" }}
     />
   );
 }

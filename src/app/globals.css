@@ -39,6 +39,8 @@
 }
 
 :root {
+  /* 【試し】カードの上にも背景と同じノイズを重ねる（社長指示 2026-11-26）。やめるときは none にする。 */
+  --card-noise: var(--noise);
   --card-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 6px 20px rgb(0 0 0 / 0.05);
   --glass-bg: rgb(255 255 255 / 0.42);
   --glass-line: rgb(255 255 255 / 0.85);
@@ -135,6 +137,8 @@
    文字のコントラスト：最悪ケース（にじみが重なる想定で1.3倍の濃さ）でも 補足文字5.4以上・状態色4.9以上（計算値）。 */
 @utility glass {
   background-color: var(--glass-bg);
+  background-image: var(--card-noise);
+  background-size: 160px 160px;
   /* 生の backdrop-filter を書くとビルド時に接頭辞つきだけが残り Chrome で効かないため、Tailwind のユーティリティで指定する */
   @apply backdrop-blur-[32px] backdrop-saturate-[1.8];
   outline: 1px solid var(--glass-line);
