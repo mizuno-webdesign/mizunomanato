@@ -1,29 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import RollText from "@/components/compare/RollText";
+import { MovingArrow, u } from "@/components/home/Arrow";
+import RollText from "@/components/home/RollText";
 import ThemeToggle from "@/components/ThemeToggle";
-import ToolMarquee from "@/components/compare/ToolMarquee";
-import type { ArticleItem } from "@/components/home/ArticlesCard";
-import type { WorkItem } from "@/components/home/WorksCard";
+import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
-import servicesImage from "./mock-services.webp";
-import servicesImageDark from "./mock-services-dark.webp";
+import type { ArticleItem, WorkItem } from "@/lib/home";
+import { SERVICES } from "@/lib/services";
+import servicesImage from "./services-illustration.webp";
+import servicesImageDark from "./services-illustration-dark.webp";
 
-// 比較版の PC 表示：社長が提示した案（1487×1058px の画像）を実測して再現する（2026-11-26 承認の計画）。
-// 数値はすべて案の画像のピクセル。u(n) で「画面幅 ÷ 1487」の倍率をかけるので、PC のどの幅でも同じ比率になる。
-// 色は案の青を緑に置き換えた。サービスの絵（mock-services.webp）は案から切り抜いた仮の素材。
-// 枠・余白・写真と絵の位置は実測値のまま。文言・項目・文字の大きさは社長の指示で直した（2026-11-26）：
-// ナビと見出しは英語でホバー時に日本語、文字は案より小さく、ツールは5種でクリックすると名前が出る。
-
-const u = (n: number) => `calc(${n} * var(--u))`;
+// TOP の PC 表示（幅1280px以上）。社長が提示した案（1487×1058px の画像）を実測して組んでいる。
+// 数値はすべて案の画像のピクセル。u(n) で「画面幅 ÷ 1487」の倍率をかけるので、どの幅でも同じ比率になる。
+// 色は緑。サービスの絵（services-illustration*.webp）は案の画像から切り抜いて色を変えたもの（暗い版は加工）。
+// 内容は縦並びの表示（StackedHome）とそろえる。
 
 // 色は globals.css の変数（明るい表示と暗い表示で値が変わる）
-const INK = "var(--mock-ink)";
-const SUB = "var(--mock-sub)";
-const GREEN = "var(--mock-green)";
-const CTA = "var(--mock-cta)";
-const BORDER = "var(--mock-border)";
-const RULE = "var(--mock-rule)";
+const INK = "var(--top-ink)";
+const SUB = "var(--top-sub)";
+const GREEN = "var(--top-green)";
+const CTA = "var(--top-cta)";
+const BORDER = "var(--top-border)";
+const RULE = "var(--top-rule)";
 
 type Box = { x: number; y: number; w: number; h: number };
 const box = ({ x, y, w, h }: Box): React.CSSProperties => ({
@@ -76,42 +74,6 @@ function T({
   );
 }
 
-// 右上向きの矢印（案の ↗）。x・y を省くと、文字の横に並べて使える
-function Arrow({ x, y, s, color = GREEN, sw = 1.6 }: { x?: number; y?: number; s: number; color?: string; sw?: number }) {
-  return (
-    <svg
-      aria-hidden
-      viewBox={`0 0 ${s} ${s}`}
-      style={x === undefined || y === undefined ? { width: u(s), height: u(s), flexShrink: 0 } : box({ x, y, w: s, h: s })}
-      fill="none"
-      stroke={color}
-      strokeWidth={sw}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d={`M1.5 ${s - 1.5} ${s - 1.5} 1.5M${s * 0.28} 1.5H${s - 1.5}V${s * 0.72}`} />
-    </svg>
-  );
-}
-
-// リンクの矢印の動き（見本の1番。社長が選択 2026-11-26）。親のリンクに group/arrow をつけて使う。
-// 乗せる（キーボードで選ぶ）と矢印の向きに斜めに3px進み、離すと戻る。180ms。背景の色づきや下線は使わない。
-// 動きを減らす設定では動かさず、still で指定した色の変化だけにする。
-const MOVE =
-  "inline-flex transition-[translate] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/arrow:translate-x-[calc(3*var(--u))] group-hover/arrow:-translate-y-[calc(3*var(--u))] group-focus-visible/arrow:translate-x-[calc(3*var(--u))] group-focus-visible/arrow:-translate-y-[calc(3*var(--u))] motion-reduce:transition-none motion-reduce:group-hover/arrow:translate-none motion-reduce:group-focus-visible/arrow:translate-none";
-const STILL_INK = "motion-reduce:group-hover/arrow:text-[var(--mock-ink)] motion-reduce:group-focus-visible/arrow:text-[var(--mock-ink)]";
-
-function MovingArrow({ s, color = GREEN, still = STILL_INK, style }: { s: number; color?: string; still?: string; style?: React.CSSProperties }) {
-  return (
-    // 色は外側の span に持たせ、動きを減らす設定のときに内側で上書きできるようにする
-    <span aria-hidden style={{ color, ...style }}>
-      <span className={`${MOVE} ${still}`}>
-        <Arrow s={s} color="currentColor" />
-      </span>
-    </span>
-  );
-}
-
 // カード見出し：英語（Outfit・大文字）が基本で、ホバーで日本語。cy は文字の縦の中心。
 // 色は緑（黒と比べて社長が決定 2026-11-26）。
 function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en: string; ja: string }) {
@@ -151,7 +113,7 @@ function Card({ x, y, w, h }: Box) {
   return (
     <div
       aria-hidden
-      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--mock-card)" }}
+      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--top-card)" }}
     />
   );
 }
@@ -161,22 +123,19 @@ const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
 );
 
 const NAV = [
-  { en: "Home", ja: "ホーム", href: "/compare" },
+  { en: "Home", ja: "ホーム", href: "/" },
   { en: "Service", ja: "サービス", href: "/service" },
   { en: "Works", ja: "事例", href: "/works" },
   { en: "Blogs", ja: "記事", href: "/articles" },
   { en: "About", ja: "プロフィール", href: "/about" },
 ];
 
-const SERVICE_COLUMNS = [
-  { name: "新規構築", line: "Shopifyでストアを構築", x: 512 },
-  { name: "改修", line: "機能追加・サイト改善など", x: 844 },
-  { name: "運用支援", line: "分析と改善で公開後を支える", x: 1164 },
-];
+// サービス3列の左の位置。名前と説明は src/lib/services.tsx。
+const SERVICE_X = [512, 844, 1164];
 
 const ROWS = [841.5, 891.5, 944.5];
 
-export default function DesktopMock({
+export default function DesktopHome({
   works,
   articles,
   className = "",
@@ -193,13 +152,13 @@ export default function DesktopMock({
       >
         {/* ---- ヘッダー ---- */}
         {/* ロゴは社長提供の画像。左右の位置と中心の高さは案のロゴに合わせる（74×31） */}
-        <Link href="/compare" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 34.5, w: 74, h: 31 })} className="focus-visible:outline-2 focus-visible:outline-accent">
+        <Link href="/" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 34.5, w: 74, h: 31 })} className="focus-visible:outline-2 focus-visible:outline-accent">
           <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light size-full object-contain" />
           <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark size-full object-contain" />
         </Link>
         {/* ナビ：中心は案と同じ（x=743.5）。項目が5つになったので、枠の幅は中身に合わせる */}
         <nav
-          aria-label="メイン（比較版）"
+          aria-label="メイン"
           className="flex items-center"
           style={{
             position: "absolute",
@@ -210,7 +169,7 @@ export default function DesktopMock({
             padding: `0 ${u(6)}`,
             border: `1px solid ${BORDER}`,
             borderRadius: u(26),
-            background: "var(--mock-nav)",
+            background: "var(--top-nav)",
             whiteSpace: "nowrap",
           }}
         >
@@ -218,11 +177,11 @@ export default function DesktopMock({
             const active = i === 0;
             return (
               <div key={n.en} className="flex items-center">
-                {i > 1 && <span aria-hidden style={{ width: 1, height: u(22), background: "var(--mock-sep)" }} />}
+                {i > 1 && <span aria-hidden style={{ width: 1, height: u(22), background: "var(--top-sep)" }} />}
                 <Link
                   href={n.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--mock-nav-active)]" : "hover:bg-[var(--mock-nav-hover)]"}`}
+                  className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--top-nav-active)]" : "hover:bg-[var(--top-nav-hover)]"}`}
                   style={{ height: u(40), minWidth: u(112), padding: `0 ${u(18)}`, borderRadius: u(20), fontSize: u(15), lineHeight: 1.5, fontWeight: 500, color: active ? GREEN : INK }}
                 >
                   <RollText en={n.en} ja={n.ja} center />
@@ -233,7 +192,7 @@ export default function DesktopMock({
         </nav>
         {/* 明暗の切り替え。相談ボタンの左に置く */}
         <ThemeToggle
-          style={{ ...box({ x: 1201, y: 28, w: 44, h: 44 }), border: `1px solid ${BORDER}`, background: "var(--mock-nav)" }}
+          style={{ ...box({ x: 1201, y: 28, w: 44, h: 44 }), border: `1px solid ${BORDER}`, background: "var(--top-nav)" }}
         />
         <Link
           href="/contact"
@@ -249,28 +208,27 @@ export default function DesktopMock({
         <Line x={36} y={96} w={1415} h={1} />
 
         {/* ---- 紹介 ---- */}
-        <section aria-labelledby="m-intro-name">
+        <section aria-labelledby="pc-intro-name">
           <Card x={34} y={130} w={409} h={476} />
-          {/* 写真は実際のもの。案と顔の大きさがそろうように、枠の中で寄せる */}
-          <span style={{ ...box({ x: 68, y: 172, w: 106, h: 113 }), overflow: "hidden", borderRadius: u(10) }}>
-            <Image
-              src="/portrait.webp"
-              alt="Manato Mizuno"
-              fill
-              sizes="25vw"
-              loading="eager"
-              style={{ objectFit: "cover", scale: "1.53", transformOrigin: "55% 38%" }}
-            />
-          </span>
+          <Image
+            src="/profile-face.webp"
+            alt="Manato Mizuno"
+            width={212}
+            height={226}
+            sizes="12vw"
+            loading="eager"
+            fetchPriority="high"
+            style={{ ...box({ x: 68, y: 172, w: 106, h: 113 }), objectFit: "cover", borderRadius: u(10) }}
+          />
           <h1
-            id="m-intro-name"
+            id="pc-intro-name"
             style={{ position: "absolute", left: u(65), top: u(312), fontSize: u(48), lineHeight: 1.1, fontWeight: 700, letterSpacing: u(-1.2), color: INK }}
           >
             Manato
             <br />
             Mizuno
           </h1>
-          <T x={67} cy={448} size={19} weight={700} ls={0.4} as="p">ECサイト専門家</T>
+          <T x={67} cy={448} size={19} weight={700} color={GREEN} ls={0.4} as="p">ECサイト専門家</T>
           <T x={67} cy={484} size={15} color={SUB} ls={0.4} as="p">Shopifyを中心に、</T>
           <T x={67} cy={508} size={15} color={SUB} ls={0.4} as="p">新規構築・改修・運用支援。</T>
           <p className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(67), top: u(550), height: u(20), gap: u(16), fontSize: u(13.5), lineHeight: 1 }}>
@@ -284,20 +242,20 @@ export default function DesktopMock({
         </section>
 
         {/* ---- サービス ---- */}
-        <section aria-labelledby="m-services-title">
+        <section aria-labelledby="pc-services-title">
           <Card x={460} y={130} w={992} h={476} />
           <Image src={servicesImage} alt="" unoptimized loading="eager" className="only-light" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
-          <Image src={servicesImageDark} alt="" unoptimized loading="eager" className="only-dark" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
-          <Heading id="m-services-title" x={494} cy={175} en="Services" ja="サービス" />
+          <Image src={servicesImageDark} alt="" unoptimized className="only-dark" style={box({ x: 480, y: 193, w: 955, h: 303 })} />
+          <Heading id="pc-services-title" x={494} cy={175} en="Services" ja="サービス" />
           <Line x={786} y={500} w={1} h={70} />
           <Line x={1107} y={500} w={1} h={70} />
-          {SERVICE_COLUMNS.map((s) => (
+          {SERVICES.map((s, i) => (
             <Link
               key={s.name}
               href="/service"
               aria-label={`${s.name}の詳細：${s.line}`}
               className="group/arrow focus-visible:outline-2 focus-visible:outline-accent"
-              style={{ ...box({ x: s.x - 14, y: 497, w: 250, h: 76 }), borderRadius: u(10) }}
+              style={{ ...box({ x: SERVICE_X[i] - 14, y: 497, w: 250, h: 76 }), borderRadius: u(10) }}
             >
               <span className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(14), top: u(10), height: u(24), gap: u(9), fontSize: u(19), lineHeight: 1, fontWeight: 700, color: INK }}>
                 {s.name}
@@ -309,10 +267,11 @@ export default function DesktopMock({
         </section>
 
         {/* ---- 事例 ---- */}
-        <section aria-labelledby="m-works-title">
+        <section aria-labelledby="pc-works-title">
           <Card x={34} y={627} w={667} h={363} />
-          <Heading id="m-works-title" x={66} cy={672} en="Works" ja="事例" />
+          <Heading id="pc-works-title" x={66} cy={672} en="Works" ja="事例" />
           <CornerLink card={{ right: 701, top: 627 }} href="/works" label="事例をすべて見る" />
+          {works.length === 0 && <T x={67} cy={760} size={15} color={SUB} as="p">事例は準備中です。</T>}
           {works.slice(0, 2).map((w, i) => {
             const x = i === 0 ? 60 : 378;
             return (
@@ -329,42 +288,27 @@ export default function DesktopMock({
         </section>
 
         {/* ---- ツール ---- */}
-        <section aria-labelledby="m-tools-title">
-          <Card x={716} y={627} w={360} h={112} />
-          <Heading id="m-tools-title" x={739} cy={683} en="Tools" ja="ツール" />
-          <div style={{ ...box({ x: 824, y: 663, w: 238, h: 60 }), overflow: "hidden" }}>
+        <section aria-labelledby="pc-tools-title">
+          <Card x={716} y={627} w={736} h={112} />
+          <Heading id="pc-tools-title" x={739} cy={683} en="Tools" ja="ツール" />
+          <div style={{ ...box({ x: 824, y: 663, w: 612, h: 60 }), overflow: "hidden" }}>
             <ToolMarquee />
           </div>
         </section>
 
-        {/* ---- ひとこと ---- */}
-        {/* 【仮の文章】案を見るための見本。社長の言葉に差し替えるまで公開しない。
-            ひとこと型（更新が止まって見えないように、日付は付けない）。2行で全角40字ほどが入る目安。 */}
-        <section aria-labelledby="m-note-title">
-          <Card x={1092} y={627} w={360} h={112} />
-          <Heading id="m-note-title" x={1115} cy={654} en="Note" ja="ひとこと" />
-          <p
-            className="whitespace-nowrap"
-            style={{ position: "absolute", left: u(1115), top: u(675), fontSize: u(14), lineHeight: u(24), color: SUB }}
-          >
-            作って終わりにしない。公開後に何を直すかまで
-            <br />
-            一緒に考えたい。
-          </p>
-        </section>
-
         {/* ---- 記事 ---- */}
-        <section aria-labelledby="m-articles-title">
+        <section aria-labelledby="pc-articles-title">
           <Card x={716} y={757} w={736} h={233} />
-          <Heading id="m-articles-title" x={741} cy={787} en="Blogs" ja="記事" />
+          <Heading id="pc-articles-title" x={741} cy={787} en="Blogs" ja="記事" />
           <CornerLink card={{ right: 1452, top: 757 }} href="/articles" label="記事をすべて見る" />
           {[815, 866, 917, 972].map((y) => (
             <Line key={y} x={740} y={y} w={688} h={1} />
           ))}
+          {articles.length === 0 && <T x={748} cy={ROWS[0]} size={15} color={SUB} as="p">記事は準備中です。</T>}
           {articles.slice(0, 3).map((a, i) => (
             <Link key={a._id} href={`/articles/${a.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
-              <span aria-hidden style={box({ x: 740, y: ROWS[i] - 24, w: 688, h: 48 })} className="transition-colors duration-150 group-hover:bg-[var(--mock-green)]/5 motion-reduce:transition-none" />
-              <T x={748} cy={ROWS[i]} size={14} color="var(--mock-date)">{a.date}</T>
+              <span aria-hidden style={box({ x: 740, y: ROWS[i] - 24, w: 688, h: 48 })} className="transition-colors duration-150 group-hover:bg-[var(--top-green)]/5 motion-reduce:transition-none" />
+              <T x={748} cy={ROWS[i]} size={14} color="var(--top-date)">{a.date}</T>
               {/* 入りきらない題名は「…」で省略する */}
               <span
                 className="overflow-hidden text-ellipsis whitespace-nowrap"

@@ -8,7 +8,7 @@ export default function AuthorCard({ className = "" }: { className?: string }) {
       className={`flex items-start gap-4 glass rounded-card p-6 shadow-card ${className}`}
     >
       <Image
-        src="/portrait.webp"
+        src="/profile-face.webp"
         alt=""
         width={64}
         height={64}

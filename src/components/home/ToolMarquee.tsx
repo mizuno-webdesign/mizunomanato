@@ -14,7 +14,8 @@ const ITEMS = [
   { name: "Claude", icon: "/icons/claude.svg" },
   { name: "Google Analytics 4", icon: "/icons/ga4.svg" },
 ];
-const SET = [...ITEMS, ...ITEMS]; // 1セットがカード幅より長くなるように2回並べる
+// 1セットが表示の幅（最大で約1000px）より長くないと、ループの継ぎ目に空きが出るので、4回並べる
+const SET = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS];
 
 const u = (n: number) => `calc(${n} * var(--u))`;
 
@@ -29,8 +30,8 @@ export default function ToolMarquee() {
         ))}
       </ul>
       <MarqueeViewport className="marquee size-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_9%,#000_91%,transparent)]">
-        {/* 1セット：60px × 10個 ＝ 600px を、約15px/秒で流す（40秒） */}
-        <div className="marquee-track flex w-max" style={{ "--marquee-dur": "40s" } as React.CSSProperties}>
+        {/* 1セット：60px × 20個 ＝ 1200px を、約15px/秒で流す（80秒） */}
+        <div className="marquee-track flex w-max" style={{ "--marquee-dur": "80s" } as React.CSSProperties}>
           {[0, 1].flatMap((copy) =>
             SET.map((t, i) => {
               const key = `${copy}-${i}`;
@@ -41,13 +42,13 @@ export default function ToolMarquee() {
                     type="button"
                     tabIndex={-1}
                     onClick={() => setOpenKey(open ? null : key)}
-                    className="grid cursor-pointer place-items-center bg-[var(--mock-tile)] transition-[background-color] duration-150 hover:bg-[var(--mock-tile-hover)] motion-reduce:transition-none"
+                    className="grid cursor-pointer place-items-center bg-[var(--top-tile)] transition-[background-color] duration-150 hover:bg-[var(--top-tile-hover)] motion-reduce:transition-none"
                     style={{ width: u(40), height: u(40), borderRadius: u(12) }}
                   >
                     <Image src={t.icon} alt="" width={24} height={24} unoptimized style={{ width: u(22), height: u(22), borderRadius: u(5) }} />
                   </button>
                   {open && (
-                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--mock-sub)]" style={{ top: u(44), fontSize: u(11), lineHeight: 1.3 }}>
+                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[var(--top-sub)]" style={{ top: u(44), fontSize: u(11), lineHeight: 1.3 }}>
                       {t.name}
                     </span>
                   )}

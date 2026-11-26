@@ -46,22 +46,22 @@
   --bloom-2: rgb(124 194 78 / 0.2);
   --bloom-3: rgb(23 179 160 / 0.2);
 
-  /* TOP の比較版（/compare）の PC 表示の色 */
-  --mock-page: #f9fafe;
-  --mock-card: #f9fafe;
-  --mock-border: #e3e5ec;
-  --mock-rule: #eceef3;
-  --mock-sep: #e1e3e7;
-  --mock-nav: #fbfcff;
-  --mock-nav-active: #e9f3ee;
-  --mock-nav-hover: #f1f3f7;
-  --mock-ink: #16171c;
-  --mock-sub: #4a4d57;
-  --mock-date: #6a6e7a;
-  --mock-green: #167348;
-  --mock-cta: #13774a;
-  --mock-tile: #ffffff;
-  --mock-tile-hover: #eef6f1;
+  /* TOP の色 */
+  --top-page: #f9fafe;
+  --top-card: #f9fafe;
+  --top-border: #e3e5ec;
+  --top-rule: #eceef3;
+  --top-sep: #e1e3e7;
+  --top-nav: #fbfcff;
+  --top-nav-active: #e9f3ee;
+  --top-nav-hover: #f1f3f7;
+  --top-ink: #16171c;
+  --top-sub: #4a4d57;
+  --top-date: #6a6e7a;
+  --top-green: #167348;
+  --top-cta: #13774a;
+  --top-tile: #ffffff;
+  --top-tile-hover: #eef6f1;
 }
 
 /* ==== ダークモード ====
@@ -102,21 +102,21 @@
   --bloom-2: rgb(124 194 78 / 0.1);
   --bloom-3: rgb(23 179 160 / 0.12);
 
-  --mock-page: #101312;
-  --mock-card: #181c1a;
-  --mock-border: #2b312e;
-  --mock-rule: #272c2a;
-  --mock-sep: #333936;
-  --mock-nav: #181c1a;
-  --mock-nav-active: #1f3a2d;
-  --mock-nav-hover: #232826;
-  --mock-ink: #ececee;
-  --mock-sub: #a9adb4;
-  --mock-date: #9a9fa7;
-  --mock-green: #5cc795;
-  --mock-cta: #13774a;
-  --mock-tile: #e4e7e5;
-  --mock-tile-hover: #ffffff;
+  --top-page: #101312;
+  --top-card: #181c1a;
+  --top-border: #2b312e;
+  --top-rule: #272c2a;
+  --top-sep: #333936;
+  --top-nav: #181c1a;
+  --top-nav-active: #1f3a2d;
+  --top-nav-hover: #232826;
+  --top-ink: #ececee;
+  --top-sub: #a9adb4;
+  --top-date: #9a9fa7;
+  --top-green: #5cc795;
+  --top-cta: #13774a;
+  --top-tile: #e4e7e5;
+  --top-tile-hover: #ffffff;
 }
 
 /* 明るい表示と暗い表示で、画像などを出し分ける */

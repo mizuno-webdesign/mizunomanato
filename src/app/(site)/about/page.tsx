@@ -29,7 +29,7 @@ export default function AboutPage() {
         <div className="p-3 md:px-6 md:pb-6">
           <div className="flex items-center gap-4">
             <Image
-              src="/portrait.webp"
+              src="/profile-face.webp"
               alt="Manato Mizuno"
               width={96}
               height={96}
