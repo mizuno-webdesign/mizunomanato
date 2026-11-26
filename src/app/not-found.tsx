@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <SiteFrame>
-      <section className="mx-auto max-w-[640px] glass rounded-card px-6 py-12 text-center shadow-card md:px-12">
+      <section className="glass rounded-card px-6 py-12 text-center shadow-card md:px-12">
         <h1 className="type-display text-ink">ページが見つかりません</h1>
         <p className="mt-4 type-body text-ink-sub">
           移動または削除された可能性があります。

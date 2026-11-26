@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ThanksPage() {
   return (
-    <section className="mx-auto max-w-[640px] glass rounded-card px-6 py-12 text-center shadow-card md:px-12">
+    <section className="glass rounded-card px-6 py-12 text-center shadow-card md:px-12">
       <h1 className="type-display text-ink">お問い合わせを受け付けました</h1>
       <p className="mt-4 type-body text-ink-sub">
         通常2営業日以内にご返信いたします。

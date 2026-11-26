@@ -90,17 +90,16 @@ export default async function ArticlePage({
           author: { "@type": "Person", name: SITE_NAME, url: `${SITE_URL}/about` },
         }}
       />
-      {/* 本文カード 816px（本文720px＋左右48px）。目次があるときは右に 272px の列を足す。
+      {/* 横幅は枠（TOP と同じ）いっぱい。目次があるときは右に列を足す。本文はカードの中で最大760pxにする。
           列は grid-cols の minmax(0,…) で、長い英数字があっても広がらないようにする。 */}
       <div
-        className={`mx-auto grid grid-cols-[minmax(0,1fr)] gap-4 ${
-          hasToc
-            ? "max-w-[816px] lg:max-w-[1104px] lg:grid-cols-[minmax(0,1fr)_272px]"
-            : "max-w-[816px]"
+        className={`grid grid-cols-[minmax(0,1fr)] gap-4 ${
+          hasToc ? "lg:grid-cols-[minmax(0,1fr)_272px] xl:grid-cols-[minmax(0,1fr)_320px]" : ""
         }`}
       >
         <div className="flex min-w-0 flex-col gap-4">
           <article className="glass rounded-card p-6 shadow-card md:p-12">
+            <div className="mx-auto w-full max-w-[760px]">
             <header>
               <p className="type-caption text-ink-sub">
                 <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
@@ -131,6 +130,7 @@ export default async function ArticlePage({
                 記事一覧へ
               </Link>
             </p>
+            </div>
           </article>
 
           <AuthorCard />

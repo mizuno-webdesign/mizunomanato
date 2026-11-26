@@ -15,10 +15,10 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ServicePage() {
   return (
-    <div className="mx-auto flex max-w-[816px] flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <section aria-labelledby="service-title" className="glass rounded-card p-3 shadow-card md:p-6">
         <FlipHeading as="h1" id="service-title" en="Services" ja="サービス" className="px-3 pt-3 pb-4" />
-        <ul className="flex flex-col gap-10 p-3 md:px-6 md:pb-6">
+        <ul className="mx-auto flex w-full max-w-[768px] flex-col gap-10 p-3 md:px-6 md:pb-10">
           {SERVICES.map((s) => (
             <li key={s.id} id={s.id} className="flex scroll-mt-24 flex-col gap-4 sm:flex-row sm:gap-5">
               <ServiceIcon>{s.icon}</ServiceIcon>

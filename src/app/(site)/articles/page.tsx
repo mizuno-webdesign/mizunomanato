@@ -39,7 +39,7 @@ export default async function ArticlesPage() {
     <>
       <section
         aria-labelledby="articles-title"
-        className="mx-auto max-w-[816px] glass rounded-card p-3 shadow-card md:p-6"
+        className="glass rounded-card p-3 shadow-card md:p-6"
       >
         <FlipHeading
           as="h1"
@@ -51,7 +51,7 @@ export default async function ArticlesPage() {
         {articles.length === 0 ? (
           <p className="type-body px-3 pb-3 text-ink-sub">記事は準備中です。</p>
         ) : (
-          <ul className="flex flex-col gap-1">
+          <ul className="mx-auto flex w-full max-w-[880px] flex-col gap-1 md:pb-6">
             {articles.map((a) => (
               <li key={a._id}>
                 <Link

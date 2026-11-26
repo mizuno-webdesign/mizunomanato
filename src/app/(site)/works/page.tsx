@@ -38,7 +38,7 @@ export default async function WorksPage() {
   return (
     <section
       aria-labelledby="works-title"
-      className="mx-auto max-w-[1104px] glass rounded-card p-3 shadow-card md:p-6"
+      className="glass rounded-card p-3 shadow-card md:p-6"
     >
       <FlipHeading as="h1" id="works-title" en="Works" ja="事例" className="px-3 pt-3 pb-4" />
       {works.length === 0 ? (
@@ -60,7 +60,7 @@ export default async function WorksPage() {
                       // 1行目（3件まで）は最初の画面に出るので後回しにしない。先頭は優先して取得する
                       loading={i < 3 ? "eager" : "lazy"}
                       fetchPriority={i === 0 ? "high" : "auto"}
-                      sizes="(min-width: 1024px) 340px, (min-width: 768px) 50vw, 100vw"
+                      sizes="(min-width: 1024px) 32vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover object-top transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />
                   )}

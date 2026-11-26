@@ -70,8 +70,9 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
     : null;
 
   return (
-    <div className="mx-auto flex max-w-[816px] flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <article className="glass rounded-card p-6 shadow-card md:p-12">
+        <div className="mx-auto w-full max-w-[880px]">
         <header>
           <p className="type-caption text-ink-sub">
             {[work.category, work.note, work.year].filter(Boolean).join(" ・ ")}
@@ -87,7 +88,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               fill
               loading="eager"
               fetchPriority="high"
-              sizes="(min-width: 848px) 720px, 100vw"
+              sizes="(min-width: 928px) 880px, 100vw"
               className="object-cover object-top"
             />
           </div>
@@ -107,6 +108,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
             事例一覧へ
           </Link>
         </p>
+        </div>
       </article>
 
       <CtaBand />

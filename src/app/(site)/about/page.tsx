@@ -23,10 +23,10 @@ const CHANNELS = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto flex max-w-[816px] flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <section aria-labelledby="about-title" className="glass rounded-card p-3 shadow-card md:p-6">
         <FlipHeading as="h1" id="about-title" en="About" ja="自己紹介" className="px-3 pt-3 pb-4" />
-        <div className="p-3 md:px-6 md:pb-6">
+        <div className="mx-auto w-full max-w-[768px] p-3 md:px-6 md:pb-10">
           <div className="flex items-center gap-4">
             <Image
               src="/profile-face.webp"
