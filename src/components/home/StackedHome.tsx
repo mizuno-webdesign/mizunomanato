@@ -161,7 +161,7 @@ export default function StackedHome({
               <ul className="mt-3 divide-y divide-[var(--top-rule)]">
                 {articles.map((a) => (
                   <li key={a._id}>
-                    <Link href={`/articles/${a.slug}`} className="block rounded-lg py-2.5 transition-colors duration-150 hover:bg-[var(--top-green)]/5 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none">
+                    <Link href={`/articles/${a.slug}`} className="-mx-3 block rounded-lg px-3 py-2.5 transition-colors duration-150 hover:bg-[var(--top-green)]/5 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none">
                       <time className="block type-caption text-[var(--top-date)]">{a.date}</time>
                       <span className="block type-body text-[var(--top-ink)]">{a.title}</span>
                     </Link>
@@ -185,8 +185,8 @@ export default function StackedHome({
             <p className="mt-3 type-body text-[var(--top-sub)]">{NOTE_TEXT}</p>
           </section>
 
-          {/* 読み終えた位置にも相談の入口を置く */}
-          <div className="flex justify-center py-2 lg:col-span-2">
+          {/* スマホだけ、読み終えた位置にも相談の入口を置く（幅768px以上では出さない。社長指示 2026-11-26） */}
+          <div className="flex justify-center py-2 md:hidden">
             <CtaButton label="相談する" />
           </div>
         </div>

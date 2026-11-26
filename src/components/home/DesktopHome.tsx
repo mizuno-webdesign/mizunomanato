@@ -320,7 +320,7 @@ export default function DesktopHome({
           {articles.length === 0 && <T x={748} cy={ROWS[0]} size={15} color={SUB} as="p">記事は準備中です。</T>}
           {articles.slice(0, 3).map((a, i) => (
             <Link key={a._id} href={`/articles/${a.slug}`} className="group focus-visible:outline-2 focus-visible:outline-accent">
-              <span aria-hidden style={box({ x: 740, y: ROWS[i] - 24, w: 688, h: 48 })} className="transition-colors duration-150 group-hover:bg-[var(--top-green)]/5 motion-reduce:transition-none" />
+              <span aria-hidden style={{ ...box({ x: 736, y: ROWS[i] - 24, w: 701, h: 48 }), borderRadius: u(8) }} className="transition-colors duration-150 group-hover:bg-[var(--top-green)]/5 motion-reduce:transition-none" />
               <T x={748} cy={ROWS[i]} size={14} color="var(--top-date)">{a.date}</T>
               {/* 入りきらない題名は「…」で省略する */}
               <span
