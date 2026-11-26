@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MovingArrow, u } from "@/components/home/Arrow";
+import RoleRotator from "@/components/home/RoleRotator";
 import RollText from "@/components/home/RollText";
 import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -123,7 +124,7 @@ const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
 
 const NAV = [
   { en: "Home", ja: "ホーム", href: "/" },
-  { en: "Service", ja: "サービス", href: "/service" },
+  { en: "Services", ja: "サービス", href: "/service" },
   { en: "Works", ja: "事例", href: "/works" },
   { en: "Blogs", ja: "記事", href: "/articles" },
   { en: "About", ja: "プロフィール", href: "/about" },
@@ -139,6 +140,7 @@ const SERVICE_ART = [
 ];
 
 const ROWS = [841.5, 891.5, 944.5];
+const LOWER_HEADING_Y = 663; // 下の段（上端627）のカード見出しの縦の中心
 
 export default function DesktopHome({
   works,
@@ -189,7 +191,7 @@ export default function DesktopHome({
                   className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--top-nav-active)]" : "hover:bg-[var(--top-nav-hover)]"}`}
                   style={{ height: u(40), minWidth: u(112), padding: `0 ${u(18)}`, borderRadius: u(20), fontSize: u(15), lineHeight: 1.5, fontWeight: 500, color: active ? GREEN : INK }}
                 >
-                  <RollText en={n.en} ja={n.ja} center />
+                  <RollText en={n.en} ja={n.ja} center enClassName="font-[family-name:var(--font-heading)]" />
                 </Link>
               </div>
             );
@@ -226,22 +228,25 @@ export default function DesktopHome({
           />
           <h1
             id="pc-intro-name"
-            style={{ position: "absolute", left: u(65), top: u(312), fontSize: u(48), lineHeight: 1.1, fontWeight: 700, letterSpacing: u(-1.2), color: INK }}
+            className="font-[family-name:var(--font-heading)]"
+            style={{ position: "absolute", left: u(65), top: u(312), fontSize: u(48), lineHeight: 1.1, fontWeight: 600, letterSpacing: u(-0.5), color: INK }}
           >
             Manato
             <br />
             Mizuno
           </h1>
-          <T x={67} cy={448} size={19} weight={700} color={GREEN} ls={0.4} as="p">ECサイト専門家</T>
-          <T x={67} cy={484} size={15} color={SUB} ls={0.4} as="p">Shopifyを中心に、</T>
-          <T x={67} cy={508} size={15} color={SUB} ls={0.4} as="p">新規構築・改修・運用支援。</T>
-          <p className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(67), top: u(550), height: u(20), gap: u(16), fontSize: u(13.5), lineHeight: 1 }}>
+          <p className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(67), top: u(426), height: u(20), gap: u(16), fontSize: u(13.5), lineHeight: 1 }}>
             <span style={{ color: SUB }}>Shizuoka, Japan</span>
             <span className={`flex items-center font-medium ${ACCEPTING_NEW_REQUESTS ? "text-ok" : "text-ng"}`} style={{ gap: u(7) }}>
               <span aria-hidden className={`rounded-full bg-current ${ACCEPTING_NEW_REQUESTS ? "status-dot" : ""}`} style={{ width: u(7), height: u(7) }} />
               {ACCEPTING_NEW_REQUESTS ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
             </span>
           </p>
+          <p style={{ position: "absolute", left: u(67), top: u(477), fontSize: u(19), lineHeight: u(28), fontWeight: 700, letterSpacing: u(0.4), color: GREEN }}>
+            <RoleRotator />
+          </p>
+          <T x={67} cy={526} size={15} color={SUB} ls={0.4} as="p">Shopifyを中心に、</T>
+          <T x={67} cy={550} size={15} color={SUB} ls={0.4} as="p">新規構築・改修・運用支援。</T>
           <CornerLink card={{ right: 443, top: 130 }} href="/about" label="プロフィールを見る" />
         </section>
 
@@ -272,7 +277,7 @@ export default function DesktopHome({
         {/* ---- 事例 ---- */}
         <section aria-labelledby="pc-works-title">
           <Card x={34} y={627} w={667} h={363} />
-          <Heading id="pc-works-title" x={66} cy={672} en="Works" ja="事例" />
+          <Heading id="pc-works-title" x={66} cy={LOWER_HEADING_Y} en="Works" ja="事例" />
           <CornerLink card={{ right: 701, top: 627 }} href="/works" label="事例をすべて見る" />
           {works.length === 0 && <T x={67} cy={760} size={15} color={SUB} as="p">事例は準備中です。</T>}
           {works.slice(0, 2).map((w, i) => {
@@ -293,8 +298,9 @@ export default function DesktopHome({
         {/* ---- ツール ---- */}
         <section aria-labelledby="pc-tools-title">
           <Card x={716} y={627} w={360} h={112} />
-          <Heading id="pc-tools-title" x={739} cy={683} en="Tools" ja="ツール" />
-          <div style={{ ...box({ x: 824, y: 663, w: 238, h: 60 }), overflow: "hidden" }}>
+          <Heading id="pc-tools-title" x={739} cy={LOWER_HEADING_Y} en="Tools" ja="ツール" />
+          {/* 帯は見出しの下。カードの幅いっぱいに流す */}
+          <div style={{ ...box({ x: 727, y: 678, w: 338, h: 59 }), overflow: "hidden" }}>
             <ToolMarquee />
           </div>
         </section>
@@ -302,8 +308,8 @@ export default function DesktopHome({
         {/* ---- ひとこと ---- 更新が止まって見えないように、日付は付けない */}
         <section aria-labelledby="pc-note-title">
           <Card x={1092} y={627} w={360} h={112} />
-          <Heading id="pc-note-title" x={1115} cy={663} en="Note" ja="ひとこと" />
-          <T x={1115} cy={703} size={15} color={SUB} as="p">{NOTE_TEXT}</T>
+          <Heading id="pc-note-title" x={1115} cy={LOWER_HEADING_Y} en="Note" ja="ひとこと" />
+          <T x={1115} cy={698} size={15} color={SUB} as="p">{NOTE_TEXT}</T>
         </section>
 
         {/* ---- 記事 ---- */}

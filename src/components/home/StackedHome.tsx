@@ -4,6 +4,7 @@ import CtaButton from "@/components/CtaButton";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { MovingArrow } from "@/components/home/Arrow";
+import RoleRotator from "@/components/home/RoleRotator";
 import RollText from "@/components/home/RollText";
 import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ToolMarquee from "@/components/home/ToolMarquee";
@@ -76,23 +77,28 @@ export default function StackedHome({
                 fetchPriority="high"
                 className="h-[102px] w-24 shrink-0 rounded-[10px] object-cover md:h-[119px] md:w-28"
               />
-              <h1 id="s-intro-name" className="text-[36px] leading-[1.1] font-bold tracking-[-0.02em] text-[var(--top-ink)] md:text-[44px]">
-                Manato
-                <br />
-                Mizuno
-              </h1>
+              <div className="min-w-0">
+                <h1 id="s-intro-name" className="font-[family-name:var(--font-heading)] text-[36px] leading-[1.1] font-semibold tracking-[-0.01em] text-[var(--top-ink)] md:text-[44px]">
+                  Manato
+                  <br />
+                  Mizuno
+                </h1>
+                {/* 所在地と受付状況は名前の下 */}
+                <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-0.5 type-caption">
+                  <span className="whitespace-nowrap text-[var(--top-sub)]">Shizuoka, Japan</span>
+                  <span className={`inline-flex items-center gap-2 font-medium whitespace-nowrap ${open ? "text-ok" : "text-ng"}`}>
+                    <span aria-hidden className={`size-2 rounded-full bg-current ${open ? "status-dot" : ""}`} />
+                    {open ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
+                  </span>
+                </p>
+              </div>
             </div>
-            <p className="mt-4 text-[19px] leading-[1.5] font-bold text-[var(--top-green)]">ECサイト専門家</p>
+            <p className="mt-4 text-[19px] leading-[1.5] font-bold text-[var(--top-green)]">
+              <RoleRotator />
+            </p>
             <p className="mt-1 type-body text-[var(--top-sub)]">
               <span className="inline-block">Shopifyを中心に、</span>
               <span className="inline-block">新規構築・改修・運用支援。</span>
-            </p>
-            <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 type-caption">
-              <span className="text-[var(--top-sub)]">Shizuoka, Japan</span>
-              <span className={`inline-flex items-center gap-2 font-medium ${open ? "text-ok" : "text-ng"}`}>
-                <span aria-hidden className={`size-2 rounded-full bg-current ${open ? "status-dot" : ""}`} />
-                {open ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
-              </span>
             </p>
           </section>
 

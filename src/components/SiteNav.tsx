@@ -15,7 +15,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 const ITEMS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Service", href: "/service" },
+  { label: "Services", href: "/service" },
   { label: "Works", href: "/works" },
   { label: "Blogs", href: "/articles" },
   { label: "Contact", href: "/contact" },
@@ -76,11 +76,11 @@ export default function SiteNav() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "block whitespace-nowrap rounded-full px-4 py-2 text-[15px] leading-[1.6] font-medium transition-colors duration-150 motion-reduce:transition-none md:px-[18px] md:py-1.5 md:text-sm",
+                    "block whitespace-nowrap rounded-full px-4 py-2 font-[family-name:var(--font-heading)] text-[15px] leading-[1.6] font-medium transition-colors duration-150 motion-reduce:transition-none md:px-[18px] md:py-1.5 md:text-sm",
                     "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent",
                     active
                       ? "bg-solid text-ink shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
-                      : "text-ink-sub hover:bg-sunken/70 hover:text-ink md:font-normal",
+                      : "text-ink-sub hover:bg-sunken/70 hover:text-ink",
                   ].join(" ")}
                 >
                   {item.label}

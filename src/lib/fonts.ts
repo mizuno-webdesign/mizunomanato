@@ -12,10 +12,10 @@ export const plex = IBM_Plex_Sans_JP({
   preload: false,
 });
 
-// カード見出しの英字だけに使う書体（社長決定 2026-11-24：Outfit）。FlipHeading の英語面が --font-heading を読む。
+// 英字の見出し・ナビ・TOP の名前に使う書体（社長決定 2026-11-24：Outfit。ナビと名前は 2026-11-26）。--font-heading で読む。
 export const outfit = Outfit({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["600"],
+  weight: ["500", "600"],
   display: "swap",
 });
