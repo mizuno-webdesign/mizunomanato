@@ -33,11 +33,11 @@ export default function FlipHeading({
       >
         <span className="inline-grid overflow-hidden">
           <span
-            className={`[grid-area:1/1] transition-[translate,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:-translate-y-[110%] group-hover/flip:opacity-0 motion-reduce:transition-none ${upper ? "tracking-[0.01em] uppercase font-[family-name:var(--font-heading)]" : ""}`}
+            className={`[grid-area:1/1] transition-[translate,opacity] duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:-translate-y-[110%] group-hover/flip:opacity-0 motion-reduce:transition-none ${upper ? "tracking-[0.01em] uppercase font-[family-name:var(--font-heading)]" : ""}`}
           >
             {en}
           </span>
-          <span className="[grid-area:1/1] translate-y-[110%] whitespace-nowrap opacity-0 transition-[translate,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:translate-y-0 group-hover/flip:opacity-100 motion-reduce:transition-none">
+          <span className="[grid-area:1/1] translate-y-[110%] whitespace-nowrap opacity-0 transition-[translate,opacity] duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/flip:translate-y-0 group-hover/flip:opacity-100 motion-reduce:transition-none">
             {ja}
           </span>
         </span>

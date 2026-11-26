@@ -42,7 +42,7 @@ export function TocAside({ items }: { items: TocItem[] }) {
       <TocList
         items={items}
         itemClass="py-1"
-        subClass={items.length > MANY_ITEMS ? "[@media(max-height:879px)]:hidden" : ""}
+        subClass={items.length > MANY_ITEMS ? "[@media(max-height:959px)]:hidden" : ""}
       />
     </nav>
   );

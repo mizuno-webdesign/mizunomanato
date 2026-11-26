@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/ArticleBody";
 import AuthorCard from "@/components/AuthorCard";
-import CtaButton from "@/components/CtaButton";
 import { TocAside, TocDisclosure } from "@/components/TableOfContents";
 import CtaBand from "@/components/home/CtaBand";
 import { formatDate } from "@/lib/date";
@@ -141,10 +140,10 @@ export default async function ArticlePage({
         {hasToc && (
           // 目次を追従させるため、列は本文の高さまで伸ばす（grid の既定の stretch）
           <div className="hidden lg:block">
-            {/* top は上部の固定ナビの下端（約64px）より下。目次と相談ボタンをまとめて追従させる。 */}
+            {/* 目次と、プロフィール＋相談ボタンをまとめて追従させる。幅1280px未満は上部の固定ナビの下に置く */}
             <div className="sticky top-20 flex flex-col gap-4 xl:top-4">
               <TocAside items={toc} />
-              <CtaButton className="text-center" />
+              <AuthorCard side />
             </div>
           </div>
         )}

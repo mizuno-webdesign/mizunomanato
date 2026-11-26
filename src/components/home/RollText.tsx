@@ -2,7 +2,7 @@
 // 切り替えのきっかけは、親につけた group/roll。見出しは見出し自身に、ナビはリンク全体につける。
 // 読み上げには英語だけを渡す。
 const BASE =
-  "[grid-area:1/1] whitespace-nowrap transition-[translate,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+  "[grid-area:1/1] whitespace-nowrap transition-[translate,opacity] duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
 export default function RollText({
   en,

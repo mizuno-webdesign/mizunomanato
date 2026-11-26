@@ -78,7 +78,7 @@ export function DesktopHeader() {
       <Link
         href="/contact"
         className="flex items-center justify-center whitespace-nowrap transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
-        style={{ ...at(1257, 25, 170, 50), borderRadius: u(25), background: "var(--top-cta)", color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
+        style={{ ...at(1257, 25, 170, 50), borderRadius: u(25), backgroundColor: "var(--top-cta)", color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
       >
         相談する
       </Link>
@@ -90,8 +90,8 @@ export function DesktopHeader() {
 export function CompactHeader() {
   return (
     <>
-      <div className="flex items-center justify-between pt-3 xl:hidden">
-        <Logo className="block h-8 w-[76px]" />
+      <div className="flex items-center justify-between px-2.5 pt-5 pb-1 xl:hidden">
+        <Logo className="block h-6 w-[57px]" />
         <CtaButton className="px-5! py-2! text-[14px]!" />
       </div>
       <div className="contents xl:hidden">

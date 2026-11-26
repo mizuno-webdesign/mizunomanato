@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CtaButton from "@/components/CtaButton";
+import CtaBand from "@/components/home/CtaBand";
 import SiteFooter from "@/components/SiteFooter";
 import { CompactHeader } from "@/components/SiteHeader";
 import { MovingArrow } from "@/components/home/Arrow";
@@ -178,10 +178,8 @@ export default function StackedHome({
             <p className="mt-3 type-body text-[var(--top-sub)]">{NOTE_TEXT}</p>
           </section>
 
-          {/* スマホだけ、読み終えた位置にも相談の入口を置く（幅768px以上では出さない。社長指示 2026-11-26） */}
-          <div className="flex justify-center py-2 md:hidden">
-            <CtaButton />
-          </div>
+          {/* スマホだけ、読み終えた位置にも相談の入口を置く（下層ページと同じ帯。幅768px以上では出さない。社長指示 2026-11-26） */}
+          <CtaBand className="md:hidden" />
         </div>
       </main>
       <SiteFooter />

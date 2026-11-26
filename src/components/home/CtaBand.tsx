@@ -1,7 +1,7 @@
 import CtaButton from "@/components/CtaButton";
 import FlipHeading from "@/components/FlipHeading";
 
-// 相談する（TOPはCTAボタンのみ・内部リンクのみ。社長確定 2026-11-24）。
+// 相談の帯：見出しと相談ボタン。下層ページの下部と、スマホの TOP の下部で使う。
 // 見出しの位置は他カードと同じ（左上、カード上端から24px）に揃える（社長指示）。
 export default function CtaBand({ className = "" }: { className?: string }) {
   return (
