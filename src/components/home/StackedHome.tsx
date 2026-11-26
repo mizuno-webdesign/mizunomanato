@@ -98,7 +98,7 @@ export default function StackedHome({
             </p>
             <p className="mt-1 type-body text-[var(--top-sub)]">
               <span className="inline-block">Shopifyを中心に、</span>
-              <span className="inline-block">新規構築・改修・運用支援。</span>
+              <span className="inline-block">ECサイト事業者を支援するパートナー</span>
             </p>
           </section>
 

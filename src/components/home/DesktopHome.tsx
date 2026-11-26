@@ -246,7 +246,7 @@ export default function DesktopHome({
             <RoleRotator />
           </p>
           <T x={67} cy={526} size={15} color={SUB} ls={0.4} as="p">Shopifyを中心に、</T>
-          <T x={67} cy={550} size={15} color={SUB} ls={0.4} as="p">新規構築・改修・運用支援。</T>
+          <T x={67} cy={550} size={15} color={SUB} ls={0.4} as="p">ECサイト事業者を支援するパートナー</T>
           <CornerLink card={{ right: 443, top: 130 }} href="/about" label="プロフィールを見る" />
         </section>
 
