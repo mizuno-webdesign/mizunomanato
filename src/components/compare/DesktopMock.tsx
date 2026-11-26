@@ -107,13 +107,15 @@ function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en:
 
 // 「一覧」への小さなリンク。right は右端の位置
 function More({ right, cy, href, label }: { right: number; cy: number; href: string; label: string }) {
+  // 表示は「すべて見る」。label は読み上げ用の行き先の名前
   return (
     <Link
       href={href}
+      aria-label={label}
       className="flex items-center whitespace-nowrap rounded hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       style={{ position: "absolute", right: u(1487 - right), top: u(cy - 14), height: u(28), gap: u(7), fontSize: u(15), fontWeight: 500, color: GREEN }}
     >
-      {label}
+      すべて見る
       <Arrow s={12} />
     </Link>
   );
@@ -133,13 +135,13 @@ const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
 );
 
 // 当たり判定だけのリンク（文字や画像の上に重ねる）
-function Hit({ href, label, ...b }: Box & { href: string; label: string }) {
+function Hit({ href, label, plain = false, ...b }: Box & { href: string; label: string; plain?: boolean }) {
   return (
     <Link
       href={href}
       aria-label={label}
       style={{ ...box(b), borderRadius: u(10) }}
-      className="transition-colors duration-150 hover:bg-[#0b6b3e]/5 focus-visible:outline-2 focus-visible:outline-accent motion-reduce:transition-none"
+      className={`focus-visible:outline-2 focus-visible:outline-accent ${plain ? "" : "transition-colors duration-150 hover:bg-[#0b6b3e]/5 motion-reduce:transition-none"}`}
     />
   );
 }
@@ -147,7 +149,7 @@ function Hit({ href, label, ...b }: Box & { href: string; label: string }) {
 const NAV = [
   { en: "Home", ja: "ホーム", href: "/compare" },
   { en: "Service", ja: "サービス", href: "/service" },
-  { en: "Works", ja: "実績", href: "/works" },
+  { en: "Works", ja: "事例", href: "/works" },
   { en: "Blogs", ja: "記事", href: "/articles" },
   { en: "About", ja: "プロフィール", href: "/about" },
 ];
@@ -259,7 +261,7 @@ export default function DesktopMock({
             </span>
           </p>
           <Arrow x={392} y={172} s={18} />
-          <Hit href="/about" label="プロフィールを見る" x={380} y={160} w={42} h={42} />
+          <Hit plain href="/about" label="プロフィールを見る" x={380} y={160} w={42} h={42} />
         </section>
 
         {/* ---- サービス ---- */}
@@ -281,11 +283,11 @@ export default function DesktopMock({
           ))}
         </section>
 
-        {/* ---- 制作実績 ---- */}
+        {/* ---- 事例 ---- */}
         <section aria-labelledby="m-works-title">
           <Card x={34} y={627} w={667} h={363} />
-          <Heading id="m-works-title" x={66} cy={672} en="Works" ja="実績" />
-          <More right={668} cy={672} href="/works" label="実績一覧" />
+          <Heading id="m-works-title" x={66} cy={672} en="Works" ja="事例" />
+          <More right={668} cy={672} href="/works" label="事例をすべて見る" />
           {works.slice(0, 2).map((w, i) => {
             const x = i === 0 ? 60 : 378;
             return (
@@ -303,18 +305,21 @@ export default function DesktopMock({
 
         {/* ---- ツール ---- */}
         <section aria-labelledby="m-tools-title">
-          <Card x={716} y={627} w={736} h={112} />
-          <Heading id="m-tools-title" x={740} cy={654} en="Tools" ja="ツール" />
-          <div style={{ ...box({ x: 717, y: 673, w: 734, h: 62 }), overflow: "hidden" }}>
+          <Card x={716} y={627} w={360} h={112} />
+          <Heading id="m-tools-title" x={739} cy={683} en="Tools" ja="ツール" />
+          <div style={{ ...box({ x: 824, y: 663, w: 238, h: 60 }), overflow: "hidden" }}>
             <ToolMarquee />
           </div>
         </section>
+
+        {/* 空のカード（中身はこれから決める） */}
+        <Card x={1092} y={627} w={360} h={112} />
 
         {/* ---- 記事 ---- */}
         <section aria-labelledby="m-articles-title">
           <Card x={716} y={757} w={736} h={233} />
           <Heading id="m-articles-title" x={741} cy={787} en="Blogs" ja="記事" />
-          <More right={1425} cy={787} href="/articles" label="記事一覧" />
+          <More right={1425} cy={787} href="/articles" label="記事をすべて見る" />
           {[815, 866, 917, 972].map((y) => (
             <Line key={y} x={740} y={y} w={688} h={1} />
           ))}
