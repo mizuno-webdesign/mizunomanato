@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaButton from "@/components/CtaButton";
@@ -81,9 +82,9 @@ export default async function ComparePage() {
           <Link
             href="/compare"
             aria-label="Manato Mizuno トップ"
-            className="grid size-10 place-items-center rounded-xl bg-cta text-[20px] leading-none font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="block py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            M
+            <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="h-8 w-auto" />
           </Link>
           <CtaButton className="px-5! py-2! text-[14px]!" />
         </div>

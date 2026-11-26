@@ -189,10 +189,9 @@ export default function DesktopMock({
         style={{ "--u": "calc(100cqw / 1487)", height: u(1058) } as React.CSSProperties}
       >
         {/* ---- ヘッダー ---- */}
-        <Link href="/compare" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 36, w: 74, h: 28 })} className="focus-visible:outline-2 focus-visible:outline-accent">
-          <svg viewBox="67 36 74 28" className="size-full" fill="none" stroke={GREEN} strokeWidth="4.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M69.7 61.8 94 38.6V61.8L116 38.6V61.8L138.3 38.6V61.8" />
-          </svg>
+        {/* ロゴは社長提供の画像。左右の位置と中心の高さは案のロゴに合わせる（74×31） */}
+        <Link href="/compare" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 34.5, w: 74, h: 31 })} className="focus-visible:outline-2 focus-visible:outline-accent">
+          <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="size-full object-contain" />
         </Link>
         {/* ナビ：中心は案と同じ（x=743.5）。項目が5つになったので、枠の幅は中身に合わせる */}
         <nav
