@@ -110,30 +110,36 @@ function MovingArrow({ s, color = GREEN, still = STILL_INK, style }: { s: number
 }
 
 // カード見出し：英語（Outfit・大文字）が基本で、ホバーで日本語。cy は文字の縦の中心。
+// 色は緑を試している（社長の依頼 2026-11-26）。黒に戻すときは color を INK にする。
 function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en: string; ja: string }) {
   const size = 19;
   return (
     <h2
       id={id}
       className="group/roll cursor-default"
-      style={{ position: "absolute", left: u(x), top: u(cy - size * 0.7), fontSize: u(size), lineHeight: 1.4, fontWeight: 600, color: INK }}
+      style={{ position: "absolute", left: u(x), top: u(cy - size * 0.7), fontSize: u(size), lineHeight: 1.4, fontWeight: 600, color: GREEN }}
     >
       <RollText en={en} ja={ja} enClassName="uppercase tracking-[0.01em] font-[family-name:var(--font-heading)]" />
     </h2>
   );
 }
 
-// 一覧への内部リンク。文字は置かず、矢印だけ（社長指示 2026-11-26）。right は矢印の右端、cy は縦の中心。
-// 大きさと押せる範囲は、氏名カードの矢印にそろえる。label は読み上げ用の行き先の名前。
-function More({ right, cy, href, label }: { right: number; cy: number; href: string; label: string }) {
+// カード右上の角に置く内部リンク。文字は置かず、矢印だけ（社長指示 2026-11-26）。
+// card はカードの右端と上端。3枚とも角から同じ距離に置く。大きさは以前の18の70%。label は読み上げ用の行き先の名前。
+const CORNER_SIZE = 12.6;
+const CORNER_INSET = 20;
+const CORNER_HIT = 40; // 押せる範囲
+function CornerLink({ card, href, label }: { card: { right: number; top: number }; href: string; label: string }) {
+  const cx = card.right - CORNER_INSET - CORNER_SIZE / 2;
+  const cy = card.top + CORNER_INSET + CORNER_SIZE / 2;
   return (
     <Link
       href={href}
       aria-label={label}
       className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
-      style={{ ...box({ x: right - 30, y: cy - 21, w: 42, h: 42 }), borderRadius: u(10) }}
+      style={{ ...box({ x: cx - CORNER_HIT / 2, y: cy - CORNER_HIT / 2, w: CORNER_HIT, h: CORNER_HIT }), borderRadius: u(10) }}
     >
-      <MovingArrow s={18} style={{ display: "flex" }} />
+      <MovingArrow s={CORNER_SIZE} style={{ display: "flex" }} />
     </Link>
   );
 }
@@ -251,10 +257,11 @@ export default function DesktopMock({
           </span>
           <h1
             id="m-intro-name"
-            className="group/roll cursor-default"
             style={{ position: "absolute", left: u(65), top: u(312), fontSize: u(48), lineHeight: 1.1, fontWeight: 700, letterSpacing: u(-1.2), color: INK }}
           >
-            <RollText en={<>Manato<br />Mizuno</>} ja="水野 学人" />
+            Manato
+            <br />
+            Mizuno
           </h1>
           <T x={67} cy={448} size={19} weight={700} ls={0.4} as="p">ECサイト専門家</T>
           <T x={67} cy={484} size={15} color={SUB} ls={0.4} as="p">Shopifyを中心に、</T>
@@ -266,14 +273,7 @@ export default function DesktopMock({
               {ACCEPTING_NEW_REQUESTS ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
             </span>
           </p>
-          <Link
-            href="/about"
-            aria-label="プロフィールを見る"
-            className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
-            style={{ ...box({ x: 380, y: 160, w: 42, h: 42 }), borderRadius: u(10) }}
-          >
-            <MovingArrow s={18} style={{ display: "flex" }} />
-          </Link>
+          <CornerLink card={{ right: 443, top: 130 }} href="/about" label="プロフィールを見る" />
         </section>
 
         {/* ---- サービス ---- */}
@@ -304,7 +304,7 @@ export default function DesktopMock({
         <section aria-labelledby="m-works-title">
           <Card x={34} y={627} w={667} h={363} />
           <Heading id="m-works-title" x={66} cy={672} en="Works" ja="事例" />
-          <More right={668} cy={672} href="/works" label="事例をすべて見る" />
+          <CornerLink card={{ right: 701, top: 627 }} href="/works" label="事例をすべて見る" />
           {works.slice(0, 2).map((w, i) => {
             const x = i === 0 ? 60 : 378;
             return (
@@ -336,7 +336,7 @@ export default function DesktopMock({
         <section aria-labelledby="m-articles-title">
           <Card x={716} y={757} w={736} h={233} />
           <Heading id="m-articles-title" x={741} cy={787} en="Blogs" ja="記事" />
-          <More right={1425} cy={787} href="/articles" label="記事をすべて見る" />
+          <CornerLink card={{ right: 1452, top: 757 }} href="/articles" label="記事をすべて見る" />
           {[815, 866, 917, 972].map((y) => (
             <Line key={y} x={740} y={y} w={688} h={1} />
           ))}
