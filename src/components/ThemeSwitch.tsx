@@ -2,7 +2,7 @@
 
 import { useTheme } from "@/components/ThemeToggle";
 
-// 明暗を切り替えるスイッチ（幅1280px未満のヘッダー。社長指示 2026-11-26：オンオフしたくなる感じ）。
+// 明暗を切り替えるスイッチ（幅1280px未満のヘッダー。社長指示 2026-11-26：オンオフしたくなる感じ、目立ちすぎないモノトーン）。
 // オン（右）が暗い表示。つまみが滑り、中の太陽と月が回って入れ替わる。押している間は、つまみが少し伸びる。
 // 見た目は <html data-theme> から CSS で決める（読み込みの直後に、つまみが動いて見えないように）。
 // 動きを減らす設定では、すぐに切り替える。
@@ -42,17 +42,17 @@ export default function ThemeSwitch() {
       {/* 溝 */}
       <span
         aria-hidden
-        className={`relative block h-8 w-[60px] rounded-full border border-ink-sub/60 bg-sunken shadow-[inset_0_1px_3px_rgb(0_0_0/0.18)] transition-[background-color,border-color] duration-300 [[data-theme=dark]_&]:border-cta [[data-theme=dark]_&]:bg-cta ${MOVE}`}
+        className={`relative block h-8 w-[60px] rounded-full border border-ink-sub/35 bg-sunken shadow-[inset_0_1px_3px_rgb(0_0_0/0.18)] transition-[background-color,border-color] duration-300 ${MOVE}`}
       >
         {/* 反対側にうっすら見える、切り替え先の絵 */}
         <Moon className="only-light absolute top-1/2 right-[9px] size-3 -translate-y-1/2 text-ink-sub" />
-        <Sun className="only-dark absolute top-1/2 left-[9px] size-3 -translate-y-1/2 text-white" />
+        <Sun className="only-dark absolute top-1/2 left-[9px] size-3 -translate-y-1/2 text-ink-sub" />
         {/* つまみ */}
         <span
-          className={`absolute top-[2px] left-[2px] grid h-[26px] w-[26px] place-items-center rounded-full bg-white shadow-[0_2px_6px_rgb(0_0_0/0.28)] transition-[translate,width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-active/switch:w-[31px] [[data-theme=dark]_&]:translate-x-[28px] [[data-theme=dark]_&]:group-active/switch:translate-x-[23px] ${MOVE}`}
+          className={`absolute top-[2px] left-[2px] grid h-[26px] w-[26px] place-items-center rounded-full bg-white shadow-[0_1px_4px_rgb(0_0_0/0.22)] transition-[translate,width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-active/switch:w-[31px] [[data-theme=dark]_&]:translate-x-[28px] [[data-theme=dark]_&]:bg-ink-sub [[data-theme=dark]_&]:group-active/switch:translate-x-[23px] ${MOVE}`}
         >
-          <Sun className={`${ICON} text-[#b45309] [[data-theme=dark]_&]:scale-50 [[data-theme=dark]_&]:rotate-90 [[data-theme=dark]_&]:opacity-0`} />
-          <Moon className={`${ICON} scale-50 -rotate-90 text-[#13774a] opacity-0 [[data-theme=dark]_&]:scale-100 [[data-theme=dark]_&]:rotate-0 [[data-theme=dark]_&]:opacity-100`} />
+          <Sun className={`${ICON} text-ink-sub [[data-theme=dark]_&]:scale-50 [[data-theme=dark]_&]:rotate-90 [[data-theme=dark]_&]:opacity-0`} />
+          <Moon className={`${ICON} scale-50 -rotate-90 text-canvas opacity-0 [[data-theme=dark]_&]:scale-100 [[data-theme=dark]_&]:rotate-0 [[data-theme=dark]_&]:opacity-100`} />
         </span>
       </span>
     </button>
