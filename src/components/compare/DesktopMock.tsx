@@ -110,7 +110,7 @@ function MovingArrow({ s, color = GREEN, still = STILL_INK, style }: { s: number
 }
 
 // カード見出し：英語（Outfit・大文字）が基本で、ホバーで日本語。cy は文字の縦の中心。
-// 色は緑を試している（社長の依頼 2026-11-26）。黒に戻すときは color を INK にする。
+// 色は緑（黒と比べて社長が決定 2026-11-26）。
 function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en: string; ja: string }) {
   const size = 19;
   return (
