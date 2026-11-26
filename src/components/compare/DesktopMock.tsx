@@ -329,8 +329,21 @@ export default function DesktopMock({
           </div>
         </section>
 
-        {/* 空のカード（中身はこれから決める） */}
-        <Card x={1092} y={627} w={360} h={112} />
+        {/* ---- ひとこと ---- */}
+        {/* 【仮の文章】案を見るための見本。社長の言葉に差し替えるまで公開しない。
+            ひとこと型（更新が止まって見えないように、日付は付けない）。2行で全角40字ほどが入る目安。 */}
+        <section aria-labelledby="m-note-title">
+          <Card x={1092} y={627} w={360} h={112} />
+          <Heading id="m-note-title" x={1115} cy={654} en="Note" ja="ひとこと" />
+          <p
+            className="whitespace-nowrap"
+            style={{ position: "absolute", left: u(1115), top: u(675), fontSize: u(14), lineHeight: u(24), color: SUB }}
+          >
+            作って終わりにしない。公開後に何を直すかまで
+            <br />
+            一緒に考えたい。
+          </p>
+        </section>
 
         {/* ---- 記事 ---- */}
         <section aria-labelledby="m-articles-title">
