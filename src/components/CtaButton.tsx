@@ -2,7 +2,7 @@ import Link from "next/link";
 
 // 相談ボタン：緑（--color-cta）の丸いボタン。ホバーで90%に透過（大きさは変えない）／押すと少し縮む（社長指示）。
 // TOP の相談の帯と、記事の目次の下で共通に使う。遷移先 /contact は段階4で作成（それまでは 404）。
-export default function CtaButton({ className = "", label = "相談してみる" }: { className?: string; label?: string }) {
+export default function CtaButton({ className = "", label = "相談する" }: { className?: string; label?: string }) {
   return (
     <Link
       href="/contact"

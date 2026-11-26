@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 
-// 上部ピル型ナビ（社長決定 2026-11-24：marco.fyi 型）。
+// 幅1280px未満で使う上部のピル型ナビ（社長決定 2026-11-24：marco.fyi 型）。1280px以上は SiteHeader の DesktopHeader。
 // スマホ（md 未満）は横スクロールのタブ（社長決定 2026-11-25）：
 //  ・現在地のタブは、表示時に自動で見える位置へ寄せる（1つ手前のタブを残す）
 //  ・指を離すと、タブの区切りにそろって止まる（scroll snap）
@@ -66,7 +66,7 @@ export default function SiteNav() {
           ref={listRef}
           onScroll={updateMore}
           style={{ maskImage: mask, WebkitMaskImage: mask }}
-          className="relative flex min-w-0 flex-1 snap-x snap-mandatory items-center gap-0.5 overflow-x-auto overscroll-x-contain rounded-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="relative flex min-w-0 flex-1 snap-x snap-mandatory items-center gap-1.5 overflow-x-auto overscroll-x-contain rounded-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {ITEMS.map((item) => {
             const active = isActive(item.href);

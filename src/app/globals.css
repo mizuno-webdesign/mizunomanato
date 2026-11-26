@@ -20,7 +20,7 @@
   /* 値は下の --card-shadow（明暗で変わる）。Tailwind は影の値をそのまま書き出すので、間に変数を1つ挟む。 */
   --shadow-card: var(--card-shadow);
 
-  --radius-card: 24px;
+  --radius-card: 18px;
   --radius-inner: 16px;
 
   --font-sans: var(--font-plex), "Hiragino Sans", "Yu Gothic", sans-serif;
@@ -43,8 +43,6 @@
   /* 【試し】カードの上にも背景と同じノイズを重ねる（社長指示 2026-11-26）。やめるときは none にする。 */
   --card-noise: var(--noise);
   --card-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 6px 20px rgb(0 0 0 / 0.05);
-  --glass-bg: rgb(255 255 255 / 0.42);
-  --glass-line: rgb(255 255 255 / 0.85);
   --bloom-1: rgb(16 160 106 / 0.34);
   --bloom-2: rgb(124 194 78 / 0.32);
   --bloom-3: rgb(23 179 160 / 0.28);
@@ -102,8 +100,6 @@
   --color-footer: #5cc795;
   --color-select: #5cc795;
 
-  --glass-bg: rgb(32 38 35 / 0.385); /* カードの透け具合30%（0.55×0.7） */
-  --glass-line: rgb(255 255 255 / 0.09);
   /* 暗い表示の背景は黒系の濃淡（社長指示 2026-11-26）。地 #151817 に、灰色の明るみを3か所重ねる。値は社長が調整パネルで決めた（2026-11-26）。 */
   --bloom-1: rgb(132 144 142 / 0.4);
   --bloom-2: rgb(102 110 118 / 0.352);
@@ -135,18 +131,13 @@
   display: none !important;
 }
 
-/* グラスモーフィズム風の試行（社長指示 2026-11-24：各グリッドに若干の透過）。
-   背景の淡いにじみ（body）に透けて見えるよう、白42%＋ぼかし32px＋彩度1.8（社長指示 2026-11-24：グラスを強く。前回は白55%・20px・彩度1.5）。外周の線は outline（レイアウトを1pxも動かさない）。
-   やめる場合は、各カードの glass を bg-surface に戻し、body の background-image を消すだけ。
-   文字のコントラスト：最悪ケース（にじみが重なる想定で1.3倍の濃さ）でも 補足文字5.4以上・状態色4.9以上（計算値）。 */
+/* 下層ページのカード。TOP のカードと同じ見た目にそろえる（社長指示 2026-11-26）。
+   以前の半透明のガラス風はやめた。クラス名は、使っている場所が多いので glass のまま。影は shadow-card を併用する。 */
 @utility glass {
-  background-color: var(--glass-bg);
+  background-color: var(--top-card);
   background-image: var(--card-noise);
   background-size: 160px 160px;
-  /* 生の backdrop-filter を書くとビルド時に接頭辞つきだけが残り Chrome で効かないため、Tailwind のユーティリティで指定する */
-  @apply backdrop-blur-[32px] backdrop-saturate-[1.8];
-  outline: 1px solid var(--glass-line);
-  outline-offset: -1px;
+  border: 1px solid var(--top-border);
 }
 
 /* ==== タイプスケール（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
@@ -221,6 +212,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable; /* ページの長さで画面の幅が変わらないように（ヘッダーの大きさをそろえる）。 */
     /* スマホ向け（段階5-2）：タップ時の灰色の四角を消し（代わりに下の :active で反応を返す）、
        横向きにしたときの文字の自動拡大を止める。ピンチでの拡大は制限しない。 */
     -webkit-tap-highlight-color: transparent;

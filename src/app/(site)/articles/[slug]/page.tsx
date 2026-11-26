@@ -142,7 +142,7 @@ export default async function ArticlePage({
           // 目次を追従させるため、列は本文の高さまで伸ばす（grid の既定の stretch）
           <div className="hidden lg:block">
             {/* top は上部の固定ナビの下端（約64px）より下。目次と相談ボタンをまとめて追従させる。 */}
-            <div className="sticky top-20 flex flex-col gap-4">
+            <div className="sticky top-20 flex flex-col gap-4 xl:top-4">
               <TocAside items={toc} />
               <CtaButton className="text-center" />
             </div>

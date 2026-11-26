@@ -9,8 +9,8 @@ export default function FlipHeading({
   en,
   ja,
   as: Tag = "h2",
-  size = "type-heading",
-  tone = "text-heading",
+  size = "text-[19px] leading-[1.4] font-semibold",
+  tone = "text-accent",
   upper = true,
   className = "",
 }: {
@@ -18,8 +18,8 @@ export default function FlipHeading({
   en: ReactNode;
   ja: string;
   as?: "h1" | "h2";
-  size?: string; // タイプスケールのクラス（既定 type-heading。氏名は type-display）
-  tone?: string; // 文字色のクラス（既定 text-heading。写真の上は text-white）
+  size?: string; // 文字の大きさのクラス（既定は TOP のカード見出しと同じ19px）
+  tone?: string; // 文字色のクラス（既定は TOP の見出しと同じ緑。写真の上は text-white）
   upper?: boolean; // 英語を全て大文字にする（既定 true。社長指示 2026-11-24。氏名は false）
   className?: string;
 }) {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CtaButton from "@/components/CtaButton";
 import SiteFooter from "@/components/SiteFooter";
-import SiteNav from "@/components/SiteNav";
+import { CompactHeader } from "@/components/SiteHeader";
 import { MovingArrow } from "@/components/home/Arrow";
 import RoleRotator from "@/components/home/RoleRotator";
 import RollText from "@/components/home/RollText";
@@ -52,14 +52,7 @@ export default function StackedHome({
   const open = ACCEPTING_NEW_REQUESTS;
   return (
     <div className={`flex min-h-dvh w-full flex-col px-4 ${className}`} style={{ "--u": "1px" } as React.CSSProperties}>
-      <div className="flex items-center justify-between pt-3">
-        <Link href="/" aria-label="Manato Mizuno トップ" className="block py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-          <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light h-8 w-auto" />
-          <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark h-8 w-auto" />
-        </Link>
-        <CtaButton label="相談する" className="px-5! py-2! text-[14px]!" />
-      </div>
-      <SiteNav />
+      <CompactHeader />
 
       <main className="mx-auto w-full max-w-[1000px] flex-1 pt-5">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -187,7 +180,7 @@ export default function StackedHome({
 
           {/* スマホだけ、読み終えた位置にも相談の入口を置く（幅768px以上では出さない。社長指示 2026-11-26） */}
           <div className="flex justify-center py-2 md:hidden">
-            <CtaButton label="相談する" />
+            <CtaButton />
           </div>
         </div>
       </main>

@@ -4,7 +4,7 @@ import { MovingArrow, u } from "@/components/home/Arrow";
 import RoleRotator from "@/components/home/RoleRotator";
 import RollText from "@/components/home/RollText";
 import ServiceIllustration from "@/components/home/ServiceIllustration";
-import ThemeToggle from "@/components/ThemeToggle";
+import { DesktopHeader } from "@/components/SiteHeader";
 import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
 import { NOTE_TEXT, type ArticleItem, type WorkItem } from "@/lib/home";
@@ -19,7 +19,6 @@ import { SERVICES } from "@/lib/services";
 const INK = "var(--top-ink)";
 const SUB = "var(--top-sub)";
 const GREEN = "var(--top-green)";
-const CTA = "var(--top-cta)";
 const BORDER = "var(--top-border)";
 const RULE = "var(--top-rule)";
 
@@ -122,14 +121,6 @@ const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
   <div aria-hidden style={{ ...box({ x, y, w, h }), background: color }} />
 );
 
-const NAV = [
-  { en: "Home", ja: "ホーム", href: "/" },
-  { en: "Services", ja: "サービス", href: "/service" },
-  { en: "Works", ja: "事例", href: "/works" },
-  { en: "Blogs", ja: "記事", href: "/articles" },
-  { en: "About", ja: "プロフィール", href: "/about" },
-];
-
 // サービス3列の左の位置。名前と説明は src/lib/services.tsx。
 const SERVICE_X = [512, 844, 1164];
 // 絵の位置と大きさ。3枚とも下端を y=484 にそろえる。改修の絵は縦に長いので、高さを少し大きくする。
@@ -158,56 +149,8 @@ export default function DesktopHome({
         // 案の高さは1058。下の余白（68）の一部は、下に置くフッター（page.tsx）に回す
         style={{ "--u": "calc(100cqw / 1487)", height: u(1018) } as React.CSSProperties}
       >
-        {/* ---- ヘッダー ---- */}
-        {/* ロゴは社長提供の画像。左右の位置と中心の高さは案のロゴに合わせる（74×31） */}
-        <Link href="/" aria-label="Manato Mizuno トップ" style={box({ x: 67, y: 34.5, w: 74, h: 31 })} className="focus-visible:outline-2 focus-visible:outline-accent">
-          <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light size-full object-contain" />
-          <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark size-full object-contain" />
-        </Link>
-        {/* ナビ：中心は案と同じ（x=743.5）。項目が5つになったので、枠の幅は中身に合わせる */}
-        <nav
-          aria-label="メイン"
-          className="flex items-center"
-          style={{
-            position: "absolute",
-            left: u(743.5),
-            top: u(24),
-            height: u(52),
-            transform: "translateX(-50%)",
-            padding: `0 ${u(6)}`,
-            border: `1px solid ${BORDER}`,
-            borderRadius: u(26),
-            background: "var(--top-nav)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {NAV.map((n, i) => {
-            const active = i === 0;
-            return (
-              <div key={n.en} className="flex items-center">
-                <Link
-                  href={n.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--top-nav-active)]" : "hover:bg-[var(--top-nav-hover)]"}`}
-                  style={{ height: u(40), minWidth: u(112), padding: `0 ${u(18)}`, borderRadius: u(20), fontSize: u(15), lineHeight: 1.5, fontWeight: 500, color: active ? GREEN : INK }}
-                >
-                  <RollText en={n.en} ja={n.ja} center enClassName="font-[family-name:var(--font-heading)]" />
-                </Link>
-              </div>
-            );
-          })}
-        </nav>
-        {/* 明暗の切り替え。相談ボタンの左に置く */}
-        <ThemeToggle
-          style={{ ...box({ x: 1201, y: 28, w: 44, h: 44 }), border: `1px solid ${BORDER}`, background: "var(--top-nav)" }}
-        />
-        <Link
-          href="/contact"
-          className="flex items-center justify-center whitespace-nowrap transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
-          style={{ ...box({ x: 1257, y: 25, w: 170, h: 50 }), borderRadius: u(25), background: CTA, color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
-        >
-          相談する
-        </Link>
+        {/* ---- ヘッダー（全ページ共通）---- */}
+        <DesktopHeader />
 
         {/* ---- 紹介 ---- */}
         <section aria-labelledby="pc-intro-name">

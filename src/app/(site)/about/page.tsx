@@ -31,11 +31,11 @@ export default function AboutPage() {
             <Image
               src="/profile-face.webp"
               alt="Manato Mizuno"
-              width={96}
-              height={96}
-              sizes="96px"
+              width={112}
+              height={119}
+              sizes="112px"
               loading="eager"
-              className="size-20 shrink-0 rounded-full object-cover shadow-card md:size-24"
+              className="h-[102px] w-24 shrink-0 rounded-[10px] object-cover shadow-card md:h-[119px] md:w-28"
             />
             <div className="min-w-0">
               <p className="type-display text-ink">Manato Mizuno</p>
