@@ -6,7 +6,7 @@ import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ThemeToggle from "@/components/ThemeToggle";
 import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
-import type { ArticleItem, WorkItem } from "@/lib/home";
+import { NOTE_TEXT, type ArticleItem, type WorkItem } from "@/lib/home";
 import { SERVICES } from "@/lib/services";
 
 // TOP の PC 表示（幅1280px以上）。社長が提示した案（1487×1058px の画像）を実測して組んでいる。
@@ -299,8 +299,12 @@ export default function DesktopHome({
           </div>
         </section>
 
-        {/* 空のカード（中身はこれから決める） */}
-        <Card x={1092} y={627} w={360} h={112} />
+        {/* ---- ひとこと ---- 更新が止まって見えないように、日付は付けない */}
+        <section aria-labelledby="pc-note-title">
+          <Card x={1092} y={627} w={360} h={112} />
+          <Heading id="pc-note-title" x={1115} cy={663} en="Note" ja="ひとこと" />
+          <T x={1115} cy={703} size={15} color={SUB} as="p">{NOTE_TEXT}</T>
+        </section>
 
         {/* ---- 記事 ---- */}
         <section aria-labelledby="pc-articles-title">

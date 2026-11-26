@@ -8,7 +8,7 @@ import RollText from "@/components/home/RollText";
 import ServiceIllustration from "@/components/home/ServiceIllustration";
 import ToolMarquee from "@/components/home/ToolMarquee";
 import { ACCEPTING_NEW_REQUESTS, AVAILABILITY_LABEL } from "@/lib/availability";
-import type { ArticleItem, WorkItem } from "@/lib/home";
+import { NOTE_TEXT, type ArticleItem, type WorkItem } from "@/lib/home";
 import { SERVICES } from "@/lib/services";
 
 // TOP の縦並びの表示（幅1280px未満：スマホ、タブレット、小さい PC）。内容は PC 表示（DesktopHome）と同じ。
@@ -165,11 +165,17 @@ export default function StackedHome({
           </section>
 
           {/* ---- ツール ---- */}
-          <section aria-labelledby="s-tools-title" className={`${CARD} min-w-0 lg:col-span-2`}>
+          <section aria-labelledby="s-tools-title" className={`${CARD} min-w-0`}>
             <Heading id="s-tools-title" en="Tools" ja="ツール" />
             <div className="mt-2 h-[60px] overflow-hidden">
               <ToolMarquee />
             </div>
+          </section>
+
+          {/* ---- ひとこと ---- */}
+          <section aria-labelledby="s-note-title" className={CARD}>
+            <Heading id="s-note-title" en="Note" ja="ひとこと" />
+            <p className="mt-3 type-body text-[var(--top-sub)]">{NOTE_TEXT}</p>
           </section>
 
           {/* 読み終えた位置にも相談の入口を置く */}
