@@ -30,9 +30,7 @@ export async function getWorks() {
       category,
       year,
       note,
-      thumbnail,
-      description,
-      featured
+      thumbnail
     }
   `);
 }
@@ -44,8 +42,6 @@ export async function getArticles() {
       title,
       slug,
       excerpt,
-      mainImage,
-      tags,
       publishedAt,
       noindex
     }

@@ -4,9 +4,9 @@ import CtaButton from "@/components/CtaButton";
 // 記事の著者紹介。紹介文は TOP の自己紹介と同じ内容。
 // ・既定：記事の下に置く横並び
 // ・side：記事の右の列に置く形。下に相談ボタンを付ける（社長指示 2026-11-26）
-export default function AuthorCard({ className = "", side = false }: { className?: string; side?: boolean }) {
+export default function AuthorCard({ side = false }: { side?: boolean }) {
   return (
-    <section aria-label="この記事を書いた人" className={`glass rounded-card shadow-card ${side ? "p-4" : "p-6"} ${className}`}>
+    <section aria-label="この記事を書いた人" className={`glass rounded-card shadow-card ${side ? "p-4" : "p-6"}`}>
       <div className={`flex gap-4 ${side ? "items-center" : "items-start"}`}>
         <Image
           src="/profile-face.webp"

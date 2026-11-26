@@ -35,7 +35,7 @@ function CornerLink({ href, label }: { href: string; label: string }) {
       aria-label={label}
       className="group/arrow absolute top-1.5 right-1.5 grid size-11 place-items-center rounded-[10px] focus-visible:outline-2 focus-visible:outline-accent"
     >
-      <MovingArrow s={14} style={{ display: "flex" }} />
+      <MovingArrow s={14} />
     </Link>
   );
 }

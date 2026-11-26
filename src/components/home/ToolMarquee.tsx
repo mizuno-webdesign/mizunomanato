@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { u } from "@/components/home/Arrow";
 import MarqueeViewport from "@/components/home/MarqueeViewport";
 
 // 流れるツールの帯（見出しの右に横一列）。アイコンだけを流し、クリックした場所に名前を出す（もう一度クリックで消える）。
@@ -17,8 +18,6 @@ const ITEMS = [
 // 1セットが表示の幅（最大で約1000px）より長くないと、ループの継ぎ目に空きが出るので、4回並べる
 const SET = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS];
 
-const u = (n: number) => `calc(${n} * var(--u))`;
-
 export default function ToolMarquee() {
   const [openKey, setOpenKey] = useState<string | null>(null);
 
@@ -30,8 +29,7 @@ export default function ToolMarquee() {
         ))}
       </ul>
       <MarqueeViewport className="marquee size-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_9%,#000_91%,transparent)]">
-        {/* 1セット：60px × 20個 ＝ 1200px を、約15px/秒で流す（80秒） */}
-        <div className="marquee-track flex w-max" style={{ "--marquee-dur": "80s" } as React.CSSProperties}>
+        <div className="marquee-track flex w-max">
           {[0, 1].flatMap((copy) =>
             SET.map((t, i) => {
               const key = `${copy}-${i}`;

@@ -103,7 +103,7 @@ function CornerLink({ card, href, label }: { card: { right: number; top: number 
       className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
       style={{ ...box({ x: cx - CORNER_HIT / 2, y: cy - CORNER_HIT / 2, w: CORNER_HIT, h: CORNER_HIT }), borderRadius: u(10) }}
     >
-      <MovingArrow s={CORNER_SIZE} style={{ display: "flex" }} />
+      <MovingArrow s={CORNER_SIZE} />
     </Link>
   );
 }
@@ -137,14 +137,12 @@ const LOWER_HEADING_Y = 663; // 下の段（上端627）のカード見出しの
 export default function DesktopHome({
   works,
   articles,
-  className = "",
 }: {
   works: WorkItem[];
   articles: ArticleItem[];
-  className?: string;
 }) {
   return (
-    <div className={className} style={{ containerType: "inline-size" }}>
+    <div style={{ containerType: "inline-size" }}>
       <div
         className="relative overflow-hidden"
         // 案の高さは1058。下の余白（68）の一部は、下に置くフッター（page.tsx）に回す

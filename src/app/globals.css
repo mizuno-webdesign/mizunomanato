@@ -4,7 +4,6 @@
    値の根拠は .rework/design.md。コントラスト比は計算値（WCAG）を同ファイルに記載。 */
 @theme {
   --color-canvas: #f2f2f7;   /* ページ地（iOS グループ背景） */
-  --color-surface: #ffffff;  /* 通常カード */
   --color-sunken: #e5e5ea;   /* タブ・プレビュー領域などの凹んだ面 */
   --color-ink: #1c1c1e;      /* 本文・見出し（地に対して 15.25:1） */
   --color-ink-sub: #55555c;  /* 補足（強いグラス上の最悪ケースでも 5.4:1 以上。計算値） */
@@ -32,8 +31,6 @@
   --color-field: rgb(255 255 255 / 0.8);       /* 入力欄 */
   --color-hover: rgb(255 255 255 / 0.6);       /* 行やカードに乗せたとき、目次の地 */
   --color-solid: #ffffff;                      /* 不透明な面（ナビの現在地、選んだ項目） */
-  --color-tile: #f2f2f7;                       /* ツールのアイコンの下地（暗い表示でも明るめ。黒いロゴが埋もれないように） */
-  --color-tile-hover: #ffffff;
   --color-cta-text: #167348;                   /* 「必須」の文字 */
   --color-footer: #0b6b3e;                     /* フッターの文字（背景に直接のるので少し濃い緑） */
   --color-select: #13774a;                     /* フォームで選んだ項目の丸と枠 */
@@ -77,7 +74,6 @@
   color-scheme: dark;
 
   --color-canvas: #151817;
-  --color-surface: #181c1a;
   --color-sunken: #262b29;
   --color-ink: #ececee;
   --color-ink-sub: #a9adb4;
@@ -94,8 +90,6 @@
   --color-field: rgb(12 15 14 / 0.6);
   --color-hover: rgb(255 255 255 / 0.06);
   --color-solid: #2d3431;
-  --color-tile: #dfe3e1;
-  --color-tile-hover: #ffffff;
   --color-cta-text: #5cc795;
   --color-footer: #5cc795;
   --color-select: #5cc795;
@@ -141,7 +135,7 @@
 }
 
 /* ==== タイプスケール（社長承認 2026-11-24。UI/UXデザイナー評価の推奨案）====
-   Display 24／Lead 20／400（自己紹介の肩書き行のみ。社長承認で主役に。太字にはしない）／Heading 17／Body 15／Caption 13。
+   Display 24／Heading 17／Body 15／Caption 13。
    サイズ・太さ・行間・色は、ここだけで管理する。例外は、ナビ（13〜14px/500）と、写真の上の白文字のみ。 */
 @utility type-display {
   font-size: 24px;
@@ -152,11 +146,6 @@
   font-size: 17px;
   font-weight: 600;
   line-height: 1.4;
-}
-@utility type-lead {
-  font-size: 20px;
-  font-weight: 400; /* 社長指示 2026-11-24：肩書き行は大きさのみで主役にし、太字にはしない */
-  line-height: 1.5;
 }
 @utility type-body {
   font-size: 15px;
@@ -189,17 +178,16 @@
   }
 }
 
-/* 対応領域マーキー（社長決定：vexoo 程度のゆっくりさで目立たない。仮の速度）。
-   1セット（4アイコン）の幅を測り、約25px/秒になるよう --marquee-dur で調整。ホバー・フォーカスで一時停止。 */
+/* TOOLS の帯。同じ並びを2つ置き、半分の幅だけ流してつなぐ。
+   ホバー中は止めずに、ゆっくりにする（MarqueeViewport.tsx が playbackRate を動かす）。 */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
 .marquee-track {
-  animation: marquee var(--marquee-dur, 48s) /* 1セット720px ÷ 15px/秒 ＝ 48秒（社長指示でゆっくりに。アイコン10個×72px） */ linear infinite;
+  animation: marquee 80s linear infinite; /* 1セット1200pxを約15px/秒で流す */
 }
-/* ホバー中は止めずに、さらにゆっくり（MarqueeViewport.tsx が playbackRate を動かす） */
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     overflow-x: auto;

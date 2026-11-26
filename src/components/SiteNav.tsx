@@ -9,7 +9,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 //  ・現在地のタブは、表示時に自動で見える位置へ寄せる（1つ手前のタブを残す）
 //  ・指を離すと、タブの区切りにそろって止まる（scroll snap）
 //  ・続きがある側の端だけをぼかす
-// Service／About／Contact／Works 一覧は段階4で作成するまで 404 になる。
 // 「Articles」→「Blogs」（社長指示 2026-11-24）：カード見出しと揃える。URL は /articles のまま。
 const ITEMS = [
   { label: "Home", href: "/" },
