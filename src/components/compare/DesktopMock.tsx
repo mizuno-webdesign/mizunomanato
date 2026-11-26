@@ -91,6 +91,24 @@ function Arrow({ x, y, s, color = GREEN, sw = 1.6 }: { x?: number; y?: number; s
   );
 }
 
+// リンクの矢印の動き（見本の1番。社長が選択 2026-11-26）。親のリンクに group/arrow をつけて使う。
+// 乗せる（キーボードで選ぶ）と矢印の向きに斜めに3px進み、離すと戻る。180ms。背景の色づきや下線は使わない。
+// 動きを減らす設定では動かさず、still で指定した色の変化だけにする。
+const MOVE =
+  "inline-flex transition-[translate] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/arrow:translate-x-[calc(3*var(--u))] group-hover/arrow:-translate-y-[calc(3*var(--u))] group-focus-visible/arrow:translate-x-[calc(3*var(--u))] group-focus-visible/arrow:-translate-y-[calc(3*var(--u))] motion-reduce:transition-none motion-reduce:group-hover/arrow:translate-none motion-reduce:group-focus-visible/arrow:translate-none";
+const STILL_INK = "motion-reduce:group-hover/arrow:text-[#16171c] motion-reduce:group-focus-visible/arrow:text-[#16171c]";
+
+function MovingArrow({ s, color = GREEN, still = STILL_INK, style }: { s: number; color?: string; still?: string; style?: React.CSSProperties }) {
+  return (
+    // 色は外側の span に持たせ、動きを減らす設定のときに内側で上書きできるようにする
+    <span aria-hidden style={{ color, ...style }}>
+      <span className={`${MOVE} ${still}`}>
+        <Arrow s={s} color="currentColor" />
+      </span>
+    </span>
+  );
+}
+
 // カード見出し：英語（Outfit・大文字）が基本で、ホバーで日本語。cy は文字の縦の中心。
 function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en: string; ja: string }) {
   const size = 19;
@@ -105,18 +123,17 @@ function Heading({ id, x, cy, en, ja }: { id: string; x: number; cy: number; en:
   );
 }
 
-// 「一覧」への小さなリンク。right は右端の位置
+// 一覧への内部リンク。文字は置かず、矢印だけ（社長指示 2026-11-26）。right は矢印の右端、cy は縦の中心。
+// 大きさと押せる範囲は、氏名カードの矢印にそろえる。label は読み上げ用の行き先の名前。
 function More({ right, cy, href, label }: { right: number; cy: number; href: string; label: string }) {
-  // 表示は「すべて見る」。label は読み上げ用の行き先の名前
   return (
     <Link
       href={href}
       aria-label={label}
-      className="flex items-center whitespace-nowrap rounded hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      style={{ position: "absolute", right: u(1487 - right), top: u(cy - 14), height: u(28), gap: u(7), fontSize: u(15), fontWeight: 500, color: GREEN }}
+      className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
+      style={{ ...box({ x: right - 30, y: cy - 21, w: 42, h: 42 }), borderRadius: u(10) }}
     >
-      すべて見る
-      <Arrow s={12} />
+      <MovingArrow s={18} style={{ display: "flex" }} />
     </Link>
   );
 }
@@ -133,18 +150,6 @@ function Card({ x, y, w, h }: Box) {
 const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
   <div aria-hidden style={{ ...box({ x, y, w, h }), background: color }} />
 );
-
-// 当たり判定だけのリンク（文字や画像の上に重ねる）
-function Hit({ href, label, ...b }: Box & { href: string; label: string }) {
-  return (
-    <Link
-      href={href}
-      aria-label={label}
-      style={{ ...box(b), borderRadius: u(10) }}
-      className="transition-colors duration-150 hover:bg-[#0b6b3e]/5 focus-visible:outline-2 focus-visible:outline-accent motion-reduce:transition-none"
-    />
-  );
-}
 
 const NAV = [
   { en: "Home", ja: "ホーム", href: "/compare" },
@@ -221,11 +226,12 @@ export default function DesktopMock({
           href="/contact"
           aria-label="相談する"
           style={{ ...box({ x: 1257, y: 25, w: 170, h: 50 }), borderRadius: u(25), background: CTA }}
-          className="transition-opacity duration-150 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
-        />
+          className="group/arrow transition-opacity duration-150 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+        >
+          <MovingArrow s={13} color="#fff" still="" style={{ position: "absolute", left: u(119), top: u(18.5), display: "flex" }} />
+        </Link>
         <div className="pointer-events-none" aria-hidden>
           <T x={1303} cy={50} size={16} weight={500} color="#fff">相談する</T>
-          <Arrow x={1376} y={43.5} s={13} color="#fff" />
         </div>
         <Line x={36} y={96} w={1415} h={1} />
 
@@ -260,17 +266,13 @@ export default function DesktopMock({
               {ACCEPTING_NEW_REQUESTS ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
             </span>
           </p>
-          {/* 矢印の動きは見本の1番（社長が選択 2026-11-26）：乗せると矢印の向きに斜めに3px進み、離すと戻る。180ms。
-              背景は色づけしない。動きを減らす設定では、動かさずに色だけを変える。 */}
           <Link
             href="/about"
             aria-label="プロフィールを見る"
             className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
-            style={{ ...box({ x: 380, y: 160, w: 42, h: 42 }), borderRadius: u(10), color: GREEN }}
+            style={{ ...box({ x: 380, y: 160, w: 42, h: 42 }), borderRadius: u(10) }}
           >
-            <span className="transition-[translate] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/arrow:translate-x-[calc(3*var(--u))] group-hover/arrow:-translate-y-[calc(3*var(--u))] group-focus-visible/arrow:translate-x-[calc(3*var(--u))] group-focus-visible/arrow:-translate-y-[calc(3*var(--u))] motion-reduce:transition-none motion-reduce:group-hover/arrow:translate-none motion-reduce:group-hover/arrow:text-[#16171c] motion-reduce:group-focus-visible/arrow:translate-none">
-              <Arrow s={18} color="currentColor" />
-            </span>
+            <MovingArrow s={18} style={{ display: "flex" }} />
           </Link>
         </section>
 
@@ -282,14 +284,19 @@ export default function DesktopMock({
           <Line x={786} y={500} w={1} h={70} />
           <Line x={1107} y={500} w={1} h={70} />
           {SERVICE_COLUMNS.map((s) => (
-            <div key={s.name}>
-              <p className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(s.x), top: u(507), height: u(24), gap: u(9), fontSize: u(19), lineHeight: 1, fontWeight: 700, color: INK }}>
+            <Link
+              key={s.name}
+              href="/service"
+              aria-label={`${s.name}の詳細：${s.line}`}
+              className="group/arrow focus-visible:outline-2 focus-visible:outline-accent"
+              style={{ ...box({ x: s.x - 14, y: 497, w: 250, h: 76 }), borderRadius: u(10) }}
+            >
+              <span className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(14), top: u(10), height: u(24), gap: u(9), fontSize: u(19), lineHeight: 1, fontWeight: 700, color: INK }}>
                 {s.name}
-                <Arrow s={13} />
-              </p>
-              <T x={s.x} cy={550} size={15} color={SUB}>{s.line}</T>
-              <Hit href="/service" label={`${s.name}の詳細`} x={s.x - 14} y={497} w={250} h={76} />
-            </div>
+                <MovingArrow s={13} style={{ display: "flex" }} />
+              </span>
+              <T x={14} cy={53} size={15} color={SUB}>{s.line}</T>
+            </Link>
           ))}
         </section>
 
