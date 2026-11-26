@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ThemeToggle from "@/components/ThemeToggle";
 
 // 幅1280px未満で使う上部のピル型ナビ（社長決定 2026-11-24：marco.fyi 型）。1280px以上は SiteHeader の DesktopHeader。
 // スマホ（md 未満）は横スクロールのタブ（社長決定 2026-11-25）：
@@ -89,8 +88,6 @@ export default function SiteNav() {
             );
           })}
         </ul>
-        {/* 明暗の切り替え。スマホで横にスクロールしても、常に右端に見える */}
-        <ThemeToggle className="size-10 md:size-8" />
       </div>
     </nav>
   );

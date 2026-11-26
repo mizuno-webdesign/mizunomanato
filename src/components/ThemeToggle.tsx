@@ -36,8 +36,8 @@ function subscribe(onChange: () => void) {
 
 const read = (): Theme => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
 
-// 切り替えボタン。明るい表示では月、暗い表示では太陽を出す（絵の出し分けは CSS で行い、描画のずれを避ける）。
-export default function ThemeToggle({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+// 今の表示と、切り替える関数。丸いボタン（ThemeToggle）とスイッチ（ThemeSwitch）で共通に使う。
+export function useTheme() {
   const theme = useSyncExternalStore(subscribe, read, () => "light" as Theme);
 
   // ブラウザ上部の色（theme-color）も、今の表示にそろえる。
@@ -66,6 +66,13 @@ export default function ThemeToggle({ className = "", style }: { className?: str
     }
     apply(next);
   };
+
+  return { theme, toggle };
+}
+
+// 切り替えボタン（幅1280px以上のヘッダー）。明るい表示では月、暗い表示では太陽を出す（絵の出し分けは CSS で行い、描画のずれを避ける）。
+export default function ThemeToggle({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+  const { theme, toggle } = useTheme();
 
   return (
     <button

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import CtaButton from "@/components/CtaButton";
 import SiteNav from "@/components/SiteNav";
+import ThemeSwitch from "@/components/ThemeSwitch";
 import ThemeToggle from "@/components/ThemeToggle";
 import { u } from "@/components/home/Arrow";
 import RollText from "@/components/home/RollText";
@@ -92,7 +93,10 @@ export function CompactHeader() {
     <>
       <div className="flex items-center justify-between px-2.5 pt-5 pb-1 xl:hidden">
         <Logo className="block h-6 w-[57px]" />
-        <CtaButton className="px-5! py-2! text-[14px]!" />
+        <div className="flex items-center gap-3">
+          <ThemeSwitch />
+          <CtaButton className="px-5! py-2! text-[14px]!" />
+        </div>
       </div>
       <div className="contents xl:hidden">
         <SiteNav />
