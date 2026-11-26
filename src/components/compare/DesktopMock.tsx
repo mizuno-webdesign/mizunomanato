@@ -135,13 +135,13 @@ const Line = ({ x, y, w, h, color = RULE }: Box & { color?: string }) => (
 );
 
 // 当たり判定だけのリンク（文字や画像の上に重ねる）
-function Hit({ href, label, plain = false, ...b }: Box & { href: string; label: string; plain?: boolean }) {
+function Hit({ href, label, ...b }: Box & { href: string; label: string }) {
   return (
     <Link
       href={href}
       aria-label={label}
       style={{ ...box(b), borderRadius: u(10) }}
-      className={`focus-visible:outline-2 focus-visible:outline-accent ${plain ? "" : "transition-colors duration-150 hover:bg-[#0b6b3e]/5 motion-reduce:transition-none"}`}
+      className="transition-colors duration-150 hover:bg-[#0b6b3e]/5 focus-visible:outline-2 focus-visible:outline-accent motion-reduce:transition-none"
     />
   );
 }
@@ -260,8 +260,18 @@ export default function DesktopMock({
               {ACCEPTING_NEW_REQUESTS ? AVAILABILITY_LABEL.open : AVAILABILITY_LABEL.closed}
             </span>
           </p>
-          <Arrow x={392} y={172} s={18} />
-          <Hit plain href="/about" label="プロフィールを見る" x={380} y={160} w={42} h={42} />
+          {/* 矢印の動きは見本の1番（社長が選択 2026-11-26）：乗せると矢印の向きに斜めに3px進み、離すと戻る。180ms。
+              背景は色づけしない。動きを減らす設定では、動かさずに色だけを変える。 */}
+          <Link
+            href="/about"
+            aria-label="プロフィールを見る"
+            className="group/arrow grid place-items-center focus-visible:outline-2 focus-visible:outline-accent"
+            style={{ ...box({ x: 380, y: 160, w: 42, h: 42 }), borderRadius: u(10), color: GREEN }}
+          >
+            <span className="transition-[translate] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/arrow:translate-x-[calc(3*var(--u))] group-hover/arrow:-translate-y-[calc(3*var(--u))] group-focus-visible/arrow:translate-x-[calc(3*var(--u))] group-focus-visible/arrow:-translate-y-[calc(3*var(--u))] motion-reduce:transition-none motion-reduce:group-hover/arrow:translate-none motion-reduce:group-hover/arrow:text-[#16171c] motion-reduce:group-focus-visible/arrow:translate-none">
+              <Arrow s={18} color="currentColor" />
+            </span>
+          </Link>
         </section>
 
         {/* ---- サービス ---- */}
