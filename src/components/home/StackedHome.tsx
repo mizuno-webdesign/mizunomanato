@@ -15,7 +15,8 @@ import { SERVICES } from "@/lib/services";
 // PC 表示は画面幅に合わせて全体が縮むため、この幅より狭いと文字が小さくなりすぎるので、こちらに切り替える。
 // サービスの絵も PC 表示と同じ3枚を使う。
 
-const CARD = "relative rounded-[18px] border border-[var(--top-border)] bg-[var(--top-card)] p-5 md:p-6";
+// 影は下層ページのカードと同じ
+const CARD = "relative rounded-[18px] border border-[var(--top-border)] bg-[var(--top-card)] p-5 shadow-card md:p-6";
 
 function Heading({ id, en, ja }: { id: string; en: string; ja: string }) {
   return (
@@ -98,30 +99,22 @@ export default function StackedHome({
           {/* ---- サービス ---- */}
           <section aria-labelledby="s-services-title" className={`${CARD} lg:col-span-2`}>
             <Heading id="s-services-title" en="Services" ja="サービス" />
+            <CornerLink href="/service" label="サービスの詳細を見る" />
             <ol className="mt-3 grid gap-1 md:grid-cols-3 md:gap-4">
               {SERVICES.map((s) => (
-                <li key={s.id}>
-                  <Link
-                    href="/service"
-                    aria-label={`${s.name}の詳細：${s.line}`}
-                    className="group/arrow flex h-full items-center gap-4 rounded-xl py-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:flex-col md:items-stretch md:gap-2"
-                  >
-                    <ServiceIllustration id={s.id} sizes="(min-width: 768px) 220px, 112px" className="aspect-[10/9] h-auto w-28 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
-                    <span className="block">
-                      <span className="flex items-center gap-2 text-[18px] leading-[1.4] font-bold text-[var(--top-ink)]">
-                        {s.name}
-                        <MovingArrow s={13} style={{ display: "flex" }} />
-                      </span>
-                      <span className="mt-1 block text-balance type-body text-[var(--top-sub)]">
-                        {/* 中黒の後ろで折り返せるように区切る（単語の途中で折り返さない） */}
-                        {s.line.split(/(?<=・)/).map((part) => (
-                          <span key={part} className="inline-block">
-                            {part}
-                          </span>
-                        ))}
-                      </span>
-                    </span>
-                  </Link>
+                <li key={s.id} className="flex items-center gap-4 py-2 md:flex-col md:items-stretch md:gap-2">
+                  <ServiceIllustration id={s.id} sizes="(min-width: 768px) 220px, 112px" className="aspect-[10/9] h-auto w-28 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
+                  <div>
+                    <p className="text-[18px] leading-[1.4] font-bold text-[var(--top-ink)]">{s.name}</p>
+                    <p className="mt-1 text-balance type-body text-[var(--top-sub)]">
+                      {/* 中黒の後ろで折り返せるように区切る（単語の途中で折り返さない） */}
+                      {s.line.split(/(?<=・)/).map((part) => (
+                        <span key={part} className="inline-block">
+                          {part}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ol>

@@ -112,7 +112,7 @@ function Card({ x, y, w, h }: Box) {
   return (
     <div
       aria-hidden
-      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--top-card)" }}
+      style={{ ...box({ x, y, w, h }), border: `1px solid ${BORDER}`, borderRadius: u(18), background: "var(--top-card)", boxShadow: "var(--card-shadow)" }}
     />
   );
 }
@@ -210,7 +210,6 @@ export default function DesktopHome({
         <div className="pointer-events-none" aria-hidden>
           <T x={1303} cy={50} size={16} weight={500} color="#fff">相談する</T>
         </div>
-        <Line x={36} y={96} w={1415} h={1} />
 
         {/* ---- 紹介 ---- */}
         <section aria-labelledby="pc-intro-name">
@@ -260,20 +259,13 @@ export default function DesktopHome({
           <Heading id="pc-services-title" x={494} cy={175} en="Services" ja="サービス" />
           <Line x={786} y={500} w={1} h={70} />
           <Line x={1107} y={500} w={1} h={70} />
+          {/* 各サービスの矢印は置かず、カード右上の矢印から一覧へ移動する（社長指示 2026-11-26） */}
+          <CornerLink card={{ right: 1452, top: 130 }} href="/service" label="サービスの詳細を見る" />
           {SERVICES.map((s, i) => (
-            <Link
-              key={s.name}
-              href="/service"
-              aria-label={`${s.name}の詳細：${s.line}`}
-              className="group/arrow focus-visible:outline-2 focus-visible:outline-accent"
-              style={{ ...box({ x: SERVICE_X[i] - 14, y: 497, w: 250, h: 76 }), borderRadius: u(10) }}
-            >
-              <span className="flex items-center whitespace-nowrap" style={{ position: "absolute", left: u(14), top: u(10), height: u(24), gap: u(9), fontSize: u(19), lineHeight: 1, fontWeight: 700, color: INK }}>
-                {s.name}
-                <MovingArrow s={13} style={{ display: "flex" }} />
-              </span>
-              <T x={14} cy={53} size={15} color={SUB}>{s.line}</T>
-            </Link>
+            <div key={s.id}>
+              <T x={SERVICE_X[i]} cy={519} size={19} weight={700} as="p">{s.name}</T>
+              <T x={SERVICE_X[i]} cy={550} size={15} color={SUB} as="p">{s.line}</T>
+            </div>
           ))}
         </section>
 
@@ -300,12 +292,15 @@ export default function DesktopHome({
 
         {/* ---- ツール ---- */}
         <section aria-labelledby="pc-tools-title">
-          <Card x={716} y={627} w={736} h={112} />
+          <Card x={716} y={627} w={360} h={112} />
           <Heading id="pc-tools-title" x={739} cy={683} en="Tools" ja="ツール" />
-          <div style={{ ...box({ x: 824, y: 663, w: 612, h: 60 }), overflow: "hidden" }}>
+          <div style={{ ...box({ x: 824, y: 663, w: 238, h: 60 }), overflow: "hidden" }}>
             <ToolMarquee />
           </div>
         </section>
+
+        {/* 空のカード（中身はこれから決める） */}
+        <Card x={1092} y={627} w={360} h={112} />
 
         {/* ---- 記事 ---- */}
         <section aria-labelledby="pc-articles-title">

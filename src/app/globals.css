@@ -45,9 +45,11 @@
   --bloom-1: rgb(16 160 106 / 0.22);
   --bloom-2: rgb(124 194 78 / 0.2);
   --bloom-3: rgb(23 179 160 / 0.2);
+  /* 背景のグラデーションに重ねる薄いノイズ（社長指示 2026-11-26）。粒の色の中心を地の明るさに合わせ、全体の色味を変えない。
+     行列の5・10・15番目が粒の色の中心、末尾が濃さ（明 0.09／暗 0.06） */
+  --noise: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%20x%3D%270%27%20y%3D%270%27%20width%3D%27100%25%27%20height%3D%27100%25%27%20color-interpolation-filters%3D%27sRGB%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270.6%200.6%200.6%200%200%20%200.6%200.6%200.6%200%200%20%200.6%200.6%200.6%200%200%20%200%200%200%200%200.09%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%2F%3E%3C%2Fsvg%3E");
 
   /* TOP の色 */
-  --top-page: #f9fafe;
   --top-card: #f9fafe;
   --top-border: #e3e5ec;
   --top-rule: #eceef3;
@@ -101,8 +103,8 @@
   --bloom-1: rgb(16 160 106 / 0.16);
   --bloom-2: rgb(124 194 78 / 0.1);
   --bloom-3: rgb(23 179 160 / 0.12);
+  --noise: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%20x%3D%270%27%20y%3D%270%27%20width%3D%27100%25%27%20height%3D%27100%25%27%20color-interpolation-filters%3D%27sRGB%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270.6%200.6%200.6%200%20-0.8%20%200.6%200.6%200.6%200%20-0.8%20%200.6%200.6%200.6%200%20-0.8%20%200%200%200%200%200.06%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%2F%3E%3C%2Fsvg%3E");
 
-  --top-page: #101312;
   --top-card: #181c1a;
   --top-border: #2b312e;
   --top-rule: #272c2a;
@@ -239,9 +241,11 @@
   body {
     background-color: var(--color-canvas);
     background-image:
+      var(--noise),
       radial-gradient(60rem 36rem at 8% -8%, var(--bloom-1), transparent 62%),
       radial-gradient(52rem 34rem at 96% 18%, var(--bloom-2), transparent 62%),
       radial-gradient(56rem 34rem at 42% 108%, var(--bloom-3), transparent 62%);
+    background-size: 160px 160px, auto, auto, auto;
     background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-sans);

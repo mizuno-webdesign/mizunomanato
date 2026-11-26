@@ -63,8 +63,8 @@ export default async function Home() {
           address: { "@type": "PostalAddress", addressRegion: "静岡県", addressCountry: "JP" },
         }}
       />
-      {/* 平らな地にするのは PC 表示だけ。縦並びは、ほかのページと同じ背景（白いナビの現在地が見分けられる） */}
-      <div className="hidden min-h-dvh bg-[var(--top-page)] xl:block">
+      {/* 背景は下層ページと同じ（globals.css の body のグラデーション） */}
+      <div className="hidden min-h-dvh xl:block">
         <DesktopHome works={works} articles={articles} />
       </div>
       <StackedHome works={works} articles={articles} className="xl:hidden" />
