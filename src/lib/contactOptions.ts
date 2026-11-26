@@ -13,3 +13,6 @@ export const CHANNEL_OPTIONS = [
   "広告",
   "知人・取引先からの紹介",
 ] as const;
+
+// 自動送信を見分ける隠し入力欄の名前。ブラウザの自動入力が当たりにくい名前にする。
+export const HONEYPOT_FIELD = "hp_check";

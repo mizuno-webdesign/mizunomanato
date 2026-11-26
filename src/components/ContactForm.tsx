@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CHANNEL_OPTIONS, TYPE_OPTIONS } from "@/lib/contactOptions";
+import { CHANNEL_OPTIONS, HONEYPOT_FIELD, TYPE_OPTIONS } from "@/lib/contactOptions";
 
 // 問い合わせフォーム（社長確定 2026-11-24：項目と送信の仕組みは旧サイトと同じ）。
 // 入力の条件（必須・文字数・メールの形式）は、送信API（/api/contact）の検証に合わせる。
@@ -16,6 +16,7 @@ type FormData = {
   type: string;
   channel: string;
   body: string;
+  [HONEYPOT_FIELD]: string;
 };
 
 // 入力欄の文字は16px：iPhone で、タップしたときに画面が拡大されないようにするため。
@@ -133,7 +134,11 @@ export default function ContactForm() {
   );
 
   return (
-    <form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form noValidate onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-6">
+      {/* 自動送信を見分ける隠し入力欄。画面にも読み上げにも出さず、キーボードでも止まらない */}
+      <div aria-hidden className="absolute top-0 -left-[9999px] size-px overflow-hidden">
+        <input type="text" tabIndex={-1} autoComplete="off" data-1p-ignore data-lpignore="true" {...register(HONEYPOT_FIELD)} />
+      </div>
       {text("company", "会社名", { autoComplete: "organization" }, required(200))}
       {text("name", "お名前", { autoComplete: "name" }, required(100))}
       {text(

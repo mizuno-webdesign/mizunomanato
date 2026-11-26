@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import { TYPE_OPTIONS, CHANNEL_OPTIONS } from "@/lib/contactOptions";
+import { TYPE_OPTIONS, CHANNEL_OPTIONS, HONEYPOT_FIELD } from "@/lib/contactOptions";
 
 const noControlChars = (value: string) => !/[\r\n]/.test(value);
 
@@ -21,12 +21,40 @@ const ContactSchema = z.object({
   body: z.string().trim().min(1, "入力してください").max(5000),
 });
 
+// このサイトのページから送られたかを調べる。ブラウザは POST の fetch に必ず Origin を付けるので、
+// Origin のホストが、受け取った側のホストと同じ場合だけ通す（本番・プレビュー・手元のどれでも動く）。
+function isSameOrigin(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
+  if (!origin || !host) return false;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "送信できませんでした" }, { status: 403 });
+  }
+  // JSON 以外は受け付けない（他サイトのフォームから、事前確認なしに送れる形式をふさぐ）
+  const contentType = request.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
+  if (contentType !== "application/json") {
+    return NextResponse.json({ error: "リクエストの形式が正しくありません" }, { status: 415 });
+  }
+
   let json: unknown;
   try {
     json = await request.json();
   } catch {
     return NextResponse.json({ error: "リクエストの形式が正しくありません" }, { status: 400 });
+  }
+
+  // 隠し入力欄（人には見えない）に値があれば、自動送信とみなして送らない。
+  // 誤って判定された人が気づけるように、成功にはせず失敗を返す。
+  if (typeof json === "object" && json !== null && (json as Record<string, unknown>)[HONEYPOT_FIELD]) {
+    return NextResponse.json({ error: "送信できませんでした" }, { status: 400 });
   }
 
   const parsed = ContactSchema.safeParse(json);
