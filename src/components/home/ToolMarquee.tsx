@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { u } from "@/components/home/Arrow";
 import MarqueeViewport from "@/components/home/MarqueeViewport";
+import { track } from "@/lib/analytics";
 
 // 流れるツールの帯（見出しの右に横一列）。アイコンだけを流し、クリックした場所に名前を出す（もう一度クリックで消える）。
 // ホバー中は今の TOP と同じく、ゆっくりになる（MarqueeViewport）。
@@ -39,7 +40,10 @@ export default function ToolMarquee() {
                   <button
                     type="button"
                     tabIndex={-1}
-                    onClick={() => setOpenKey(open ? null : key)}
+                    onClick={() => {
+                      if (!open) track("tool_click", { tool: t.name });
+                      setOpenKey(open ? null : key);
+                    }}
                     className="grid cursor-pointer place-items-center bg-[var(--top-tile)] transition-[background-color] duration-150 hover:bg-[var(--top-tile-hover)] motion-reduce:transition-none"
                     style={{ width: u(40), height: u(40), borderRadius: u(12) }}
                   >

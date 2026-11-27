@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     {
       url: "https://mizunomanato.com/privacy",
-      lastModified: new Date("2026-11-26"), // ポリシーを改定したら、ページの日付とあわせて直す
+      lastModified: new Date("2026-11-27"), // ポリシーを改定したら、ページの日付とあわせて直す
       changeFrequency: "yearly",
       priority: 0.3,
     },

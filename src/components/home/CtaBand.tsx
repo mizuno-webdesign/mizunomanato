@@ -6,6 +6,7 @@ import FlipHeading from "@/components/FlipHeading";
 export default function CtaBand({ className = "" }: { className?: string }) {
   return (
     <section
+      data-ga-area="cta_band"
       aria-labelledby="contact-title"
       className={`flex flex-wrap items-start justify-between gap-4 glass rounded-card p-3 shadow-card ${className}`}
     >

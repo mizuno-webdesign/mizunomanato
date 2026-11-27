@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
 import "./globals.css";
+import ClickTracker from "@/components/ClickTracker";
 import InlineScript from "@/components/InlineScript";
 import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
@@ -52,6 +53,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <ClickTracker />
       </body>
     </html>
   );

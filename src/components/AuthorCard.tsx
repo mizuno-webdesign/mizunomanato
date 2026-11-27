@@ -6,7 +6,7 @@ import CtaButton from "@/components/CtaButton";
 // ・side：記事の右の列に置く形。下に相談ボタンを付ける（社長指示 2026-11-26）
 export default function AuthorCard({ side = false }: { side?: boolean }) {
   return (
-    <section aria-label="この記事を書いた人" className={`glass rounded-card shadow-card ${side ? "p-4" : "p-6"}`}>
+    <section data-ga-area="author_card" aria-label="この記事を書いた人" className={`glass rounded-card shadow-card ${side ? "p-4" : "p-6"}`}>
       <div className={`flex gap-4 ${side ? "items-center" : "items-start"}`}>
         <Image
           src="/profile-face.webp"

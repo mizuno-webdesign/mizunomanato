@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { track } from "@/lib/analytics";
 import { CHANNEL_OPTIONS, HONEYPOT_FIELD, TYPE_OPTIONS } from "@/lib/contactOptions";
 
 // 問い合わせフォーム（社長確定 2026-11-24：項目と送信の仕組みは旧サイトと同じ）。
@@ -79,6 +80,8 @@ export default function ContactForm() {
         const result = await res.json().catch(() => null);
         throw new Error(result?.error || "送信に失敗しました");
       }
+      // 問い合わせの件数は、このイベントで数える（送るのは種類だけ。入力内容は送らない）
+      track("generate_lead", { inquiry_type: data.type });
       router.push("/thanks");
     } catch (err) {
       // 通信そのものの失敗は、英語のメッセージになるので出さない

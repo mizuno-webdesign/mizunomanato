@@ -26,7 +26,7 @@ const BORDER = "1px solid var(--top-border)";
 
 function Logo({ className, style }: { className: string; style?: React.CSSProperties }) {
   return (
-    <Link href="/" aria-label="Manato Mizuno トップ" className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`} style={style}>
+    <Link href="/" data-ga-area="header" aria-label="Manato Mizuno トップ" className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`} style={style}>
       <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light size-full object-contain" />
       <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark size-full object-contain" />
     </Link>
@@ -78,6 +78,7 @@ export function DesktopHeader() {
       <ThemeToggle style={{ ...at(1201, 28, 44, 44), border: BORDER, background: "var(--top-nav)" }} />
       <Link
         href="/contact"
+        data-ga-area="header"
         className="flex items-center justify-center whitespace-nowrap transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
         style={{ ...at(1257, 25, 170, 50), borderRadius: u(25), backgroundColor: "var(--top-cta)", color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
       >
@@ -91,7 +92,7 @@ export function DesktopHeader() {
 export function CompactHeader() {
   return (
     <>
-      <div className="flex items-center justify-between px-2.5 pt-5 pb-1 xl:hidden">
+      <div data-ga-area="header" className="flex items-center justify-between px-2.5 pt-5 pb-1 xl:hidden">
         <Logo className="block h-6 w-[57px]" />
         <div className="flex items-center gap-3">
           <ThemeSwitch />
