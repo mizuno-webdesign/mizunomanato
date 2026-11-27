@@ -25,12 +25,15 @@ export default function ServicePage() {
               <div className="min-w-0 flex-1">
                 <h2 className="text-[20px] leading-[1.5] font-semibold text-heading">{s.name}</h2>
                 <p className="mt-2 text-[15px] leading-[2] text-ink">{s.what}</p>
-                <h3 className="mt-4 type-caption font-semibold text-ink-sub">こんなとき</h3>
-                <ul className="mt-1 list-disc pl-5 text-[15px] leading-[2] text-body-2">
-                  {s.cases.map((c) => (
-                    <li key={c}>{c}</li>
-                  ))}
-                </ul>
+                {/* 「こんなとき」は、薄い緑で囲って見分けやすくする。緑はアクセントの色を薄く敷くので、明暗の両方になじむ */}
+                <div className="mt-4 rounded-xl bg-accent/8 px-4 py-3">
+                  <h3 className="type-caption font-semibold text-accent">こんなとき</h3>
+                  <ul className="mt-1 list-disc pl-5 text-[15px] leading-[2] text-body-2 marker:text-accent">
+                    {s.cases.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </li>
           ))}
