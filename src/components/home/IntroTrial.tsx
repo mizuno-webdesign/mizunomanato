@@ -7,7 +7,8 @@ import InlineScript from "@/components/InlineScript";
 // ・開発中の画面だけで動く。本番ビルドでは何も出さない（本番ビルドで速さを測るときは NEXT_PUBLIC_INTRO_TRIAL=1）。
 // ・URL に ?intro=a か ?intro=b を付けて開いたときに再生する。付けなければ、今の画面のまま。
 //   a：左上のロゴがその場で描かれ、同時にカードが順に現れる。画面は覆わない。
-//   b：画面の中央で大きく描き、左上のロゴの位置へ移る。タップかキー操作で、すぐ終わる。
+//   b：画面の中央で大きく描き、左上のロゴの位置へ移る。タップかキー操作で、すぐ終わる。背景はサイトと同じ。
+//      書く前と、書き終えた後に間を置く（社長指示 2026-11-27）。時間は下の B。
 // ・動きを減らす設定では再生しない。
 // ・動きは Element.animate() で付け、画面の要素の属性は書き換えない（React の描き直しと食い違わないように）。
 // やめるとき・正式に入れるときは、このファイルと、src/app/page.tsx の呼び出しを書き直す。
@@ -15,6 +16,10 @@ const ENABLED = process.env.NODE_ENV !== "production" || process.env.NEXT_PUBLIC
 
 // public/logo/logo-green.png を測ってなぞった線（600×252。線の太さ34。輪郭のずれは画素の約3%）
 const LOGO_PATH = "M19 234 L233.5 19 L241 19 L241.5 228.5 L399 18.5 L411.5 20 L411.5 234.5 L569 18.5 L581.5 20 L581.5 232.5";
+
+// b の時間（ミリ秒）。start：書き始めるまで／draw：書く時間／hold：書き終えて止まる時間／move：左上へ移る時間
+const B = { start: 300, draw: 750, hold: 550, move: 450 };
+const B_MOVE_AT = B.start + B.draw + B.hold;
 
 const SCRIPT = `(function(){
 var mode=new URLSearchParams(location.search).get("intro");
@@ -38,7 +43,7 @@ p.setAttribute("fill","none");p.setAttribute("stroke",color);p.setAttribute("str
 p.setAttribute("stroke-linecap","round");p.setAttribute("stroke-linejoin","round");
 p.style.strokeDasharray="100 200";
 s.appendChild(p);parent.appendChild(s);return {svg:s,path:p}}
-function draw(path,ms){run(path,[{strokeDashoffset:100.5,opacity:0},{opacity:1,offset:0.05},{strokeDashoffset:0,opacity:1}],{duration:ms,easing:EASE_IN_OUT,fill:"both"})}
+function draw(path,ms,delay){run(path,[{strokeDashoffset:100.5,opacity:0},{opacity:1,offset:0.05},{strokeDashoffset:0,opacity:1}],{duration:ms,delay:delay||0,easing:EASE_IN_OUT,fill:"both"})}
 // カードを順に出す。幅1280px以上は、中身が1つずつ絶対位置で置かれているので、同じカードの中身を同じタイミングで動かす
 function rise(start,step){
 var wide=matchMedia("(min-width: 1280px)").matches;
@@ -63,17 +68,20 @@ draw(m.path,700);
 run(logo,[{opacity:0},{opacity:0}],{duration:total,fill:"both"});
 rise(100,60);
 }else{
-total=1200;
+total=${B_MOVE_AT + B.move + 250};
 setTimeout(finish,total);
 layer.addEventListener("click",finish);
-var bg=make("div","position:absolute;inset:0;background:"+getComputedStyle(document.body).backgroundColor,layer);
+// 背景は、サイトの地（グラデーションとノイズ。globals.css の body）と同じ指定を使う。明暗の違いもそのまま入る
+var page=getComputedStyle(document.body);
+var bg=make("div","position:absolute;inset:0",layer);
+["backgroundColor","backgroundImage","backgroundSize","backgroundPosition","backgroundRepeat"].forEach(function(k){bg.style[k]=page[k]});
 var w=Math.min(200,innerWidth*0.46),h=w*to.height/to.width,x=(innerWidth-w)/2,y=(innerHeight-h)/2;
 var big=mark(layer,"left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px");
-draw(big.path,650);
-run(big.svg,[{transform:"none"},{transform:"translate("+(to.left+to.width/2-x-w/2)+"px,"+(to.top+to.height/2-y-h/2)+"px) scale("+to.width/w+")"}],{duration:400,delay:720,easing:EASE_IN_OUT,fill:"both"});
-run(bg,[{opacity:1},{opacity:0}],{duration:360,delay:760,easing:"ease",fill:"both"});
-run(logo,[{opacity:0},{opacity:0}],{duration:1120});
-rise(820,45);
+draw(big.path,${B.draw},${B.start});
+run(big.svg,[{transform:"none"},{transform:"translate("+(to.left+to.width/2-x-w/2)+"px,"+(to.top+to.height/2-y-h/2)+"px) scale("+to.width/w+")"}],{duration:${B.move},delay:${B_MOVE_AT},easing:EASE_IN_OUT,fill:"both"});
+run(bg,[{opacity:1},{opacity:0}],{duration:${B.move - 40},delay:${B_MOVE_AT + 40},easing:"ease",fill:"both"});
+run(logo,[{opacity:0},{opacity:0}],{duration:${B_MOVE_AT + B.move}});
+rise(${B_MOVE_AT + 100},45);
 }
 }catch(e){finish()}
 })();`;
