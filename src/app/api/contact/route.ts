@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 import { TYPE_OPTIONS, CHANNEL_OPTIONS, HONEYPOT_FIELD } from "@/lib/contactOptions";
+import { clientIp, takeContactSlot } from "@/lib/contactRateLimit";
 
 const noControlChars = (value: string) => !/[\r\n]/.test(value);
 
@@ -73,6 +74,15 @@ export async function POST(request: NextRequest) {
 
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ error: "メール送信が設定されていません" }, { status: 503 });
+  }
+
+  const retryAfter = takeContactSlot(clientIp(request.headers));
+  if (retryAfter > 0) {
+    console.warn("Contact rejected: rate limit");
+    return NextResponse.json(
+      { error: "短い時間に送信が続いたため、受け付けられませんでした。しばらくたってから、もう一度お試しください。" },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
+    );
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);

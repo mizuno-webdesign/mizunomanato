@@ -1,6 +1,18 @@
 import type { NextConfig } from "next";
 
+// 安全用の応答ヘッダー。
+const COMMON_HEADERS = [
+  // ファイルの種類を、ブラウザが中身から推測して変えないようにする
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  // ほかのサイトへ移るとき、開いていたページの詳しいアドレスは渡さない（ドメインまで）
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  // このサイトで使わない機能は、使えないようにする
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig: NextConfig = {
+  // 使っている仕組みの名前を、応答に付けない
+  poweredByHeader: false,
   // `next dev` が AGENTS.md を自動で書き換えるのを止める（docs: 01-app/02-guides/ai-agents.md）。
   // 社長承認（2026-11-24）。AGENTS.md は手で管理する。
   // 16.4 からは、false だと目印（BEGIN/END:nextjs-agent-rules）で囲んだ部分が削除されるので、AGENTS.md に目印を書かない。
@@ -15,6 +27,24 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+  },
+  async headers() {
+    return [
+      { source: "/:path*", headers: COMMON_HEADERS },
+      // ほかのサイトの中に埋め込めないようにする（見えない形で重ねて、操作させるのを防ぐ）
+      {
+        source: "/((?!studio).*)",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+        ],
+      },
+      // 管理画面は、Sanity の画面の中に表示される使い方があるので、Sanity だけは許可する
+      {
+        source: "/studio/:path*",
+        headers: [{ key: "Content-Security-Policy", value: "frame-ancestors 'self' https://sanity.io https://*.sanity.io" }],
+      },
+    ];
   },
   async redirects() {
     return [
