@@ -4,7 +4,7 @@ import { IBM_Plex_Sans_JP, Outfit } from "next/font/google";
 export const plex = IBM_Plex_Sans_JP({
   variable: "--font-plex",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
   display: "swap",
   // 先読みしない：日本語の書体は100個以上のファイルに分割されていて、先読みを有効にすると
   // ページで使わない分まで一斉に読み込み、画像の表示が遅くなる（段階5-5の計測で196個の先読みを確認）。
