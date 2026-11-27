@@ -6,6 +6,7 @@ import "./globals.css";
 import ClickTracker from "@/components/ClickTracker";
 import InlineScript from "@/components/InlineScript";
 import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme";
+import { INTRO_HEAD_SCRIPT } from "@/lib/intro";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
 const GA_ID = "G-377SE17230";
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html lang="ja" data-scroll-behavior="smooth" className={`${siteSans.variable} ${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={THEME_INIT_SCRIPT} />
+        <InlineScript html={INTRO_HEAD_SCRIPT} />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"

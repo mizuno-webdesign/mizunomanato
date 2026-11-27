@@ -117,6 +117,18 @@
   --top-tile-hover: #ffffff;
 }
 
+/* TOP を開いたときの動き（src/lib/intro.ts）：準備ができるまで中身を隠し、背景だけを見せる。
+   スクリプトがうまく動かなくても、3秒たてば CSS だけで中身を表示する。 */
+html[data-intro] body > * {
+  opacity: 0;
+  animation: intro-fallback 0s linear 3s forwards;
+}
+@keyframes intro-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
 /* 明るい表示と暗い表示で、画像などを出し分ける */
 :root:not([data-theme="dark"]) .only-dark {
   display: none !important;

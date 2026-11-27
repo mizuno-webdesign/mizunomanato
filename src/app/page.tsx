@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import SiteFooter from "@/components/SiteFooter";
 import DesktopHome from "@/components/home/DesktopHome";
-import IntroTrial from "@/components/home/IntroTrial";
+import Intro from "@/components/home/Intro";
 import StackedHome from "@/components/home/StackedHome";
 import { formatDate } from "@/lib/date";
 import type { ArticleItem, WorkItem } from "@/lib/home";
@@ -71,8 +71,8 @@ export default async function Home() {
         <SiteFooter />
       </div>
       <StackedHome works={works} articles={articles} className="xl:hidden" />
-      {/* 【試し】開いたときの動き。ヘッダーより後ろに置く（開発中だけ動く） */}
-      <IntroTrial />
+      {/* 開いたときの動き。ロゴの位置を測るので、ヘッダーより後ろに置く */}
+      <Intro />
     </>
   );
 }
