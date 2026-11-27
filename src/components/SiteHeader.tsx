@@ -96,7 +96,7 @@ export function DesktopHeader() {
         href="/contact"
         data-ga-area="header"
         className="flex items-center justify-center whitespace-nowrap transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
-        style={{ ...at(1257, 25, 170, 50), borderRadius: u(25), backgroundColor: "var(--top-cta)", color: "#fff", fontSize: u(16), fontWeight: 500, lineHeight: 1 }}
+        style={{ ...at(1257, 25, 170, 50), borderRadius: u(25), backgroundColor: "var(--top-cta)", color: "#fff", fontSize: u(16), fontWeight: 600, lineHeight: 1 }}
       >
         相談する
       </Link>
