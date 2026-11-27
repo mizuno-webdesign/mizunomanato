@@ -27,8 +27,8 @@ const BORDER = "1px solid var(--top-border)";
 function Logo({ className, style }: { className: string; style?: React.CSSProperties }) {
   return (
     <Link href="/" data-ga-area="header" aria-label="Manato Mizuno トップ" className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`} style={style}>
-      <Image src="/logo/logo-green.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-light size-full object-contain" />
-      <Image src="/logo/logo-white.png" alt="" width={600} height={252} unoptimized loading="eager" className="only-dark size-full object-contain" />
+      <Image src="/logo/logo-green.webp" alt="" width={300} height={126} unoptimized loading="eager" className="only-light size-full object-contain" />
+      <Image src="/logo/logo-white.webp" alt="" width={300} height={126} unoptimized loading="eager" className="only-dark size-full object-contain" />
     </Link>
   );
 }

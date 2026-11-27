@@ -101,9 +101,9 @@ export default function StackedHome({
             <Heading id="s-services-title" en="Services" ja="サービス" />
             <CornerLink href="/service" label="サービスの詳細を見る" />
             <ol className="mt-3 grid gap-1 md:grid-cols-3 md:gap-4">
-              {SERVICES.map((s) => (
+              {SERVICES.map((s, i) => (
                 <li key={s.id} className="flex items-center gap-4 py-2 md:flex-col md:items-stretch md:gap-2">
-                  <ServiceIllustration id={s.id} sizes="(min-width: 768px) 220px, 112px" className="aspect-[10/9] h-auto w-28 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
+                  <ServiceIllustration id={s.id} eager={i === 0} sizes="(min-width: 768px) 220px, 112px" className="aspect-[10/9] h-auto w-28 shrink-0 md:w-full md:max-w-[220px] md:self-center" />
                   <div>
                     <p className="text-[18px] leading-[1.4] font-bold text-[var(--top-ink)]">{s.name}</p>
                     <p className="mt-1 text-balance type-body text-[var(--top-sub)]">

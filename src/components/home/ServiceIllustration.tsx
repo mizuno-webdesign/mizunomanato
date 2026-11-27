@@ -16,11 +16,13 @@ export default function ServiceIllustration({
   sizes,
   className = "",
   style,
+  eager = false,
 }: {
   id: string; // src/lib/services.tsx の id
   sizes: string;
   className?: string;
   style?: React.CSSProperties;
+  eager?: boolean; // 最初の画面に入る絵は、後回しにせず読み込む
 }) {
-  return <Image src={IMAGES[id]} alt="" sizes={sizes} className={`object-contain ${className}`} style={style} />;
+  return <Image src={IMAGES[id]} alt="" sizes={sizes} loading={eager ? "eager" : "lazy"} className={`object-contain ${className}`} style={style} />;
 }
