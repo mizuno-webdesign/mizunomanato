@@ -9,6 +9,7 @@ export const TYPE_OPTIONS = [
 
 export const CHANNEL_OPTIONS = [
   "公式サイト",
+  "検索・記事",
   "SNS",
   "広告",
   "知人・取引先からの紹介",
