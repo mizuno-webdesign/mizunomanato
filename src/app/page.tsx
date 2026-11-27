@@ -7,7 +7,7 @@ import StackedHome from "@/components/home/StackedHome";
 import { formatDate } from "@/lib/date";
 import type { ArticleItem, WorkItem } from "@/lib/home";
 import { getArticles, getWorks, urlFor } from "@/lib/sanity";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { PERSON_JSON_LD, SITE_NAME, SITE_URL } from "@/lib/site";
 
 // TOP（2026-11-26 に比較版から正式に反映）。独自のヘッダーを持つので、(site) の共通の枠の外に置く。
 // 幅1280px以上は PC 表示（DesktopHome）、それより狭い幅は縦並び（StackedHome）。
@@ -53,16 +53,15 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd data={{ "@context": "https://schema.org", ...PERSON_JSON_LD }} />
+      {/* 検索結果に出すサイト名の希望（Google の「サイト名」の指定。TOP に置く） */}
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "Person",
+          "@type": "WebSite",
           name: SITE_NAME,
-          alternateName: "水野 学人",
-          url: SITE_URL,
-          image: `${SITE_URL}/profile.webp`,
-          description: SITE_DESCRIPTION,
-          address: { "@type": "PostalAddress", addressRegion: "静岡県", addressCountry: "JP" },
+          alternateName: ["水野学人", "mizunomanato.com"],
+          url: `${SITE_URL}/`,
         }}
       />
       {/* 背景は下層ページと同じ（globals.css の body のグラデーション） */}

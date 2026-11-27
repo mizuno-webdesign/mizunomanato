@@ -22,13 +22,14 @@ type Article = {
   body?: any[];
   tags?: string[];
   publishedAt: string;
+  _updatedAt: string;
   noindex?: boolean;
 };
 
 async function getArticle(slug: string): Promise<Article | null> {
   return client.fetch(
     `*[_type == "article" && slug.current == $slug][0] {
-      _id, title, slug, excerpt, mainImage, body, tags, publishedAt, noindex
+      _id, title, slug, excerpt, mainImage, body, tags, publishedAt, _updatedAt, noindex
     }`,
     { slug }
   );
@@ -74,6 +75,9 @@ export default async function ArticlePage({
     ? urlFor(article.mainImage).width(1440).auto("format").url()
     : null;
   const toc = extractToc(article.body);
+  // 構造化データの更新日。公開日をあとから指定した記事で、更新日が公開日より前にならないようにする
+  const modifiedAt =
+    new Date(article._updatedAt) > new Date(article.publishedAt) ? article._updatedAt : article.publishedAt;
   const hasToc = toc.length > 0;
 
   return (
@@ -85,6 +89,7 @@ export default async function ArticlePage({
           headline: article.title,
           description: article.excerpt,
           datePublished: article.publishedAt,
+          dateModified: modifiedAt,
           mainEntityOfPage: `${SITE_URL}/articles/${article.slug.current}`,
           image: imgUrl ?? `${SITE_URL}/opengraph-image`,
           author: { "@type": "Person", name: SITE_NAME, url: `${SITE_URL}/about` },

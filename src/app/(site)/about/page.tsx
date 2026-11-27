@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import FlipHeading from "@/components/FlipHeading";
 import CtaBand from "@/components/home/CtaBand";
-import { pageMetadata } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { PERSON_JSON_LD, SITE_URL, pageMetadata } from "@/lib/site";
 
 const DESCRIPTION = "Manato Mizuno（水野 学人）のプロフィールです。";
 
@@ -24,6 +25,14 @@ const CHANNELS = [
 export default function AboutPage() {
   return (
     <div className="flex flex-col gap-4">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: `${SITE_URL}/about`,
+          mainEntity: PERSON_JSON_LD,
+        }}
+      />
       <section aria-labelledby="about-title" className="glass rounded-card p-3 shadow-card md:p-6">
         <FlipHeading as="h1" id="about-title" en="About" ja="自己紹介" className="px-3 pt-3 pb-4" />
         <div className="mx-auto w-full max-w-[768px] p-3 md:px-6 md:pb-10">

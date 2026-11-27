@@ -7,6 +7,18 @@ export const SITE_TITLE = "Manato Mizuno — Shopify の構築・改修・運用
 export const SITE_DESCRIPTION =
   "Shopify を中心に、ECサイト専門家として新規構築・改修・運用支援を行っています。";
 
+// 構造化データの人物。TOP とプロフィールのページで同じ内容を使う（@id で同じ人物だと示す）。
+export const PERSON_JSON_LD = {
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: SITE_NAME,
+  alternateName: "水野 学人",
+  url: SITE_URL,
+  image: `${SITE_URL}/profile.webp`,
+  description: SITE_DESCRIPTION,
+  address: { "@type": "PostalAddress", addressRegion: "静岡県", addressCountry: "JP" },
+};
+
 const DEFAULT_OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
