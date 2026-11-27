@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { plex, outfit } from "@/lib/fonts";
+import { siteSans } from "@/lib/siteSans";
 import "./globals.css";
 import ClickTracker from "@/components/ClickTracker";
 import InlineScript from "@/components/InlineScript";
@@ -37,7 +38,7 @@ export default function RootLayout({
   return (
     // data-scroll-behavior：画面を移るときは、なめらかスクロールを一時的に切る（Next 16 の指定）
     // data-theme は下のスクリプトが描画の前に付けるため、サーバーの出力との違いは警告しない
-    <html lang="ja" data-scroll-behavior="smooth" className={`${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
+    <html lang="ja" data-scroll-behavior="smooth" className={`${siteSans.variable} ${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={THEME_INIT_SCRIPT} />
         <Script

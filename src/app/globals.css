@@ -22,7 +22,7 @@
   --radius-card: 18px;
   --radius-inner: 16px;
 
-  --font-sans: var(--font-plex), "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-sans: var(--font-site), var(--font-plex), "Hiragino Sans", "Yu Gothic", sans-serif;
 }
 
 /* ==== 白や淡色を直接使っていた場所の色（ダークモード対応 2026-11-26。明るい値は以前と同じ）==== */
