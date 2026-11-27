@@ -9,6 +9,7 @@ import { formatDate } from "@/lib/date";
 import { client, urlFor } from "@/lib/sanity";
 import { extractToc } from "@/lib/toc";
 import JsonLd from "@/components/JsonLd";
+import { plex } from "@/lib/fontsPlex";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, pageMetadata } from "@/lib/site";
 
 type Article = {
@@ -98,7 +99,7 @@ export default async function ArticlePage({
       {/* 横幅は枠（TOP と同じ）いっぱい。目次があるときは右に列を足す。本文はカードの中で最大760pxにする。
           列は grid-cols の minmax(0,…) で、長い英数字があっても広がらないようにする。 */}
       <div
-        className={`grid grid-cols-[minmax(0,1fr)] gap-4 ${
+        className={`${plex.variable} grid grid-cols-[minmax(0,1fr)] gap-4 ${
           hasToc ? "lg:grid-cols-[minmax(0,1fr)_272px] xl:grid-cols-[minmax(0,1fr)_320px]" : ""
         }`}
       >

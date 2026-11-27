@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaBand from "@/components/home/CtaBand";
 import { client, urlFor } from "@/lib/sanity";
+import { plex } from "@/lib/fontsPlex";
 import { pageMetadata } from "@/lib/site";
 
 type Work = {
@@ -70,7 +71,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
     : null;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`${plex.variable} flex flex-col gap-4`}>
       <article className="glass rounded-card p-6 shadow-card md:p-12">
         <div className="mx-auto w-full max-w-[880px]">
         <header>

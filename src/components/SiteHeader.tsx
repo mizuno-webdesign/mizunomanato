@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import CtaButton from "@/components/CtaButton";
@@ -24,11 +23,28 @@ const NAV = [
 const at = (x: number, y: number, w: number, h: number): React.CSSProperties => ({ position: "absolute", left: u(x), top: u(y), width: u(w), height: u(h) });
 const BORDER = "1px solid var(--top-border)";
 
+// 表示の大きさに合う方の画像を、ブラウザが選ぶ（幅120と300）。表示の幅は、PC が画面幅の約5%、それより狭い画面は57px。
+function LogoImage({ color, className }: { color: "green" | "white"; className: string }) {
+  return (
+    // 作成済みの小さな画像を出し分けるだけなので、next/image は使わない
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`/logo/logo-${color}.webp`}
+      srcSet={`/logo/logo-${color}-120.webp 120w, /logo/logo-${color}.webp 300w`}
+      sizes="(min-width: 1280px) 5vw, 57px"
+      alt=""
+      width={300}
+      height={126}
+      className={`${className} size-full object-contain`}
+    />
+  );
+}
+
 function Logo({ className, style }: { className: string; style?: React.CSSProperties }) {
   return (
     <Link href="/" data-ga-area="header" aria-label="Manato Mizuno トップ" className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`} style={style}>
-      <Image src="/logo/logo-green.webp" alt="" width={300} height={126} unoptimized loading="eager" className="only-light size-full object-contain" />
-      <Image src="/logo/logo-white.webp" alt="" width={300} height={126} unoptimized loading="eager" className="only-dark size-full object-contain" />
+      <LogoImage color="green" className="only-light" />
+      <LogoImage color="white" className="only-dark" />
     </Link>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { plex, outfit } from "@/lib/fonts";
+import { outfit } from "@/lib/fonts";
+import PlexFallback from "@/components/PlexFallback";
 import { siteSans } from "@/lib/siteSans";
 import "./globals.css";
 import ClickTracker from "@/components/ClickTracker";
@@ -39,13 +40,15 @@ export default function RootLayout({
   return (
     // data-scroll-behavior：画面を移るときは、なめらかスクロールを一時的に切る（Next 16 の指定）
     // data-theme は下のスクリプトが描画の前に付けるため、サーバーの出力との違いは警告しない
-    <html lang="ja" data-scroll-behavior="smooth" className={`${siteSans.variable} ${plex.variable} ${outfit.variable}`} suppressHydrationWarning>
+    <html lang="ja" data-scroll-behavior="smooth" className={`${siteSans.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={THEME_INIT_SCRIPT} />
         <InlineScript html={INTRO_HEAD_SCRIPT} />
+        {/* 本体（大きい）は、ページの読み込みが終わって手が空いてから読み込む。下の ga-init は先に動くので、
+            それまでの操作の記録は dataLayer にたまり、本体が届いてから送られる。 */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script id="ga-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
@@ -57,6 +60,7 @@ export default function RootLayout({
       <body>
         {children}
         <ClickTracker />
+        <PlexFallback />
       </body>
     </html>
   );
