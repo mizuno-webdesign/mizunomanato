@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import WorkMorph from "@/components/WorkMorph";
 import FlipHeading from "@/components/FlipHeading";
 import { getWorks, urlFor } from "@/lib/sanity";
 import { pageMetadata } from "@/lib/site";
@@ -51,7 +52,7 @@ export default async function WorksPage() {
                 href={`/works/${w.slug!.current}`}
                 className="group flex h-full flex-col gap-3 rounded-2xl p-3 transition-colors duration-150 hover:bg-hover focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none"
               >
-                <span className="relative block aspect-[4/3] overflow-hidden rounded-xl bg-sunken">
+                <WorkMorph id={w.slug!.current!} className="relative block aspect-[4/3] overflow-hidden rounded-xl bg-sunken">
                   {w.thumbnail?.asset && (
                     <Image
                       src={urlFor(w.thumbnail).width(1200).auto("format").url()}
@@ -64,7 +65,7 @@ export default async function WorksPage() {
                       className="object-cover object-top transition-[scale] duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />
                   )}
-                </span>
+                </WorkMorph>
                 <span className="flex flex-col gap-1">
                   <h2 className="type-heading text-ink">{w.title}</h2>
                   <span className="type-caption text-ink-sub">

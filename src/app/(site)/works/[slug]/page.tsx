@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaBand from "@/components/home/CtaBand";
+import WorkMorph from "@/components/WorkMorph";
 import { client, urlFor } from "@/lib/sanity";
 import { plex } from "@/lib/fontsPlex";
 import { pageMetadata } from "@/lib/site";
@@ -82,7 +83,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         </header>
 
         {imgUrl && (
-          <div className="relative mt-6 aspect-[16/10] overflow-hidden rounded-inner bg-sunken">
+          <WorkMorph id={work.slug.current} leaveTo="/works" className="relative mt-6 block aspect-[16/10] overflow-hidden rounded-inner bg-sunken">
             <Image
               src={imgUrl}
               alt={`${work.title} のサイト画面`}
@@ -92,7 +93,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               sizes="(min-width: 928px) 880px, 100vw"
               className="object-cover object-top"
             />
-          </div>
+          </WorkMorph>
         )}
 
         {work.description && (
