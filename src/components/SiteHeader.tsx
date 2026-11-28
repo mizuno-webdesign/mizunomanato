@@ -6,6 +6,7 @@ import CtaButton from "@/components/CtaButton";
 import SiteNav from "@/components/SiteNav";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useNavPill } from "@/components/useNavPill";
 import { u } from "@/components/home/Arrow";
 import RollText from "@/components/home/RollText";
 
@@ -53,14 +54,17 @@ function Logo({ className, style }: { className: string; style?: React.CSSProper
 export function DesktopHeader() {
   const pathname = usePathname();
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`));
+  // 現在地の背景は1つだけで、伸びながら移る（社長決定 2026-11-28）
+  const { boxRef, pillRef, shownHref, select } = useNavPill<HTMLElement>("desktop", pathname, NAV.find((n) => isActive(n.href))?.href ?? null);
 
   return (
     <>
       <Logo className="block" style={at(67, 34.5, 74, 31)} />
       {/* ナビ：中心は x=743.5。枠の幅は中身に合わせる */}
       <nav
+        ref={boxRef}
         aria-label="メイン"
-        className="flex items-center"
+        className="group/nav flex items-center"
         style={{
           position: "absolute",
           left: u(743.5),
@@ -76,19 +80,27 @@ export function DesktopHeader() {
         }}
       >
         {NAV.map((n) => {
-          const active = isActive(n.href);
+          const active = shownHref === n.href; // 色は、背景の行き先に合わせる
           return (
             <Link
               key={n.en}
               href={n.href}
-              aria-current={active ? "page" : undefined}
-              className={`group/roll flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--top-nav-active)]" : "hover:bg-[var(--top-nav-hover)]"}`}
+              aria-current={isActive(n.href) ? "page" : undefined}
+              data-nav={n.href}
+              onNavigate={() => select(n.href)}
+              className={`group/roll relative z-[1] flex items-center justify-center transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${active ? "bg-[var(--top-nav-active)] group-data-[pill=on]/nav:bg-transparent" : "hover:bg-[var(--top-nav-hover)]"}`}
               style={{ height: u(40), minWidth: u(112), padding: `0 ${u(18)}`, borderRadius: u(20), fontSize: u(15), lineHeight: 1.5, fontWeight: 500, color: active ? "var(--top-green)" : "var(--top-ink)" }}
             >
               <RollText en={n.en} ja={n.ja} center enClassName="font-[family-name:var(--font-heading)]" />
             </Link>
           );
         })}
+        <span
+          ref={pillRef}
+          aria-hidden="true"
+          className="pointer-events-none bg-[var(--top-nav-active)] opacity-0"
+          style={{ position: "absolute", borderRadius: u(20) }}
+        />
       </nav>
       {/* 明暗の切り替え。相談ボタンの左に置く */}
       <ThemeToggle style={{ ...at(1201, 28, 44, 44), border: BORDER, background: "var(--top-nav)" }} />
