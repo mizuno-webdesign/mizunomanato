@@ -19,9 +19,6 @@ export const metadata: Metadata = {
 // Sanity の記事・実績を常に最新で表示するため、動的レンダリングにする。
 export const dynamic = "force-dynamic";
 
-// TOP に出す事例（社長決定：2件）。題名にこの言葉を含むものを順に選び、足りなければ一覧の先頭から補う。
-const PICKUP_WORKS = ["cocorome", "lipico"];
-
 // Sanity の取得に失敗しても TOP 全体を落とさない（各カードは空状態を表示する）。
 async function load<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   try {
@@ -38,8 +35,7 @@ export default async function Home() {
   const rawArticles: RawArticle[] = await load(getArticles, []);
   const rawWorks: RawWork[] = (await load(getWorks, [])).filter((w: RawWork) => w.slug?.current);
 
-  const picked = PICKUP_WORKS.flatMap((key) => rawWorks.find((w) => w.title?.toLowerCase().includes(key)) ?? []);
-  const works: WorkItem[] = [...picked, ...rawWorks.filter((w) => !picked.includes(w))].slice(0, 2).map((w) => ({
+  const works: WorkItem[] = rawWorks.slice(0, 2).map((w) => ({
     _id: w._id,
     title: w.title,
     slug: w.slug!.current!,
