@@ -23,7 +23,7 @@ export function urlFor(source: any) {
 
 export async function getWorks() {
   return client.fetch(`
-    *[_type == "work"] | order(order asc, year desc) {
+    *[_type == "work"] | order(_createdAt desc) {
       _id,
       title,
       slug,
