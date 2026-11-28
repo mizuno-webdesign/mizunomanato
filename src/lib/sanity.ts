@@ -29,7 +29,6 @@ export async function getWorks() {
       slug,
       category,
       year,
-      note,
       thumbnail
     }
   `);

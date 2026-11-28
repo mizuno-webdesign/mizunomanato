@@ -20,14 +20,14 @@ export const work = defineType({
     }),
     defineField({
       name: "category",
-      title: "カテゴリ",
+      title: "カテゴリ（プラットフォーム）",
       type: "string",
       options: {
         list: [
-          { title: "Build · Shopify", value: "Build · Shopify" },
-          { title: "Build · BtoB", value: "Build · BtoB" },
-          { title: "Analyze & Improve", value: "Analyze & Improve" },
-          { title: "Operate & Support", value: "Operate & Support" },
+          { title: "Shopify", value: "Shopify" },
+          { title: "Framer", value: "Framer" },
+          { title: "カラーミーショップ", value: "カラーミーショップ" },
+          { title: "その他", value: "その他" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -37,11 +37,6 @@ export const work = defineType({
       title: "年度",
       type: "string",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "note",
-      title: "補足（業種など）",
-      type: "string",
     }),
     defineField({
       name: "thumbnail",

@@ -15,7 +15,6 @@ type Work = {
   slug?: { current?: string };
   category?: string;
   year?: string;
-  note?: string;
   thumbnail?: { asset: { _ref: string } };
 };
 
@@ -69,7 +68,7 @@ export default async function WorksPage() {
                 <span className="flex flex-col gap-1">
                   <h2 className="type-heading text-ink">{w.title}</h2>
                   <span className="type-caption text-ink-sub">
-                    {[w.category, w.note, w.year].filter(Boolean).join(" ・ ")}
+                    {[w.category, w.year].filter(Boolean).join(" ・ ")}
                   </span>
                 </span>
               </Link>

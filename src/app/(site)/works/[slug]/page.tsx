@@ -13,7 +13,6 @@ type Work = {
   title: string;
   category?: string;
   year?: string;
-  note?: string;
   description?: string;
   thumbnail?: { asset: { _ref: string } };
   slug: { current: string };
@@ -22,7 +21,7 @@ type Work = {
 async function getWork(slug: string): Promise<Work | null> {
   return client.fetch(
     `*[_type == "work" && slug.current == $slug][0] {
-      _id, title, slug, category, year, note, description, thumbnail
+      _id, title, slug, category, year, description, thumbnail
     }`,
     { slug }
   );
@@ -39,7 +38,7 @@ export async function generateMetadata({
   return pageMetadata({
     path: `/works/${work.slug.current}`,
     title: `${work.title} — Manato Mizuno`,
-    description: [`${work.title} の事例`, work.category, work.note].filter(Boolean).join(" ・ "),
+    description: [`${work.title} の事例`, work.category].filter(Boolean).join(" ・ "),
   });
 }
 
@@ -77,7 +76,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         <div className="mx-auto w-full max-w-[880px]">
         <header>
           <p className="type-caption text-ink-sub">
-            {[work.category, work.note, work.year].filter(Boolean).join(" ・ ")}
+            {[work.category, work.year].filter(Boolean).join(" ・ ")}
           </p>
           <h1 className="mt-2 type-display break-words text-ink">{work.title}</h1>
         </header>
