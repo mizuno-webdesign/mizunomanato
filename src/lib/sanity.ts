@@ -46,3 +46,21 @@ export async function getArticles() {
     }
   `);
 }
+
+// 記事詳細末尾の「あわせて読みたい」カルーセル用。自分自身を除いた最新記事を取得する
+export async function getRelatedArticles(currentSlug: string, limit = 4) {
+  return client.fetch(
+    `
+    *[_type == "article" && defined(publishedAt) && publishedAt <= now() && slug.current != $currentSlug]
+      | order(publishedAt desc)[0...$limit] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      mainImage,
+      publishedAt
+    }
+  `,
+    { currentSlug, limit }
+  );
+}

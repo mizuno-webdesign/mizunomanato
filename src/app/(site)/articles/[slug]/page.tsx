@@ -3,10 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/ArticleBody";
 import AuthorCard from "@/components/AuthorCard";
+import RelatedArticles from "@/components/RelatedArticles";
 import { TocAside, TocDisclosure } from "@/components/TableOfContents";
 import CtaBand from "@/components/home/CtaBand";
 import { formatDate } from "@/lib/date";
-import { client, urlFor } from "@/lib/sanity";
+import { client, getRelatedArticles, urlFor } from "@/lib/sanity";
 import { extractToc } from "@/lib/toc";
 import JsonLd from "@/components/JsonLd";
 import { plex } from "@/lib/fontsPlex";
@@ -72,6 +73,8 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) notFound();
+
+  const relatedArticles = await getRelatedArticles(slug, 4);
 
   const imgUrl = article.mainImage?.asset
     ? urlFor(article.mainImage).width(1440).auto("format").url()
@@ -140,6 +143,7 @@ export default async function ArticlePage({
             </div>
           </article>
 
+          <RelatedArticles articles={relatedArticles} />
           <AuthorCard />
           <CtaBand />
         </div>
