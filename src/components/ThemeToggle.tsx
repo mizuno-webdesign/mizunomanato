@@ -71,6 +71,8 @@ export function useTheme() {
 }
 
 // 切り替えボタン（幅1280px以上のヘッダー）。明るい表示では月、暗い表示では太陽を出す（絵の出し分けは CSS で行い、描画のずれを避ける）。
+// 切り替えるときは、スマホのスイッチ（ThemeSwitch）と同じように、回りながら入れ替える（社長決定 2026-11-28）。
+const ICON = "col-start-1 row-start-1 size-1/2 min-h-4 min-w-4 transition-[rotate,scale,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none";
 export default function ThemeToggle({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
   const { theme, toggle } = useTheme();
 
@@ -83,10 +85,10 @@ export default function ThemeToggle({ className = "", style }: { className?: str
       className={`grid shrink-0 cursor-pointer place-items-center rounded-full text-ink-sub transition-colors duration-150 hover:bg-sunken/70 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent motion-reduce:transition-none ${className}`}
       style={style}
     >
-      <svg aria-hidden viewBox="0 0 24 24" className="only-light size-1/2 min-h-4 min-w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden viewBox="0 0 24 24" className={`${ICON} [[data-theme=dark]_&]:scale-50 [[data-theme=dark]_&]:-rotate-90 [[data-theme=dark]_&]:opacity-0`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.5 14.5A8.5 8.5 0 0 1 9.500 3.500a8.500 8.500 0 1 0 11 11Z" />
       </svg>
-      <svg aria-hidden viewBox="0 0 24 24" className="only-dark size-1/2 min-h-4 min-w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden viewBox="0 0 24 24" className={`${ICON} scale-50 rotate-90 opacity-0 [[data-theme=dark]_&]:scale-100 [[data-theme=dark]_&]:rotate-0 [[data-theme=dark]_&]:opacity-100`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="4.2" />
         <path d="M12 2.5v2.2M12 19.300v2.2M2.500 12h2.2M19.300 12h2.2M5.300 5.300l1.600 1.600M17.100 17.100l1.600 1.600M5.300 18.700l1.600-1.600M17.100 6.900l1.600-1.600" />
       </svg>
