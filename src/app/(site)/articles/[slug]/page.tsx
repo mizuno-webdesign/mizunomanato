@@ -29,7 +29,7 @@ type Article = {
 
 async function getArticle(slug: string): Promise<Article | null> {
   return client.fetch(
-    `*[_type == "article" && slug.current == $slug][0] {
+    `*[_type == "article" && slug.current == $slug && defined(publishedAt) && publishedAt <= now()][0] {
       _id, title, slug, excerpt, mainImage, body, tags, publishedAt, _updatedAt, noindex
     }`,
     { slug }

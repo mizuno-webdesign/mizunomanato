@@ -37,7 +37,7 @@ export async function getWorks() {
 
 export async function getArticles() {
   return client.fetch(`
-    *[_type == "article"] | order(publishedAt desc) {
+    *[_type == "article" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
       _id,
       title,
       slug,
