@@ -23,12 +23,12 @@ export function urlFor(source: any) {
 
 export async function getWorks() {
   return client.fetch(`
-    *[_type == "work"] | order(_createdAt desc) {
+    *[_type == "work"] | order(date desc) {
       _id,
       title,
       slug,
       category,
-      year,
+      date,
       thumbnail
     }
   `);

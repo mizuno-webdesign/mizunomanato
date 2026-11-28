@@ -33,9 +33,11 @@ export const work = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "year",
-      title: "年度",
-      type: "string",
+      name: "date",
+      title: "制作時期",
+      description: "一覧の並び順・表示（例：2026.11）に使う年月。日付は月の1日で入力してください。",
+      type: "date",
+      options: { dateFormat: "YYYY-MM-DD" },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -70,21 +72,21 @@ export const work = defineType({
     },
     {
       title: "新しい順",
-      name: "yearDesc",
-      by: [{ field: "year", direction: "desc" }],
+      name: "dateDesc",
+      by: [{ field: "date", direction: "desc" }],
     },
   ],
   preview: {
     select: {
       title: "title",
       category: "category",
-      year: "year",
+      date: "date",
       media: "thumbnail",
     },
-    prepare({ title, category, year, media }) {
+    prepare({ title, category, date, media }) {
       return {
         title,
-        subtitle: `${category} · ${year}`,
+        subtitle: `${category} · ${date}`,
         media,
       };
     },

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import WorkMorph from "@/components/WorkMorph";
 import FlipHeading from "@/components/FlipHeading";
+import { formatYearMonth } from "@/lib/date";
 import { getWorks, urlFor } from "@/lib/sanity";
 import { pageMetadata } from "@/lib/site";
 
@@ -14,7 +15,7 @@ type Work = {
   title: string;
   slug?: { current?: string };
   category?: string;
-  year?: string;
+  date?: string;
   thumbnail?: { asset: { _ref: string } };
 };
 
@@ -68,7 +69,7 @@ export default async function WorksPage() {
                 <span className="flex flex-col gap-1">
                   <h2 className="type-heading text-ink">{w.title}</h2>
                   <span className="type-caption text-ink-sub">
-                    {[w.category, w.year].filter(Boolean).join(" ・ ")}
+                    {[w.category, formatYearMonth(w.date)].filter(Boolean).join(" ・ ")}
                   </span>
                 </span>
               </Link>

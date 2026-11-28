@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaBand from "@/components/home/CtaBand";
 import WorkMorph from "@/components/WorkMorph";
+import { formatYearMonth } from "@/lib/date";
 import { client, urlFor } from "@/lib/sanity";
 import { plex } from "@/lib/fontsPlex";
 import { pageMetadata } from "@/lib/site";
@@ -12,7 +13,7 @@ type Work = {
   _id: string;
   title: string;
   category?: string;
-  year?: string;
+  date?: string;
   description?: string;
   thumbnail?: { asset: { _ref: string } };
   slug: { current: string };
@@ -21,7 +22,7 @@ type Work = {
 async function getWork(slug: string): Promise<Work | null> {
   return client.fetch(
     `*[_type == "work" && slug.current == $slug][0] {
-      _id, title, slug, category, year, description, thumbnail
+      _id, title, slug, category, date, description, thumbnail
     }`,
     { slug }
   );
@@ -76,7 +77,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         <div className="mx-auto w-full max-w-[880px]">
         <header>
           <p className="type-caption text-ink-sub">
-            {[work.category, work.year].filter(Boolean).join(" ・ ")}
+            {[work.category, formatYearMonth(work.date)].filter(Boolean).join(" ・ ")}
           </p>
           <h1 className="mt-2 type-display break-words text-ink">{work.title}</h1>
         </header>
