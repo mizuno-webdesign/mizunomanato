@@ -57,7 +57,6 @@ export async function getRelatedArticles(currentSlug: string, limit = 4) {
       title,
       slug,
       excerpt,
-      mainImage,
       publishedAt
     }
   `,
