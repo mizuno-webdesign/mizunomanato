@@ -3,13 +3,15 @@ import FlipHeading from "@/components/FlipHeading";
 import ServiceIcon from "@/components/ServiceIcon";
 import CtaBand from "@/components/home/CtaBand";
 import { SERVICES } from "@/lib/services";
+import { pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
-const DESCRIPTION = "Shopify の新規構築・改修・運用支援について。";
+const DESCRIPTION =
+  "Shopify ストアの新規構築、稼働中ストアの機能追加やデザイン・導線の改修、分析・改善提案・更新作業などの運用支援を行っています。実店舗やモールからの移行、BtoB を含む販売の開始といった場面とあわせて、内容を紹介します。";
 
 export const metadata: Metadata = pageMetadata({
   path: "/service",
-  title: "Service — Manato Mizuno",
+  title: pageTitle("Shopify の新規構築・改修・運用支援サービス"),
   description: DESCRIPTION,
 });
 

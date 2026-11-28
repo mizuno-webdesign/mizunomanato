@@ -5,6 +5,7 @@ import WorkMorph from "@/components/WorkMorph";
 import FlipHeading from "@/components/FlipHeading";
 import { formatYearMonth } from "@/lib/date";
 import { getWorks, urlFor } from "@/lib/sanity";
+import { pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
 // Sanity の事例を常に最新で表示する（記事一覧と同じ理由）。
@@ -19,11 +20,12 @@ type Work = {
   thumbnail?: { asset: { _ref: string } };
 };
 
-const DESCRIPTION = "EC構築の事例一覧です。";
+const DESCRIPTION =
+  "Shopify を中心としたECサイトの構築・リニューアル事例の一覧です。テーマ移行を伴うデザインの刷新、他カートからの移管、多言語対応、BtoB と BtoC を共存させた設計など、課題と取り組み、担当領域を紹介します。";
 
 export const metadata: Metadata = pageMetadata({
   path: "/works",
-  title: "Works — Manato Mizuno",
+  title: pageTitle("Shopify の構築・リニューアル事例一覧"),
   description: DESCRIPTION,
 });
 

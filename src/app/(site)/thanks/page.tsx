@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageTitle } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "お問い合わせありがとうございます | Manato Mizuno",
+  title: pageTitle("お問い合わせありがとうございます"),
   // 送信後にだけ見るページなので、検索結果には出さない
   robots: { index: false, follow: false },
 };

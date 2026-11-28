@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { DESCRIPTION_MAX, DESCRIPTION_MIN, TITLE_MAX, oneLine, textWidth } from "../../src/lib/seo";
 
 export const work = defineType({
   name: "work",
@@ -51,6 +52,31 @@ export const work = defineType({
       title: "概要",
       type: "text",
       rows: 4,
+    }),
+    defineField({
+      name: "seoTitle",
+      title: "検索用タイトル",
+      description: `検索結果の見出し。後ろの「 — Manato Mizuno」は自動で付くので入れません（合計が${TITLE_MAX}を超えると付きません）。全角を1、半角を0.5と数えて${TITLE_MAX}まで。空欄なら「タイトル の制作事例」になります。`,
+      type: "string",
+      validation: (Rule) =>
+        Rule.custom((value?: string) => {
+          const width = textWidth(oneLine(value));
+          return width <= TITLE_MAX ? true : `今は${width}です。${TITLE_MAX}までが目安です。`;
+        }).warning(),
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "検索用説明文",
+      description: `検索結果の説明文。全角を1、半角を0.5と数えて${DESCRIPTION_MIN}〜${DESCRIPTION_MAX}。大事な内容は前半に書きます。空欄なら概要の冒頭から自動で作ります。`,
+      type: "text",
+      rows: 4,
+      validation: (Rule) =>
+        Rule.custom((value?: string) => {
+          const text = oneLine(value);
+          if (!text) return true;
+          const width = textWidth(text);
+          return width >= DESCRIPTION_MIN && width <= DESCRIPTION_MAX ? true : `今は${width}です。${DESCRIPTION_MIN}〜${DESCRIPTION_MAX}が目安です。`;
+        }).warning(),
     }),
     defineField({
       name: "featured",

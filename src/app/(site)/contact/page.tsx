@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import FlipHeading from "@/components/FlipHeading";
+import { pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
-const DESCRIPTION = "EC構築・改修・運用支援のご相談はこちらから。";
+const DESCRIPTION =
+  "Shopify の新規構築・改修・運用支援などのご相談は、こちらのフォームから受け付けています。お問い合わせの種類を選んで、内容をご記入ください。通常2営業日以内にご返信いたします。その他のご用件も、こちらからお送りいただけます。";
 
 export const metadata: Metadata = pageMetadata({
   path: "/contact",
-  title: "Contact — Manato Mizuno",
+  title: pageTitle("Shopify のご相談・お問い合わせ"),
   description: DESCRIPTION,
 });
 

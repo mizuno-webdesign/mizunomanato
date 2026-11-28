@@ -7,6 +7,7 @@ import WorkMorph from "@/components/WorkMorph";
 import { formatYearMonth } from "@/lib/date";
 import { client, urlFor } from "@/lib/sanity";
 import { plex } from "@/lib/fontsPlex";
+import { descriptionFromBody, oneLine, pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
 type Work = {
@@ -15,6 +16,8 @@ type Work = {
   category?: string;
   date?: string;
   description?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   thumbnail?: { asset: { _ref: string } };
   slug: { current: string };
 };
@@ -22,7 +25,7 @@ type Work = {
 async function getWork(slug: string): Promise<Work | null> {
   return client.fetch(
     `*[_type == "work" && slug.current == $slug][0] {
-      _id, title, slug, category, date, description, thumbnail
+      _id, title, slug, category, date, description, seoTitle, seoDescription, thumbnail
     }`,
     { slug }
   );
@@ -38,8 +41,12 @@ export async function generateMetadata({
   if (!work) return {};
   return pageMetadata({
     path: `/works/${work.slug.current}`,
-    title: `${work.title} — Manato Mizuno`,
-    description: [`${work.title} の事例`, work.category].filter(Boolean).join(" ・ "),
+    // Sanity の検索用の欄があれば使う。空欄なら、事例名と概要の冒頭から作る
+    title: pageTitle(oneLine(work.seoTitle) || `${work.title} の制作事例`),
+    description:
+      oneLine(work.seoDescription) ||
+      descriptionFromBody(work.description) ||
+      [`${work.title} の事例`, work.category].filter(Boolean).join(" ・ "),
   });
 }
 

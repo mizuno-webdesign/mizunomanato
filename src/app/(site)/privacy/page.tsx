@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
+import { pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
 // プライバシーポリシー。取得する情報と使っている外部サービスは、このサイトの実装に合わせている。
@@ -8,8 +9,9 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   path: "/privacy",
-  title: "Privacy Policy — Manato Mizuno",
-  description: "このサイトでの個人情報の取り扱いについて。",
+  title: pageTitle("プライバシーポリシー"),
+  description:
+    "mizunomanato.com における個人情報の取り扱いについて説明します。お問い合わせフォームやサイトの利用で取得する情報、利用目的、第三者への提供、利用している外部サービス、アクセス解析と Cookie、開示などのご請求窓口を掲載しています。",
 });
 
 const LINK =

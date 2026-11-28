@@ -3,13 +3,15 @@ import Image from "next/image";
 import FlipHeading from "@/components/FlipHeading";
 import CtaBand from "@/components/home/CtaBand";
 import JsonLd from "@/components/JsonLd";
+import { pageTitle } from "@/lib/seo";
 import { PERSON_JSON_LD, SITE_URL, pageMetadata } from "@/lib/site";
 
-const DESCRIPTION = "Manato Mizuno（水野 学人）のプロフィールです。";
+const DESCRIPTION =
+  "水野学人（Manato Mizuno）のプロフィールです。事業会社のEC部門で、サイト責任者を含む運用・改善の実務を経験してきました。その経験をもとに、無理なく運用を続けられる形を一緒に考えます。";
 
 export const metadata: Metadata = pageMetadata({
   path: "/about",
-  title: "About — Manato Mizuno",
+  title: pageTitle("プロフィール（EC運用の実務経験）"),
   description: DESCRIPTION,
   type: "profile",
 });

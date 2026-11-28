@@ -10,6 +10,7 @@ import { client, urlFor } from "@/lib/sanity";
 import { extractToc } from "@/lib/toc";
 import JsonLd from "@/components/JsonLd";
 import { plex } from "@/lib/fontsPlex";
+import { pageTitle } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, pageMetadata } from "@/lib/site";
 
 type Article = {
@@ -48,7 +49,7 @@ export async function generateMetadata({
   return {
     ...pageMetadata({
       path: `/articles/${article.slug.current}`,
-      title: `${article.title} — Manato Mizuno`,
+      title: pageTitle(article.title),
       description: article.excerpt ?? SITE_DESCRIPTION,
       type: "article",
       publishedTime: article.publishedAt,

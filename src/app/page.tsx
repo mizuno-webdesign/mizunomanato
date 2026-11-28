@@ -7,14 +7,16 @@ import StackedHome from "@/components/home/StackedHome";
 import { formatDate } from "@/lib/date";
 import type { ArticleItem, WorkItem } from "@/lib/home";
 import { getArticles, getWorks, urlFor } from "@/lib/sanity";
-import { PERSON_JSON_LD, SITE_NAME, SITE_URL } from "@/lib/site";
+import { PERSON_JSON_LD, SITE_NAME, SITE_TITLE, SITE_URL, pageMetadata } from "@/lib/site";
 
 // TOP（2026-11-26 に比較版から正式に反映）。独自のヘッダーを持つので、(site) の共通の枠の外に置く。
 // 幅1280px以上は PC 表示（DesktopHome）、それより狭い幅は縦並び（StackedHome）。
 
-export const metadata: Metadata = {
-  alternates: { canonical: SITE_URL },
-};
+// 検索結果に出す説明文は TOP 専用（SITE_DESCRIPTION は、人物の構造化データなどに使う）。
+const HOME_DESCRIPTION =
+  "静岡県を拠点に、Shopify を中心としたECサイトの新規構築・改修・運用支援を行う Manato Mizuno（水野学人）のサイトです。構築や改修の事例、使っているツール、EC構築・運用の考え方をまとめた記事を掲載しています。";
+
+export const metadata: Metadata = pageMetadata({ path: "/", title: SITE_TITLE, description: HOME_DESCRIPTION });
 
 // Sanity の記事・実績を常に最新で表示するため、動的レンダリングにする。
 export const dynamic = "force-dynamic";

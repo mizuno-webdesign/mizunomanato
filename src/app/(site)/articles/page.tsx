@@ -3,6 +3,7 @@ import Link from "next/link";
 import FlipHeading from "@/components/FlipHeading";
 import { formatDate } from "@/lib/date";
 import { getArticles } from "@/lib/sanity";
+import { pageTitle } from "@/lib/seo";
 import { pageMetadata } from "@/lib/site";
 
 // このページはSanityの記事一覧を表示するため、ビルド時の静的
@@ -21,8 +22,9 @@ type Article = {
 
 export const metadata: Metadata = pageMetadata({
   path: "/articles",
-  title: "Articles — Manato Mizuno",
-  description: "EC構築・改善・運用にまつわる知見や考え方をまとめた記事一覧です。",
+  title: pageTitle("Shopify の構築・運用についての記事一覧"),
+  description:
+    "Shopify の構築・改修・運用にまつわる知見や考え方をまとめた記事の一覧です。アプリやテーマの使い方、カスタマイズの判断、公開後に運用しやすい作り方などを、実務の経験をもとに書いています。",
 });
 
 // 記事一覧（社長承認 2026-11-25）：大きなグラスのカード1枚に、文字だけの行を並べる
